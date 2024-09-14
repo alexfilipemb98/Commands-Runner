@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Commands>
+	<Command>
+		<Id>1</Id>
+		<Name>WifiPasswords</Name>
+		<Description>Gets the known wifi passwords</Description>
+		<Type>cmd</Type>
+		<Command>
+			@echo off
+			setlocal enabledelayedexpansion
+
+			for /F "tokens=2 delims=:" %%a in ('netsh wlan show profile') do (
+				set wifi_pwd=
+				for /F "tokens=2 delims=: usebackq" %%F IN (`netsh wlan show profile %%a key^=clear ^| find "Key Content"`) do (
+					set wifi_pwd=%%F
+				)
+				echo %%a : !wifi_pwd!
+			)
+			pause
+		</Command>
+	</Command>
+	<Command>
+		<Id>2</Id>
+		<Name>CopyEmail</Name>
+		<Description>Copies email</Description>
+		<Type>cmd</Type>
+		<Command>
+			echo alexandre.bertolo@trigenius.pt|clip
+		</Command>
+	</Command>
+	<Command>
+		<Id>3</Id>
+		<Name>CopyPassword</Name>
+		<Description>Copies password</Description>
+		<Type>cmd</Type>
+		<Command>
+			@echo off
+			Chcp 65001
+			echo Al€B3ert0#|clip
+		</Command>
+	</Command>
+</Commands>

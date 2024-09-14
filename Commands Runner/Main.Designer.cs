@@ -54,6 +54,7 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.popupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.bbiRefresh = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandsModelBindingSource)).BeginInit();
@@ -96,9 +97,10 @@
             this.bsiTime,
             this.bbiNew,
             this.bbiEdit,
-            this.bbiDelete});
+            this.bbiDelete,
+            this.bbiRefresh});
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl.MaxItemId = 9;
+            this.ribbonControl.MaxItemId = 10;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
@@ -282,6 +284,7 @@
             // 
             // popupMenu
             // 
+            this.popupMenu.ItemLinks.Add(this.bbiRefresh);
             this.popupMenu.ItemLinks.Add(this.bbiNew);
             this.popupMenu.ItemLinks.Add(this.bbiEdit);
             this.popupMenu.ItemLinks.Add(this.bbiDelete, true);
@@ -293,6 +296,14 @@
             this.timer.Enabled = true;
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // bbiRefresh
+            // 
+            this.bbiRefresh.Caption = "Refresh";
+            this.bbiRefresh.Id = 9;
+            this.bbiRefresh.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.actions_refresh;
+            this.bbiRefresh.Name = "bbiRefresh";
+            this.bbiRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiRefresh_ItemClick);
             // 
             // Main
             // 
@@ -345,6 +356,7 @@
         private DevExpress.XtraBars.PopupMenu popupMenu;
         private DevExpress.XtraBars.BarButtonItem bbiDelete;
         private System.Windows.Forms.Timer timer;
+        private DevExpress.XtraBars.BarButtonItem bbiRefresh;
     }
 }
 

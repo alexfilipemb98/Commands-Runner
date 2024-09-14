@@ -43,7 +43,7 @@ namespace Commands_Runner
 
         private void bbiNew_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if(Editor.Show(new CommandsModel()) == DialogResult.OK)
+            if (Editor.Show(new CommandsModel()) == DialogResult.OK)
             {
                 bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
                 bsiStatus.Caption = $"Commnand was been created!";
@@ -54,7 +54,7 @@ namespace Commands_Runner
 
         private void bbiEdit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if(Editor.Show(command) == DialogResult.OK)
+            if (Editor.Show(command) == DialogResult.OK)
             {
                 bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
                 bsiStatus.Caption = $"Commnand was been updated!";
@@ -77,6 +77,11 @@ namespace Commands_Runner
                     commandsModelBindingSource.DataSource = CommandsModel.Get();
                 }
             }
+        }
+
+        private void bbiRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            commandsModelBindingSource.DataSource = CommandsModel.Get();
         }
 
         private void tvCommands_Click(object sender, EventArgs e)
@@ -180,5 +185,7 @@ namespace Commands_Runner
         {
             bsiTime.Caption = $"Time: {DateTime.Now:yyyy/MM/dd HH:mm:ss}";
         }
+
+
     }
 }

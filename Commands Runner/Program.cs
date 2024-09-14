@@ -1,5 +1,7 @@
-﻿using DevExpress.Skins;
+﻿using DevExpress.LookAndFeel;
+using DevExpress.Skins;
 using DevExpress.UserSkins;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,6 +32,9 @@ namespace Commands_Runner
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            if (IsDarkThemeEnabled())
+                UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");
+
             string processName = Process.GetCurrentProcess().ProcessName;
             bool createdNew;
             Mutex mutex = new Mutex(true, "UniqueAppNameMutex", out createdNew);
@@ -54,7 +59,7 @@ namespace Commands_Runner
             Application.Run(new Main());
         }
 
-        static Process GetExistingProcess()
+       private static Process GetExistingProcess()
         {
             var processName = Process.GetCurrentProcess().ProcessName;
             foreach (var process in Process.GetProcessesByName(processName))
@@ -66,6 +71,20 @@ namespace Commands_Runner
                 }
             }
             return null;
+        }
+
+        private static bool IsDarkThemeEnabled()
+        {
+            var registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            if (registryKey != null)
+            {
+                var value = registryKey.GetValue("AppsUseLightTheme");
+                if (value != null && (int)value == 0)
+                {
+                    return true; // Modo escuro está ativado
+                }
+            }
+            return false; // Modo claro está ativado
         }
     }
 }

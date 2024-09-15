@@ -117,7 +117,7 @@
             this.ribbonControl.ShowPageKeyTipsMode = DevExpress.XtraBars.Ribbon.ShowPageKeyTipsMode.Hide;
             this.ribbonControl.ShowQatLocationSelector = false;
             this.ribbonControl.ShowToolbarCustomizeItem = false;
-            this.ribbonControl.Size = new System.Drawing.Size(758, 49);
+            this.ribbonControl.Size = new System.Drawing.Size(718, 49);
             this.ribbonControl.StatusBar = this.ribbonStatusBar1;
             this.ribbonControl.Toolbar.ShowCustomizeItem = false;
             // 
@@ -200,10 +200,10 @@
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiStatus);
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiTime);
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiVersion);
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 362);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 442);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(758, 37);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(718, 37);
             // 
             // gcCommands
             // 
@@ -213,7 +213,7 @@
             this.gcCommands.MainView = this.tvCommands;
             this.gcCommands.MenuManager = this.ribbonControl;
             this.gcCommands.Name = "gcCommands";
-            this.gcCommands.Size = new System.Drawing.Size(758, 260);
+            this.gcCommands.Size = new System.Drawing.Size(718, 340);
             this.gcCommands.TabIndex = 1;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.tvCommands});
@@ -239,10 +239,8 @@
             this.tvCommands.OptionsFind.ShowClearButton = false;
             this.tvCommands.OptionsFind.ShowCloseButton = false;
             this.tvCommands.OptionsTiles.HighlightFocusedTileStyle = DevExpress.XtraGrid.Views.Tile.HighlightFocusedTileStyle.None;
-            this.tvCommands.OptionsTiles.IndentBetweenGroups = 10;
-            this.tvCommands.OptionsTiles.IndentBetweenItems = 10;
             this.tvCommands.OptionsTiles.ItemPadding = new System.Windows.Forms.Padding(0);
-            this.tvCommands.OptionsTiles.ItemSize = new System.Drawing.Size(200, 78);
+            this.tvCommands.OptionsTiles.ItemSize = new System.Drawing.Size(248, 110);
             this.tvCommands.OptionsTiles.RowCount = 0;
             this.tvCommands.TileHtmlTemplate.Styles = resources.GetString("tvCommands.TileHtmlTemplate.Styles");
             this.tvCommands.TileHtmlTemplate.Template = resources.GetString("tvCommands.TileHtmlTemplate.Template");
@@ -319,7 +317,7 @@
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.scComands.Properties.Client = this.gcCommands;
-            this.scComands.Size = new System.Drawing.Size(748, 42);
+            this.scComands.Size = new System.Drawing.Size(708, 42);
             this.scComands.TabIndex = 3;
             // 
             // panelControl1
@@ -330,7 +328,7 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 49);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(5);
-            this.panelControl1.Size = new System.Drawing.Size(758, 53);
+            this.panelControl1.Size = new System.Drawing.Size(718, 53);
             this.panelControl1.TabIndex = 4;
             // 
             // popupMenu
@@ -353,7 +351,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 399);
+            this.ClientSize = new System.Drawing.Size(718, 479);
             this.Controls.Add(this.gcCommands);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.ribbonStatusBar1);

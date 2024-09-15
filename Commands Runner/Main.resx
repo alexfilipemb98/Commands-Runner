@@ -121,14 +121,7 @@
     <value>17, 17</value>
   </metadata>
   <data name="tvCommands.TileHtmlTemplate.Styles" xml:space="preserve">
-    <value>.card{
-	background-color: @Window; 
-	border-radius: 5px; 
-	padding: 5px;
-	cursor: pointer;
-}
-
-.cardBorderEnabled{
+    <value>.cardBorderEnabled{
 	border-top: 10px solid @Question;
 }
 
@@ -136,57 +129,88 @@
 	border-top: 10px solid @Danger;
 }
 
-.title{
-	font-size: x-large;
-	font-weight: bold;
-}
+/*Card / Details Panel*/
 
- .footer{
-	width: 100%;
-	text-align: right;
-	font-size: large;
-	font-weight: bold;
-}
-
-.image{
-	width: 50px;
-	height: 50px;	
-}
-
-.shadow {
-	box-shadow: 3px 3px 10px @Black/0.7;
+.caption-text {
+    font-size: 18px;
+    margin: 0;
+    padding: 3px 10px; 
 }
 
 .container {
-	display: flex;
+	cursor: pointer;
 }
 
-.first-element {
-	width: 50px;
-	height: 50px;
-	margin-right: 5px;
+.card {
+    font: 13px 'Segoe UI';
+    border-radius:3px;
+    background-color:@Window;
+    box-shadow:0px 2px 5px 0px #40000000;    
+    display:flex;
+    margin-bottom: 16px;
 }
 
-.second-element {
-	width: 100%;
-}</value>
+.stripe {
+    width:4px;
+    border-radius:3px 0px 0px 3px;
+}
+
+.content {
+    width:100%;
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+}
+
+.image {
+	width: 32px;
+	height: 32px;
+	min-width: 32px;
+	min-height: 32px;
+}
+
+.top-block {
+    display:flex;
+    flex-direction:row;
+}
+
+.caption {
+    font-size:16px;
+    flex-grow:1;
+    display: flex;
+}
+
+.description {
+    user-select: text;
+}
+
+.description-line{
+    margin-top: 5px;
+}
+
+.Information { background-color:@Blue; }
+.Warning { background-color:@Orange; }
+.Error { background-color:@Red; }
+.Debug { background-color:@Gray; }
+.Verbose { background-color:@Gray; }</value>
   </data>
   <data name="tvCommands.TileHtmlTemplate.Template" xml:space="preserve">
-    <value>&lt;div class="container card Shadow @@classEnabled@@"&gt;
-	&lt;div class="first-element"&gt;
-		&lt;img class="image" src="${Icon}"&gt;
-	&lt;/div&gt;
-	&lt;div class="second-element"&gt;
-		&lt;div class="title"&gt;
-			&lt;span&gt;${Id} - {Name}&lt;/span&gt;
-		&lt;/div&gt;
-		&lt;div&gt;
-			&lt;span&gt;${Description}&lt;/span&gt;
-		&lt;/div&gt;
-		&lt;div class="footer"&gt;
-			&lt;span &gt;${Type}&lt;/span&gt;
-		&lt;/div&gt;
-	&lt;/div&gt;
+    <value>&lt;div class="container"&gt;
+    &lt;div class="card @@classEnabled@@"&gt;
+        &lt;div class="stripe"&gt;&lt;/div&gt;
+        &lt;div class="content "&gt;
+            &lt;div class="top-block "&gt;
+                &lt;div class="caption"&gt;
+                    &lt;img src="${Icon}" class="image"&gt; 
+                    &lt;h1 class="caption-text"&gt;${Id} - {Name}&lt;/h1&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="description"&gt;
+            	&lt;div class="description-line"&gt;${Description}&lt;/div&gt;
+                &lt;div class="description-line"&gt;&lt;b&gt;Type:&lt;/b&gt; ${Type}&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;</value>
   </data>
   <metadata name="popupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

@@ -199,6 +199,7 @@
             this.teDescription.Location = new System.Drawing.Point(158, 8);
             this.teDescription.Name = "teDescription";
             this.teDescription.Properties.AdvancedModeOptions.Label = "Description";
+            this.teDescription.Properties.MaxLength = 30;
             this.teDescription.Size = new System.Drawing.Size(282, 42);
             this.teDescription.StyleController = this.layoutControl1;
             this.teDescription.TabIndex = 5;
@@ -208,6 +209,7 @@
             this.teName.Location = new System.Drawing.Point(8, 8);
             this.teName.Name = "teName";
             this.teName.Properties.AdvancedModeOptions.Label = "Name";
+            this.teName.Properties.MaxLength = 13;
             this.teName.Size = new System.Drawing.Size(144, 42);
             this.teName.StyleController = this.layoutControl1;
             this.teName.TabIndex = 1;

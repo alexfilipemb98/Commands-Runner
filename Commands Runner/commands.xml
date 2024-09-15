@@ -8,6 +8,7 @@
 		<Enabled>False</Enabled>
 		<Command>
 			echo Hello World|clip
+			pila
 		</Command>
 	</Command>
 </Commands>

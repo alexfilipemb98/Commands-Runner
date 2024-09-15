@@ -310,6 +310,5 @@ namespace Commands_Runner
                     data.Icon = Resources.powershell;
             }
         }
-
     }
 }

@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,6 +20,9 @@ namespace Commands_Runner
     {
         private CommandsModel command;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Main()
         {
             InitializeComponent();
@@ -27,8 +31,14 @@ namespace Commands_Runner
             commandsModelBindingSource.DataSource = commands;
 
             bsiStatus.Caption = $"'{commands.Count}' commands found!";
+            bsiVersion.Caption = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
+        /// <summary>
+        /// Tiles click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tvCommands_ItemClick(object sender, TileViewItemClickEventArgs e)
         {
             int rowIndex = e.Item.RowHandle;
@@ -37,10 +47,20 @@ namespace Commands_Runner
                 CommandsModel rowData = tvCommands.GetRow(rowIndex) as CommandsModel;
 
                 if (rowData != null)
+                {
                     ExecuteFile(rowData).Wait();
+                    Thread.Sleep(200);
+                    Program.BringToFront(this.Text);
+                }
+
             }
         }
 
+        /// <summary>
+        /// New command
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bbiNew_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (Editor.Show(new CommandsModel()) == DialogResult.OK)
@@ -52,6 +72,11 @@ namespace Commands_Runner
             }
         }
 
+        /// <summary>
+        /// Edit command
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bbiEdit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (Editor.Show(command) == DialogResult.OK)
@@ -61,6 +86,11 @@ namespace Commands_Runner
             }
         }
 
+        /// <summary>
+        /// Delete command
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bbiDelete_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (command != null)
@@ -79,11 +109,21 @@ namespace Commands_Runner
             }
         }
 
+        /// <summary>
+        /// Refresh the grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bbiRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             commandsModelBindingSource.DataSource = CommandsModel.Get();
         }
 
+        /// <summary>
+        /// Empty space click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tvCommands_Click(object sender, EventArgs e)
         {
             if (((MouseEventArgs)e).Button == MouseButtons.Right)
@@ -176,16 +216,22 @@ namespace Commands_Runner
             {
                 if (File.Exists(batchFilePath))
                     File.Delete(batchFilePath);
+
+                this.BringToFront();
             }
 
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// TImer to only display time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
             bsiTime.Caption = $"Time: {DateTime.Now:yyyy/MM/dd HH:mm:ss}";
         }
-
 
     }
 }

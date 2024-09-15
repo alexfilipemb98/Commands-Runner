@@ -27,7 +27,7 @@ namespace Commands_Runner
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
-        
+
         [DllImport("kernel32.dll")]
         private static extern uint GetCurrentThreadId();
 
@@ -43,6 +43,7 @@ namespace Commands_Runner
         private static volatile Mutex mutex;
 
         private const int SW_SHOW = 5;
+        private const int SW_RESTORE = 9;
 
         [STAThread]
         static void Main()
@@ -60,7 +61,7 @@ namespace Commands_Runner
             if (!createdNew)
             {
                 Thread.Sleep(100);
-                
+
                 Process existingProcess = GetExistingProcess();
 
                 if (existingProcess != null)
@@ -88,7 +89,17 @@ namespace Commands_Runner
             Application.Run(new Main());
         }
 
-       private static Process GetExistingProcess()
+        public static void BringToFront(string windowTitle)
+        {
+            IntPtr hWnd = FindWindow(null, windowTitle);
+            if (hWnd != IntPtr.Zero)
+            {
+                ShowWindow(hWnd, SW_RESTORE);
+                SetForegroundWindow(hWnd);
+            }
+        }
+
+        private static Process GetExistingProcess()
         {
             string processName = Process.GetCurrentProcess().ProcessName;
             foreach (Process process in Process.GetProcessesByName(processName))

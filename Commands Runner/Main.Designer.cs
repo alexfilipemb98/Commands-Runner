@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition3 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
-            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition4 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
-            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement4 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement5 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement6 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
+            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition1 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
+            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition2 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
+            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement1 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
+            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement2 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
+            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement3 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             this.colName = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colDescription = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colId = new DevExpress.XtraGrid.Columns.TileViewColumn();
@@ -159,7 +159,9 @@
             this.bbiDelete.Caption = "Delete";
             this.bbiDelete.Id = 8;
             this.bbiDelete.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.del;
+            this.bbiDelete.ItemShortcut = new DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D));
             this.bbiDelete.Name = "bbiDelete";
+            this.bbiDelete.ShowItemShortcut = DevExpress.Utils.DefaultBoolean.False;
             this.bbiDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDelete_ItemClick);
             // 
             // bbiRefresh
@@ -167,7 +169,9 @@
             this.bbiRefresh.Caption = "Refresh";
             this.bbiRefresh.Id = 9;
             this.bbiRefresh.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.actions_refresh;
+            this.bbiRefresh.ItemShortcut = new DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R));
             this.bbiRefresh.Name = "bbiRefresh";
+            this.bbiRefresh.ShowItemShortcut = DevExpress.Utils.DefaultBoolean.False;
             this.bbiRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiRefresh_ItemClick);
             // 
             // bsiVersion
@@ -177,6 +181,7 @@
             this.bsiVersion.Id = 10;
             this.bsiVersion.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.bo_fileattachment;
             this.bsiVersion.Name = "bsiVersion";
+            this.bsiVersion.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
             // ribbonStatusBar1
             // 
@@ -229,34 +234,34 @@
             this.tvCommands.TileHtmlTemplate.Template = "<div class=\"card Shadow\">\r\n\t<div class=\"title\">\r\n\t\t<span>${Id} - {Name}</span>\r\n\t" +
     "</div>\r\n\t<div>\r\n\t\t<span>${Description}</span>\r\n\t</div>\r\n\t<div class=\"footer\">\r\n\t" +
     "\t<span >${Type}</span>\r\n\t</div>\r\n</div>";
-            tableRowDefinition3.AutoHeight = true;
-            tableRowDefinition3.Length.Value = 33D;
-            tableRowDefinition4.Length.Value = 67D;
-            this.tvCommands.TileRows.Add(tableRowDefinition3);
-            this.tvCommands.TileRows.Add(tableRowDefinition4);
-            tileViewItemElement4.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            tileViewItemElement4.Appearance.Normal.Options.UseFont = true;
-            tileViewItemElement4.Column = this.colName;
-            tileViewItemElement4.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileViewItemElement4.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileViewItemElement4.Text = "colName";
-            tileViewItemElement4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileViewItemElement5.Column = this.colDescription;
-            tileViewItemElement5.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileViewItemElement5.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileViewItemElement5.RowIndex = 1;
-            tileViewItemElement5.Text = "colDescription";
-            tileViewItemElement5.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileViewItemElement6.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            tileViewItemElement6.Appearance.Normal.Options.UseFont = true;
-            tileViewItemElement6.Column = this.colId;
-            tileViewItemElement6.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileViewItemElement6.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileViewItemElement6.Text = "colId";
-            tileViewItemElement6.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            this.tvCommands.TileTemplate.Add(tileViewItemElement4);
-            this.tvCommands.TileTemplate.Add(tileViewItemElement5);
-            this.tvCommands.TileTemplate.Add(tileViewItemElement6);
+            tableRowDefinition1.AutoHeight = true;
+            tableRowDefinition1.Length.Value = 33D;
+            tableRowDefinition2.Length.Value = 67D;
+            this.tvCommands.TileRows.Add(tableRowDefinition1);
+            this.tvCommands.TileRows.Add(tableRowDefinition2);
+            tileViewItemElement1.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            tileViewItemElement1.Appearance.Normal.Options.UseFont = true;
+            tileViewItemElement1.Column = this.colName;
+            tileViewItemElement1.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            tileViewItemElement1.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileViewItemElement1.Text = "colName";
+            tileViewItemElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            tileViewItemElement2.Column = this.colDescription;
+            tileViewItemElement2.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            tileViewItemElement2.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileViewItemElement2.RowIndex = 1;
+            tileViewItemElement2.Text = "colDescription";
+            tileViewItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            tileViewItemElement3.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            tileViewItemElement3.Appearance.Normal.Options.UseFont = true;
+            tileViewItemElement3.Column = this.colId;
+            tileViewItemElement3.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            tileViewItemElement3.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileViewItemElement3.Text = "colId";
+            tileViewItemElement3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            this.tvCommands.TileTemplate.Add(tileViewItemElement1);
+            this.tvCommands.TileTemplate.Add(tileViewItemElement2);
+            this.tvCommands.TileTemplate.Add(tileViewItemElement3);
             this.tvCommands.ItemClick += new DevExpress.XtraGrid.Views.Tile.TileViewItemClickEventHandler(this.tvCommands_ItemClick);
             this.tvCommands.ItemRightClick += new DevExpress.XtraGrid.Views.Tile.TileViewItemClickEventHandler(this.tvCommands_ItemRightClick);
             this.tvCommands.Click += new System.EventHandler(this.tvCommands_Click);

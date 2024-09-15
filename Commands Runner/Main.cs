@@ -79,7 +79,7 @@ namespace Commands_Runner
         /// <param name="e"></param>
         private void bbiEdit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (Editor.Show(command) == DialogResult.OK)
+            if (command != null && Editor.Show(command) == DialogResult.OK)
             {
                 bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
                 bsiStatus.Caption = $"Commnand was been updated!";
@@ -116,7 +116,10 @@ namespace Commands_Runner
         /// <param name="e"></param>
         private void bbiRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            commandsModelBindingSource.DataSource = CommandsModel.Get();
+            List<CommandsModel> commands = CommandsModel.Get();
+            commandsModelBindingSource.DataSource = commands;
+            bsiStatus.ItemAppearance.Normal.Reset();
+            bsiStatus.Caption = $"Reloaded list, '{commands.Count}' commands found!";
         }
 
         /// <summary>
@@ -230,7 +233,7 @@ namespace Commands_Runner
         /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
-            bsiTime.Caption = $"Time: {DateTime.Now:yyyy/MM/dd HH:mm:ss}";
+            bsiTime.Caption = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}";
         }
 
     }

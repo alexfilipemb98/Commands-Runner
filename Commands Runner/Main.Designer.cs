@@ -59,6 +59,7 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.popupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.bbiRunAdmin = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandsModelBindingSource)).BeginInit();
@@ -104,9 +105,10 @@
             this.bbiDelete,
             this.bbiRefresh,
             this.bsiVersion,
-            this.bbiEnabled});
+            this.bbiEnabled,
+            this.bbiRunAdmin});
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl.MaxItemId = 12;
+            this.ribbonControl.MaxItemId = 13;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
@@ -117,7 +119,7 @@
             this.ribbonControl.ShowPageKeyTipsMode = DevExpress.XtraBars.Ribbon.ShowPageKeyTipsMode.Hide;
             this.ribbonControl.ShowQatLocationSelector = false;
             this.ribbonControl.ShowToolbarCustomizeItem = false;
-            this.ribbonControl.Size = new System.Drawing.Size(718, 49);
+            this.ribbonControl.Size = new System.Drawing.Size(998, 49);
             this.ribbonControl.StatusBar = this.ribbonStatusBar1;
             this.ribbonControl.Toolbar.ShowCustomizeItem = false;
             // 
@@ -200,10 +202,10 @@
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiStatus);
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiTime);
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiVersion);
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 442);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 562);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(718, 37);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(998, 37);
             // 
             // gcCommands
             // 
@@ -213,7 +215,7 @@
             this.gcCommands.MainView = this.tvCommands;
             this.gcCommands.MenuManager = this.ribbonControl;
             this.gcCommands.Name = "gcCommands";
-            this.gcCommands.Size = new System.Drawing.Size(718, 340);
+            this.gcCommands.Size = new System.Drawing.Size(998, 460);
             this.gcCommands.TabIndex = 1;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.tvCommands});
@@ -317,7 +319,7 @@
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.scComands.Properties.Client = this.gcCommands;
-            this.scComands.Size = new System.Drawing.Size(708, 42);
+            this.scComands.Size = new System.Drawing.Size(988, 42);
             this.scComands.TabIndex = 3;
             // 
             // panelControl1
@@ -328,16 +330,17 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 49);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(5);
-            this.panelControl1.Size = new System.Drawing.Size(718, 53);
+            this.panelControl1.Size = new System.Drawing.Size(998, 53);
             this.panelControl1.TabIndex = 4;
             // 
             // popupMenu
             // 
-            this.popupMenu.ItemLinks.Add(this.bbiRefresh);
             this.popupMenu.ItemLinks.Add(this.bbiNew);
             this.popupMenu.ItemLinks.Add(this.bbiEdit);
-            this.popupMenu.ItemLinks.Add(this.bbiEnabled, true);
-            this.popupMenu.ItemLinks.Add(this.bbiDelete);
+            this.popupMenu.ItemLinks.Add(this.bbiRunAdmin);
+            this.popupMenu.ItemLinks.Add(this.bbiRefresh);
+            this.popupMenu.ItemLinks.Add(this.bbiDelete, true);
+            this.popupMenu.ItemLinks.Add(this.bbiEnabled);
             this.popupMenu.Name = "popupMenu";
             this.popupMenu.Ribbon = this.ribbonControl;
             // 
@@ -347,11 +350,19 @@
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // bbiRunAdmin
+            // 
+            this.bbiRunAdmin.Caption = "Run Admin";
+            this.bbiRunAdmin.Id = 12;
+            this.bbiRunAdmin.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.bo_attention;
+            this.bbiRunAdmin.Name = "bbiRunAdmin";
+            this.bbiRunAdmin.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiRunAdmin_ItemClick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(718, 479);
+            this.ClientSize = new System.Drawing.Size(998, 599);
             this.Controls.Add(this.gcCommands);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.ribbonStatusBar1);
@@ -403,6 +414,7 @@
         private DevExpress.XtraGrid.Columns.TileViewColumn colEnabled;
         private DevExpress.XtraBars.BarButtonItem bbiEnabled;
         private DevExpress.XtraGrid.Columns.TileViewColumn colIcon;
+        private DevExpress.XtraBars.BarButtonItem bbiRunAdmin;
     }
 }
 

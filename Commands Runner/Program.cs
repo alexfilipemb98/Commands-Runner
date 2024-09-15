@@ -2,6 +2,7 @@
 using DevExpress.Skins;
 using DevExpress.UserSkins;
 using DevExpress.XtraEditors;
+using DevExpress.XtraSplashScreen;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace Commands_Runner
@@ -51,6 +53,8 @@ namespace Commands_Runner
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            SplashScreenManager.ShowForm(typeof(Loading), true, true);
+
             if (IsDarkThemeEnabled())
                 UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");
 
@@ -86,7 +90,14 @@ namespace Commands_Runner
                 return;
             }
 
-            Application.Run(new Main());
+            Main main = new Main();
+
+            main.Shown += (object sender, EventArgs e) =>
+            {
+                SplashScreenManager.CloseForm();
+            };
+
+            Application.Run(main);
         }
 
         public static void BringToFront(string windowTitle)
@@ -99,7 +110,7 @@ namespace Commands_Runner
             }
         }
 
-        private static Process GetExistingProcess()
+        public static Process GetExistingProcess()
         {
             string processName = Process.GetCurrentProcess().ProcessName;
             foreach (Process process in Process.GetProcessesByName(processName))
@@ -111,7 +122,7 @@ namespace Commands_Runner
             return null;
         }
 
-        private static bool IsDarkThemeEnabled()
+        public static bool IsDarkThemeEnabled()
         {
             var registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
             if (registryKey != null)

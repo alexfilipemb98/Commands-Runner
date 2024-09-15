@@ -1,4 +1,6 @@
 ﻿using Commands_Runner.Properties;
+using DevExpress.XtraBars;
+using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Tile;
 using DevExpress.XtraRichEdit.Model;
@@ -17,7 +19,7 @@ using System.Windows.Forms;
 
 namespace Commands_Runner
 {
-    public partial class Main : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class Main : RibbonForm
     {
         private CommandsModel command;
 
@@ -44,18 +46,13 @@ namespace Commands_Runner
         /// <param name="e"></param>
         private void tvCommands_ItemClick(object sender, TileViewItemClickEventArgs e)
         {
-            int rowIndex = e.Item.RowHandle;
-            if (rowIndex >= 0)
+            CommandsModel rowData = GetObjectByRowHandle(e.Item.RowHandle);
+
+            if (rowData != null)
             {
-                CommandsModel rowData = tvCommands.GetRow(rowIndex) as CommandsModel;
-
-                if (rowData != null)
-                {
-                    ExecuteFile(rowData).Wait();
-                    Thread.Sleep(200);
-                    Program.BringToFront(this.Text);
-                }
-
+                ExecuteFile(rowData).Wait();
+                Thread.Sleep(200);
+                Program.BringToFront(this.Text);
             }
         }
 
@@ -64,7 +61,7 @@ namespace Commands_Runner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiNew_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiNew_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (Editor.Show(new CommandsModel() { Enabled = true }) == DialogResult.OK)
             {
@@ -80,7 +77,7 @@ namespace Commands_Runner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiEdit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (command != null && Editor.Show(command) == DialogResult.OK)
             {
@@ -95,7 +92,7 @@ namespace Commands_Runner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiDelete_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiDelete_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (command != null)
             {
@@ -118,7 +115,7 @@ namespace Commands_Runner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiEnabled_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiEnabled_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (command != null)
             {
@@ -147,12 +144,27 @@ namespace Commands_Runner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiRefresh_ItemClick(object sender, ItemClickEventArgs e)
         {
             List<CommandsModel> commands = CommandsModel.Get();
             commandsModelBindingSource.DataSource = commands;
             bsiStatus.ItemAppearance.Normal.Reset();
             bsiStatus.Caption = $"Reloaded list, '{commands.Count}' commands found!";
+        }
+
+        /// <summary>
+        /// Run command in admin mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiRunAdmin_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (command != null)
+            {
+                ExecuteFile(command, true).Wait();
+                Thread.Sleep(200);
+                Program.BringToFront(this.Text);
+            }
         }
 
         /// <summary>
@@ -165,9 +177,9 @@ namespace Commands_Runner
             if (((MouseEventArgs)e).Button == MouseButtons.Right)
             {
                 Point p2 = Control.MousePosition;
-                bbiEdit.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-                bbiDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-                bbiEnabled.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                bbiEdit.Visibility = BarItemVisibility.Never;
+                bbiDelete.Visibility = BarItemVisibility.Never;
+                bbiEnabled.Visibility = BarItemVisibility.Never;
                 popupMenu.ShowPopup(p2);
             }
         }
@@ -180,9 +192,9 @@ namespace Commands_Runner
         private void tvCommands_ItemRightClick(object sender, TileViewItemClickEventArgs e)
         {
             Point p2 = Control.MousePosition;
-            bbiEdit.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
-            bbiDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
-            bbiEnabled.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+            bbiEdit.Visibility = BarItemVisibility.Always;
+            bbiDelete.Visibility = BarItemVisibility.Always;
+            bbiEnabled.Visibility = BarItemVisibility.Always;
             popupMenu.ShowPopup(p2);
             command = GetObjectByRowHandle(e.Item.RowHandle);
             bbiEnabled.Caption = command.Enabled ? "Disable" : "Enable";
@@ -197,7 +209,7 @@ namespace Commands_Runner
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        private Task ExecuteFile(CommandsModel file)
+        private Task ExecuteFile(CommandsModel file, bool runInAdmin = false)
         {
             string batchFilePath = string.Empty;
             string fileName = string.Empty;
@@ -222,7 +234,7 @@ namespace Commands_Runner
                 {
                     batchFilePath = Path.Combine(Path.GetTempPath(), $"temp_{Guid.NewGuid()}.ps1");
                     fileName = "powershell.exe";
-                    arguments = $"-ExecutionPolicy Bypass -File \"{batchFilePath}\""; // Permite a execução de scripts sem restrições
+                    arguments = $"-ExecutionPolicy Bypass -File \"{batchFilePath}\""; // Allow script execution without restrictions
                 }
                 else
                 {
@@ -238,8 +250,14 @@ namespace Commands_Runner
                     FileName = fileName,
                     Arguments = arguments,
                     UseShellExecute = true,
-                    CreateNoWindow = false // Cria uma nova janela
+                    CreateNoWindow = false, // Create a new window
                 };
+
+                // If RunInAdmin is true, set the Verb to "runas" to prompt for admin privileges
+                if (runInAdmin)
+                {
+                    startInfo.Verb = "runas";
+                }
 
                 Process process = new Process
                 {
@@ -247,7 +265,7 @@ namespace Commands_Runner
                 };
 
                 process.Start();
-                process.WaitForExit(); // Aguarda o processo terminar
+                process.WaitForExit(); // Wait for the process to complete
 
                 bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
                 bsiStatus.Caption = $"Command '{file.Name}' executed!";
@@ -293,6 +311,11 @@ namespace Commands_Runner
             bsiTime.Caption = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}";
         }
 
+        /// <summary>
+        /// Template
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tvCommands_CustomItemTemplate(object sender, TileViewCustomItemTemplateEventArgs e)
         {
             CommandsModel data = GetObjectByRowHandle(e.RowHandle);
@@ -310,5 +333,6 @@ namespace Commands_Runner
                     data.Icon = Resources.powershell;
             }
         }
+
     }
 }

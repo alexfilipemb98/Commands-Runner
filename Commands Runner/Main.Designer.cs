@@ -47,6 +47,7 @@
             this.bbiRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.bsiVersion = new DevExpress.XtraBars.BarStaticItem();
             this.bbiEnabled = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiRunAdmin = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.gcCommands = new DevExpress.XtraGrid.GridControl();
             this.commandsModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -59,7 +60,6 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.popupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.bbiRunAdmin = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandsModelBindingSource)).BeginInit();
@@ -196,6 +196,14 @@
             this.bbiEnabled.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.gettingstarted;
             this.bbiEnabled.Name = "bbiEnabled";
             this.bbiEnabled.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiEnabled_ItemClick);
+            // 
+            // bbiRunAdmin
+            // 
+            this.bbiRunAdmin.Caption = "Run Admin";
+            this.bbiRunAdmin.Id = 12;
+            this.bbiRunAdmin.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.bo_attention;
+            this.bbiRunAdmin.Name = "bbiRunAdmin";
+            this.bbiRunAdmin.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiRunAdmin_ItemClick);
             // 
             // ribbonStatusBar1
             // 
@@ -350,14 +358,6 @@
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // bbiRunAdmin
-            // 
-            this.bbiRunAdmin.Caption = "Run Admin";
-            this.bbiRunAdmin.Id = 12;
-            this.bbiRunAdmin.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.bo_attention;
-            this.bbiRunAdmin.Name = "bbiRunAdmin";
-            this.bbiRunAdmin.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiRunAdmin_ItemClick);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,7 +368,7 @@
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("Main.IconOptions.Image")));
+            this.IconOptions.Image = global::Commands_Runner.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.Name = "Main";
             this.Ribbon = this.ribbonControl;

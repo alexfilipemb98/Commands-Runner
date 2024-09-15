@@ -142,4 +142,13 @@
   <data name="bo_fileattachment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bo_fileattachment.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v24.1, Version=24.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
+  <data name="gettingstarted" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gettingstarted.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v24.1, Version=24.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="window-terminal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\window-terminal.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v24.1, Version=24.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
+  <data name="powershell" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\powershell.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v24.1, Version=24.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
 </root>

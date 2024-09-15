@@ -30,6 +30,7 @@ namespace Commands_Runner
             teDescription.EditValue = command.Description;
             teName.EditValue = command.Name;
             cbeType.EditValue = command.Type;
+            tsEnabled.EditValue = command.Enabled;
         }
 
         public static DialogResult Show(CommandsModel command)
@@ -63,6 +64,7 @@ namespace Commands_Runner
             command.Description = teDescription.EditValue?.ToString();
             command.Name = teName.EditValue?.ToString();
             command.Type = cbeType.EditValue?.ToString();
+            command.Enabled = (bool)tsEnabled.EditValue;
 
             CommandsModel.SaveToXml(command);
 

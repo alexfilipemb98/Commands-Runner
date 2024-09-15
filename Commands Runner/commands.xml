@@ -5,6 +5,7 @@
 		<Name>CopyTeste</Name>
 		<Description>Copies teste</Description>
 		<Type>cmd</Type>
+		<Enabled>False</Enabled>
 		<Command>
 			echo Hello World|clip
 		</Command>

@@ -46,12 +46,15 @@
             this.bbiDelete = new DevExpress.XtraBars.BarButtonItem();
             this.bbiRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.bsiVersion = new DevExpress.XtraBars.BarStaticItem();
+            this.bbiEnabled = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.gcCommands = new DevExpress.XtraGrid.GridControl();
             this.commandsModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tvCommands = new DevExpress.XtraGrid.Views.Tile.TileView();
             this.colType = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colCommand = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.colEnabled = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.colIcon = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.scComands = new DevExpress.XtraEditors.SearchControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.popupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
@@ -100,9 +103,10 @@
             this.bbiEdit,
             this.bbiDelete,
             this.bbiRefresh,
-            this.bsiVersion});
+            this.bsiVersion,
+            this.bbiEnabled});
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl.MaxItemId = 11;
+            this.ribbonControl.MaxItemId = 12;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.False;
@@ -183,6 +187,14 @@
             this.bsiVersion.Name = "bsiVersion";
             this.bsiVersion.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
+            // bbiEnabled
+            // 
+            this.bbiEnabled.Caption = "Disable";
+            this.bbiEnabled.Id = 11;
+            this.bbiEnabled.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.gettingstarted;
+            this.bbiEnabled.Name = "bbiEnabled";
+            this.bbiEnabled.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiEnabled_ItemClick);
+            // 
             // ribbonStatusBar1
             // 
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiStatus);
@@ -218,7 +230,9 @@
             this.colName,
             this.colDescription,
             this.colType,
-            this.colCommand});
+            this.colCommand,
+            this.colEnabled,
+            this.colIcon});
             this.tvCommands.GridControl = this.gcCommands;
             this.tvCommands.Name = "tvCommands";
             this.tvCommands.OptionsBehavior.KeepFocusedRowOnUpdate = false;
@@ -231,9 +245,7 @@
             this.tvCommands.OptionsTiles.ItemSize = new System.Drawing.Size(200, 78);
             this.tvCommands.OptionsTiles.RowCount = 0;
             this.tvCommands.TileHtmlTemplate.Styles = resources.GetString("tvCommands.TileHtmlTemplate.Styles");
-            this.tvCommands.TileHtmlTemplate.Template = "<div class=\"card Shadow\">\r\n\t<div class=\"title\">\r\n\t\t<span>${Id} - {Name}</span>\r\n\t" +
-    "</div>\r\n\t<div>\r\n\t\t<span>${Description}</span>\r\n\t</div>\r\n\t<div class=\"footer\">\r\n\t" +
-    "\t<span >${Type}</span>\r\n\t</div>\r\n</div>";
+            this.tvCommands.TileHtmlTemplate.Template = resources.GetString("tvCommands.TileHtmlTemplate.Template");
             tableRowDefinition1.AutoHeight = true;
             tableRowDefinition1.Length.Value = 33D;
             tableRowDefinition2.Length.Value = 67D;
@@ -264,6 +276,7 @@
             this.tvCommands.TileTemplate.Add(tileViewItemElement3);
             this.tvCommands.ItemClick += new DevExpress.XtraGrid.Views.Tile.TileViewItemClickEventHandler(this.tvCommands_ItemClick);
             this.tvCommands.ItemRightClick += new DevExpress.XtraGrid.Views.Tile.TileViewItemClickEventHandler(this.tvCommands_ItemRightClick);
+            this.tvCommands.CustomItemTemplate += new DevExpress.XtraGrid.Views.Tile.TileViewCustomItemTemplateEventHandler(this.tvCommands_CustomItemTemplate);
             this.tvCommands.Click += new System.EventHandler(this.tvCommands_Click);
             // 
             // colType
@@ -279,6 +292,20 @@
             this.colCommand.Name = "colCommand";
             this.colCommand.Visible = true;
             this.colCommand.VisibleIndex = 4;
+            // 
+            // colEnabled
+            // 
+            this.colEnabled.FieldName = "Enabled";
+            this.colEnabled.Name = "colEnabled";
+            this.colEnabled.Visible = true;
+            this.colEnabled.VisibleIndex = 5;
+            // 
+            // colIcon
+            // 
+            this.colIcon.FieldName = "Icon";
+            this.colIcon.Name = "colIcon";
+            this.colIcon.Visible = true;
+            this.colIcon.VisibleIndex = 6;
             // 
             // scComands
             // 
@@ -311,7 +338,8 @@
             this.popupMenu.ItemLinks.Add(this.bbiRefresh);
             this.popupMenu.ItemLinks.Add(this.bbiNew);
             this.popupMenu.ItemLinks.Add(this.bbiEdit);
-            this.popupMenu.ItemLinks.Add(this.bbiDelete, true);
+            this.popupMenu.ItemLinks.Add(this.bbiEnabled, true);
+            this.popupMenu.ItemLinks.Add(this.bbiDelete);
             this.popupMenu.Name = "popupMenu";
             this.popupMenu.Ribbon = this.ribbonControl;
             // 
@@ -374,6 +402,9 @@
         private System.Windows.Forms.Timer timer;
         private DevExpress.XtraBars.BarButtonItem bbiRefresh;
         private DevExpress.XtraBars.BarStaticItem bsiVersion;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colEnabled;
+        private DevExpress.XtraBars.BarButtonItem bbiEnabled;
+        private DevExpress.XtraGrid.Columns.TileViewColumn colIcon;
     }
 }
 

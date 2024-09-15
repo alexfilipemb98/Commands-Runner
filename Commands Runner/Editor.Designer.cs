@@ -31,13 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.sbSave = new DevExpress.XtraEditors.SimpleButton();
-            this.cbeType = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.tsEnabled = new DevExpress.XtraEditors.ToggleSwitch();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.bsiStatus = new DevExpress.XtraBars.BarStaticItem();
             this.bsiTime = new DevExpress.XtraBars.BarStaticItem();
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
             this.bbiEdit = new DevExpress.XtraBars.BarButtonItem();
+            this.sbSave = new DevExpress.XtraEditors.SimpleButton();
+            this.cbeType = new DevExpress.XtraEditors.ComboBoxEdit();
             this.teDescription = new DevExpress.XtraEditors.TextEdit();
             this.teName = new DevExpress.XtraEditors.TextEdit();
             this.meCommand = new DevExpress.XtraEditors.MemoEdit();
@@ -47,14 +48,15 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.dxErrorProvider = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbeType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tsEnabled.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbeType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teDescription.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.meCommand.Properties)).BeginInit();
@@ -64,13 +66,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.tsEnabled);
             this.layoutControl1.Controls.Add(this.sbSave);
             this.layoutControl1.Controls.Add(this.cbeType);
             this.layoutControl1.Controls.Add(this.teDescription);
@@ -80,42 +83,22 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 49);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(548, 205);
+            this.layoutControl1.Size = new System.Drawing.Size(548, 250);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // sbSave
+            // tsEnabled
             // 
-            this.sbSave.Appearance.BackColor = DevExpress.LookAndFeel.DXSkinColors.FillColors.Success;
-            this.sbSave.Appearance.FontSizeDelta = 5;
-            this.sbSave.Appearance.Options.UseBackColor = true;
-            this.sbSave.Appearance.Options.UseFont = true;
-            this.sbSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.sbSave.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            this.sbSave.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.saveas;
-            this.sbSave.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.sbSave.Location = new System.Drawing.Point(187, 167);
-            this.sbSave.Name = "sbSave";
-            this.sbSave.Size = new System.Drawing.Size(173, 30);
-            this.sbSave.StyleController = this.layoutControl1;
-            this.sbSave.TabIndex = 7;
-            this.sbSave.Text = " Save";
-            this.sbSave.Click += new System.EventHandler(this.sbSave_Click);
-            // 
-            // cbeType
-            // 
-            this.cbeType.Location = new System.Drawing.Point(446, 8);
-            this.cbeType.MenuManager = this.ribbonControl;
-            this.cbeType.Name = "cbeType";
-            this.cbeType.Properties.AdvancedModeOptions.Label = "Type";
-            this.cbeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbeType.Properties.Items.AddRange(new object[] {
-            "cmd",
-            "ps1"});
-            this.cbeType.Size = new System.Drawing.Size(94, 42);
-            this.cbeType.StyleController = this.layoutControl1;
-            this.cbeType.TabIndex = 6;
+            this.tsEnabled.EditValue = true;
+            this.tsEnabled.Location = new System.Drawing.Point(8, 215);
+            this.tsEnabled.MenuManager = this.ribbonControl;
+            this.tsEnabled.Name = "tsEnabled";
+            this.tsEnabled.Properties.AutoWidth = true;
+            this.tsEnabled.Properties.OffText = "Disabled";
+            this.tsEnabled.Properties.OnText = "Enabled";
+            this.tsEnabled.Size = new System.Drawing.Size(93, 24);
+            this.tsEnabled.StyleController = this.layoutControl1;
+            this.tsEnabled.TabIndex = 8;
             // 
             // ribbonControl
             // 
@@ -178,6 +161,39 @@
             this.bbiEdit.Name = "bbiEdit";
             this.bbiEdit.ShowItemShortcut = DevExpress.Utils.DefaultBoolean.False;
             // 
+            // sbSave
+            // 
+            this.sbSave.Appearance.BackColor = DevExpress.LookAndFeel.DXSkinColors.FillColors.Success;
+            this.sbSave.Appearance.FontSizeDelta = 5;
+            this.sbSave.Appearance.Options.UseBackColor = true;
+            this.sbSave.Appearance.Options.UseFont = true;
+            this.sbSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.sbSave.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.sbSave.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.saveas;
+            this.sbSave.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.sbSave.Location = new System.Drawing.Point(385, 212);
+            this.sbSave.Name = "sbSave";
+            this.sbSave.Size = new System.Drawing.Size(155, 30);
+            this.sbSave.StyleController = this.layoutControl1;
+            this.sbSave.TabIndex = 7;
+            this.sbSave.Text = " Save";
+            this.sbSave.Click += new System.EventHandler(this.sbSave_Click);
+            // 
+            // cbeType
+            // 
+            this.cbeType.Location = new System.Drawing.Point(446, 8);
+            this.cbeType.MenuManager = this.ribbonControl;
+            this.cbeType.Name = "cbeType";
+            this.cbeType.Properties.AdvancedModeOptions.Label = "Type";
+            this.cbeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbeType.Properties.Items.AddRange(new object[] {
+            "cmd",
+            "ps1"});
+            this.cbeType.Size = new System.Drawing.Size(94, 42);
+            this.cbeType.StyleController = this.layoutControl1;
+            this.cbeType.TabIndex = 6;
+            // 
             // teDescription
             // 
             this.teDescription.Location = new System.Drawing.Point(158, 8);
@@ -201,7 +217,7 @@
             this.meCommand.Location = new System.Drawing.Point(8, 56);
             this.meCommand.Name = "meCommand";
             this.meCommand.Properties.AdvancedModeOptions.Label = "Command";
-            this.meCommand.Size = new System.Drawing.Size(532, 105);
+            this.meCommand.Size = new System.Drawing.Size(532, 150);
             this.meCommand.StyleController = this.layoutControl1;
             this.meCommand.TabIndex = 4;
             // 
@@ -215,11 +231,11 @@
             this.layoutControlItem3,
             this.layoutControlItem4,
             this.layoutControlItem5,
-            this.emptySpaceItem1,
-            this.emptySpaceItem2});
+            this.emptySpaceItem2,
+            this.layoutControlItem6});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 5, 5);
-            this.Root.Size = new System.Drawing.Size(548, 205);
+            this.Root.Size = new System.Drawing.Size(548, 250);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -227,7 +243,7 @@
             this.layoutControlItem1.Control = this.meCommand;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 48);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(538, 111);
+            this.layoutControlItem1.Size = new System.Drawing.Size(538, 156);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -268,27 +284,33 @@
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.sbSave;
-            this.layoutControlItem5.Location = new System.Drawing.Point(179, 159);
+            this.layoutControlItem5.Location = new System.Drawing.Point(377, 204);
+            this.layoutControlItem5.MaxSize = new System.Drawing.Size(161, 36);
+            this.layoutControlItem5.MinSize = new System.Drawing.Size(161, 36);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(179, 36);
+            this.layoutControlItem5.Size = new System.Drawing.Size(161, 36);
+            this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
-            // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(358, 159);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(180, 36);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 159);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(179, 204);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(179, 36);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(198, 36);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem6
+            // 
+            this.layoutControlItem6.ContentHorzAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.layoutControlItem6.ContentVertAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.layoutControlItem6.Control = this.tsEnabled;
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 204);
+            this.layoutControlItem6.Name = "layoutControlItem6";
+            this.layoutControlItem6.Size = new System.Drawing.Size(179, 36);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem6.TextVisible = false;
             // 
             // ribbonPage2
             // 
@@ -303,7 +325,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 254);
+            this.ClientSize = new System.Drawing.Size(548, 299);
             this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.ribbonControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -315,8 +337,9 @@
             this.Text = "Editor";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cbeType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tsEnabled.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbeType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teDescription.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.meCommand.Properties)).EndInit();
@@ -326,8 +349,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -354,8 +377,9 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraEditors.SimpleButton sbSave;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider dxErrorProvider;
+        private DevExpress.XtraEditors.ToggleSwitch tsEnabled;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
     }
 }

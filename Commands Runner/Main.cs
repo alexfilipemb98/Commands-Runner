@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using Commands_Runner.Properties;
+using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Tile;
 using DevExpress.XtraRichEdit.Model;
 using System;
@@ -34,6 +35,8 @@ namespace Commands_Runner
             bsiVersion.Caption = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
+        #region CLICK
+
         /// <summary>
         /// Tiles click
         /// </summary>
@@ -63,7 +66,7 @@ namespace Commands_Runner
         /// <param name="e"></param>
         private void bbiNew_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if (Editor.Show(new CommandsModel()) == DialogResult.OK)
+            if (Editor.Show(new CommandsModel() { Enabled = true }) == DialogResult.OK)
             {
                 bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
                 bsiStatus.Caption = $"Commnand was been created!";
@@ -83,6 +86,7 @@ namespace Commands_Runner
             {
                 bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
                 bsiStatus.Caption = $"Commnand was been updated!";
+                commandsModelBindingSource.DataSource = CommandsModel.Get();
             }
         }
 
@@ -110,6 +114,35 @@ namespace Commands_Runner
         }
 
         /// <summary>
+        /// Enables or disables the commands!
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bbiEnabled_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (command != null)
+            {
+                if (command.Enabled)
+                {
+                    command.Enabled = false;
+                    bsiStatus.ItemAppearance.Normal.ForeColor = Color.Red;
+                    bsiStatus.Caption = $"Commnand was been disabled!";
+                }
+                else
+                {
+
+                    command.Enabled = true;
+                    bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
+                    bsiStatus.Caption = $"Commnand was been enabled!";
+                }
+            }
+
+            CommandsModel.UpdateEnabledPropertyInXml(command);
+
+            commandsModelBindingSource.DataSource = CommandsModel.Get();
+        }
+
+        /// <summary>
         /// Refresh the grid
         /// </summary>
         /// <param name="sender"></param>
@@ -134,6 +167,7 @@ namespace Commands_Runner
                 Point p2 = Control.MousePosition;
                 bbiEdit.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
                 bbiDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                bbiEnabled.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
                 popupMenu.ShowPopup(p2);
             }
         }
@@ -148,14 +182,15 @@ namespace Commands_Runner
             Point p2 = Control.MousePosition;
             bbiEdit.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
             bbiDelete.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+            bbiEnabled.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
             popupMenu.ShowPopup(p2);
-
-            int rowIndex = e.Item.RowHandle;
-            if (rowIndex >= 0)
-            {
-                command = tvCommands.GetRow(rowIndex) as CommandsModel;
-            }
+            command = GetObjectByRowHandle(e.Item.RowHandle);
+            bbiEnabled.Caption = command.Enabled ? "Disable" : "Enable";
         }
+
+        #endregion
+
+        #region FUNCTIONS
 
         /// <summary>
         /// Execute File
@@ -170,6 +205,13 @@ namespace Commands_Runner
 
             try
             {
+                if (!file.Enabled)
+                {
+                    bsiStatus.ItemAppearance.Normal.ForeColor = Color.Red;
+                    bsiStatus.Caption = "Command is disabled!";
+                    return Task.CompletedTask;
+                }
+
                 if (file.Type.Equals("cmd"))
                 {
                     batchFilePath = Path.Combine(Path.GetTempPath(), $"temp_{Guid.NewGuid()}.bat");
@@ -185,7 +227,7 @@ namespace Commands_Runner
                 else
                 {
                     bsiStatus.ItemAppearance.Normal.ForeColor = Color.Red;
-                    bsiStatus.Caption = "Command not supported.";
+                    bsiStatus.Caption = "Command not supported!";
                     return Task.CompletedTask;
                 }
 
@@ -227,6 +269,21 @@ namespace Commands_Runner
         }
 
         /// <summary>
+        /// Gets the object by row handle
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <returns></returns>
+        private CommandsModel GetObjectByRowHandle(int rowIndex)
+        {
+            if (rowIndex >= 0)
+                return tvCommands.GetRow(rowIndex) as CommandsModel;
+            else
+                return null;
+        }
+
+        #endregion
+
+        /// <summary>
         /// TImer to only display time
         /// </summary>
         /// <param name="sender"></param>
@@ -234,6 +291,24 @@ namespace Commands_Runner
         private void timer_Tick(object sender, EventArgs e)
         {
             bsiTime.Caption = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}";
+        }
+
+        private void tvCommands_CustomItemTemplate(object sender, TileViewCustomItemTemplateEventArgs e)
+        {
+            CommandsModel data = GetObjectByRowHandle(e.RowHandle);
+
+            if (data != null)
+            {
+                if (data.Enabled)
+                    e.HtmlTemplate.Template = e.HtmlTemplate.Template.Replace("@@classEnabled@@", "cardBorderEnabled");
+                else
+                    e.HtmlTemplate.Template = e.HtmlTemplate.Template.Replace("@@classEnabled@@", "cardBorderDisabled");
+
+                if (data.Type == "cmd")
+                    data.Icon = Resources.window_terminal;
+                else if (data.Type == "ps1")
+                    data.Icon = Resources.powershell;
+            }
         }
 
     }

@@ -124,10 +124,16 @@
     <value>.card{
 	background-color: @Window; 
 	border-radius: 5px; 
-	padding: 15px;
-	padding-top: 5px;
-	border-top: 10px solid @Question;
+	padding: 5px;
 	cursor: pointer;
+}
+
+.cardBorderEnabled{
+	border-top: 10px solid @Question;
+}
+
+.cardBorderDisabled{
+	border-top: 10px solid @Danger;
 }
 
 .title{
@@ -142,10 +148,46 @@
 	font-weight: bold;
 }
 
+.image{
+	width: 50px;
+	height: 50px;	
+}
+
 .shadow {
 	box-shadow: 3px 3px 10px @Black/0.7;
 }
-</value>
+
+.container {
+	display: flex;
+}
+
+.first-element {
+	width: 50px;
+	height: 50px;
+	margin-right: 5px;
+}
+
+.second-element {
+	width: 100%;
+}</value>
+  </data>
+  <data name="tvCommands.TileHtmlTemplate.Template" xml:space="preserve">
+    <value>&lt;div class="container card Shadow @@classEnabled@@"&gt;
+	&lt;div class="first-element"&gt;
+		&lt;img class="image" src="${Icon}"&gt;
+	&lt;/div&gt;
+	&lt;div class="second-element"&gt;
+		&lt;div class="title"&gt;
+			&lt;span&gt;${Id} - {Name}&lt;/span&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;span&gt;${Description}&lt;/span&gt;
+		&lt;/div&gt;
+		&lt;div class="footer"&gt;
+			&lt;span &gt;${Type}&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</value>
   </data>
   <metadata name="popupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>242, 17</value>
@@ -157,7 +199,7 @@
   <data name="Main.IconOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAAJNJREFUOE9joAaYAsS3yMQgvQz/gPg/mRikF875A8TrkPjEYjijC8QBgnogRlZA
+        vAAADrwBlbxySQAAAJNJREFUOE9joAaYAsS3yMQgvQz/gPg/mRikF875A8TrkPjEYjijC8QBgnogRlZA
         CMMZX4HYESQABKQYgsIBGWIDxCDQAsTIcrgwCucqEIsDMRcQ74OKEcJwBjmaQRjOWA7EvEAM0/wAiFXR
         8EIghqmHYRTOKyQ2KDy2oWGQocjqQRhDgFSMVZAUTHlSpjgzUQAYGABiKscto5tfTAAAAABJRU5ErkJg
         gg==

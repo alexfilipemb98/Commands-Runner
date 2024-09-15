@@ -1,6 +1,7 @@
 ﻿using DevExpress.LookAndFeel;
 using DevExpress.Skins;
 using DevExpress.UserSkins;
+using DevExpress.XtraEditors;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,23 @@ namespace Commands_Runner
         [DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        
+        [DllImport("kernel32.dll")]
+        private static extern uint GetCurrentThreadId();
+
+        [DllImport("user32.dll")]
+        private static extern bool AllowSetForegroundWindow(int dwProcessId);
+
+        [DllImport("user32.dll")]
+        private static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
+
+        private static volatile Mutex mutex;
+
         private const int SW_SHOW = 5;
 
         [STAThread]
@@ -37,22 +55,33 @@ namespace Commands_Runner
 
             string processName = Process.GetCurrentProcess().ProcessName;
             bool createdNew;
-            Mutex mutex = new Mutex(true, "UniqueAppNameMutex", out createdNew);
+            mutex = new Mutex(true, "CommandsRunnerMutex", out createdNew);
 
             if (!createdNew)
             {
-                // Get the process ID of the running instance
-                var existingProcess = GetExistingProcess();
+                Thread.Sleep(100);
+                
+                Process existingProcess = GetExistingProcess();
+
                 if (existingProcess != null)
                 {
-                    // Bring the existing window to the foreground
+                    AllowSetForegroundWindow(existingProcess.Id);
                     IntPtr hWnd = FindWindow(null, existingProcess.MainWindowTitle);
+
                     if (hWnd != IntPtr.Zero)
                     {
-                        ShowWindow(hWnd, SW_SHOW);
-                        SetForegroundWindow(hWnd);
+                        uint foregroundThread = GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+                        uint currentThread = GetCurrentThreadId();
+
+                        if (AttachThreadInput(currentThread, foregroundThread, true))
+                        {
+                            ShowWindow(hWnd, SW_SHOW);
+                            SetForegroundWindow(hWnd);
+                            AttachThreadInput(currentThread, foregroundThread, false);
+                        }
                     }
                 }
+
                 return;
             }
 
@@ -61,15 +90,13 @@ namespace Commands_Runner
 
        private static Process GetExistingProcess()
         {
-            var processName = Process.GetCurrentProcess().ProcessName;
-            foreach (var process in Process.GetProcessesByName(processName))
+            string processName = Process.GetCurrentProcess().ProcessName;
+            foreach (Process process in Process.GetProcessesByName(processName))
             {
-                // Ensure it's not the current process
                 if (process.Id != Process.GetCurrentProcess().Id)
-                {
                     return process;
-                }
             }
+
             return null;
         }
 

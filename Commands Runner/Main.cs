@@ -180,6 +180,7 @@ namespace Commands_Runner
                 bbiEdit.Visibility = BarItemVisibility.Never;
                 bbiDelete.Visibility = BarItemVisibility.Never;
                 bbiEnabled.Visibility = BarItemVisibility.Never;
+                bbiRunAdmin.Visibility = BarItemVisibility.Never;
                 popupMenu.ShowPopup(p2);
             }
         }
@@ -195,6 +196,7 @@ namespace Commands_Runner
             bbiEdit.Visibility = BarItemVisibility.Always;
             bbiDelete.Visibility = BarItemVisibility.Always;
             bbiEnabled.Visibility = BarItemVisibility.Always;
+            bbiRunAdmin.Visibility = BarItemVisibility.Always;
             popupMenu.ShowPopup(p2);
             command = GetObjectByRowHandle(e.Item.RowHandle);
             bbiEnabled.Caption = command.Enabled ? "Disable" : "Enable";

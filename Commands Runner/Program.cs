@@ -1,16 +1,13 @@
-﻿using DevExpress.LookAndFeel;
-using DevExpress.Skins;
-using DevExpress.UserSkins;
+﻿using Commands_Runner.Forms;
+using DevExpress.LookAndFeel;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace Commands_Runner
@@ -50,54 +47,61 @@ namespace Commands_Runner
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            SplashScreenManager.ShowForm(typeof(Loading), true, true);
-
-            if (IsDarkThemeEnabled())
-                UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");
-
-            string processName = Process.GetCurrentProcess().ProcessName;
-            bool createdNew;
-            mutex = new Mutex(true, "CommandsRunnerMutex", out createdNew);
-
-            if (!createdNew)
+            try
             {
-                Thread.Sleep(100);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
 
-                Process existingProcess = GetExistingProcess();
+                SplashScreenManager.ShowForm(typeof(LoadingForm), true, true);
 
-                if (existingProcess != null)
+                if (IsDarkThemeEnabled())
+                    UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");
+
+                string processName = Process.GetCurrentProcess().ProcessName;
+                bool createdNew;
+                mutex = new Mutex(true, "CommandsRunnerMutex", out createdNew);
+
+                if (!createdNew)
                 {
-                    AllowSetForegroundWindow(existingProcess.Id);
-                    IntPtr hWnd = FindWindow(null, existingProcess.MainWindowTitle);
+                    Thread.Sleep(100);
 
-                    if (hWnd != IntPtr.Zero)
+                    Process existingProcess = GetExistingProcess();
+
+                    if (existingProcess != null)
                     {
-                        uint foregroundThread = GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
-                        uint currentThread = GetCurrentThreadId();
+                        AllowSetForegroundWindow(existingProcess.Id);
+                        IntPtr hWnd = FindWindow(null, existingProcess.MainWindowTitle);
 
-                        if (AttachThreadInput(currentThread, foregroundThread, true))
+                        if (hWnd != IntPtr.Zero)
                         {
-                            ShowWindow(hWnd, SW_SHOW);
-                            SetForegroundWindow(hWnd);
-                            AttachThreadInput(currentThread, foregroundThread, false);
+                            uint foregroundThread = GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+                            uint currentThread = GetCurrentThreadId();
+
+                            if (AttachThreadInput(currentThread, foregroundThread, true))
+                            {
+                                ShowWindow(hWnd, SW_SHOW);
+                                SetForegroundWindow(hWnd);
+                                AttachThreadInput(currentThread, foregroundThread, false);
+                            }
                         }
                     }
+
+                    return;
                 }
 
-                return;
+                Main main = new Main();
+
+                main.Shown += (object sender, EventArgs e) =>
+                {
+                    SplashScreenManager.CloseForm();
+                };
+
+                Application.Run(main);
             }
-
-            Main main = new Main();
-
-            main.Shown += (object sender, EventArgs e) =>
+            catch (Exception ex)
             {
-                SplashScreenManager.CloseForm();
-            };
-
-            Application.Run(main);
+                XtraMessageBox.Show(ex.ToString(), ex.TargetSite.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public static void BringToFront(string windowTitle)
@@ -135,5 +139,6 @@ namespace Commands_Runner
             }
             return false; // Modo claro está ativado
         }
+
     }
 }

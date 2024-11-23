@@ -1,6 +1,6 @@
-﻿namespace Commands_Runner
+﻿namespace Commands_Runner.Forms
 {
-    partial class Loading
+    partial class LoadingForm
     {
         /// <summary>
         /// Required designer variable.

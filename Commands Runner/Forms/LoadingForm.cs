@@ -8,11 +8,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Commands_Runner
+namespace Commands_Runner.Forms
 {
-    public partial class Loading : SplashScreen
+    public partial class LoadingForm : SplashScreen
     {
-        public Loading()
+        public LoadingForm()
         {
             InitializeComponent();
 

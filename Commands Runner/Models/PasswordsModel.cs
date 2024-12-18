@@ -16,6 +16,7 @@ namespace Commands_Runner.Models
 
 		public int Id { get; set; }
 		public string Name { get; set; }
+		public string Username { get; set; }
 		public string Password { get; set; }
 
 		public static int GetMaxId()
@@ -44,6 +45,7 @@ namespace Commands_Runner.Models
 				{
 					Id = (int?)s.Element("Id") ?? 0,
 					Name = (string)s.Element("Name") ?? string.Empty,
+					Username = ((string)s.Element("Username") ?? string.Empty)?.Decrypt(),
 					Password = ((string)s.Element("Password") ?? string.Empty)?.Decrypt()
 				})
 				.Where(w => w.Id > 0)
@@ -70,6 +72,7 @@ namespace Commands_Runner.Models
 				passwordElement = new XElement("Password",
 					new XElement("Id", newId),
 					new XElement("Name", password.Name),
+					new XElement("Username", password.Username?.Encrypt()),
 					new XElement("Password", password.Password?.Encrypt())
 				);
 				root.Add(passwordElement);
@@ -77,6 +80,7 @@ namespace Commands_Runner.Models
 			else
 			{
 				passwordElement.SetElementValue("Name", password.Name);
+				passwordElement.SetElementValue("Username", password.Username?.Encrypt());
 				passwordElement.SetElementValue("Password", password.Password?.Encrypt());
 			}
 

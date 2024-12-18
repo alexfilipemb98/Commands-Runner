@@ -5,7 +5,6 @@ using Commands_Runner.Utils;
 using DevExpress.Utils.Svg;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Text;

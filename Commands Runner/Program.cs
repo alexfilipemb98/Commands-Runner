@@ -1,144 +1,82 @@
 ﻿using Commands_Runner.Forms;
+using Commands_Runner.Helpers;
+using Commands_Runner.Models;
 using DevExpress.LookAndFeel;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 using Microsoft.Win32;
 using System;
-using System.Diagnostics;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Commands_Runner
 {
-	internal static class Program
-	{
+    internal static class Program
+    {
+        [STAThread]
+        static void Main()
+        {
+            try
+            {
+                if (IsDarkThemeEnabled())
+                    UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");
 
-		[DllImport("user32.dll")]
-		private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+                SplashScreenManager.ShowForm(typeof(LoadingForm), true, true);
 
-		[DllImport("user32.dll")]
-		private static extern bool SetForegroundWindow(IntPtr hWnd);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
 
-		[DllImport("user32.dll")]
-		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+                ConnectionSQLModel connectionSQLModel = ConnectionSQLModel.ReadFile(out bool primaveraExtensionsOK);
 
-		[DllImport("user32.dll")]
-		private static extern IntPtr GetForegroundWindow();
+                if (primaveraExtensionsOK)
+                {
+                    SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder
+                    {
+                        UserID = connectionSQLModel.UserID,
+                        Password = connectionSQLModel.Password,
+                        InitialCatalog = connectionSQLModel.InitialCatalog,
+                        DataSource = connectionSQLModel.DataSource,
+                        ConnectTimeout = 0,
+                        PersistSecurityInfo = true,
+                        IntegratedSecurity = false,
+                        MultipleActiveResultSets = true,
+                        AsynchronousProcessing = true
+                    };
 
-		[DllImport("kernel32.dll")]
-		private static extern uint GetCurrentThreadId();
+                    AppHelper.SQL = new SqlDataAccess(scsb.ToString());
+                }
 
-		[DllImport("user32.dll")]
-		private static extern bool AllowSetForegroundWindow(int dwProcessId);
+                MainForm main = new MainForm();
 
-		[DllImport("user32.dll")]
-		private static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
+                main.Shown += (object sender, EventArgs e) =>
+                {
+                    main.npPrimaveraExtensions.PageEnabled = primaveraExtensionsOK;
 
-		[DllImport("user32.dll")]
-		private static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
+                    SplashScreenManager.CloseForm();
+                };
 
-		private static volatile Mutex mutex;
+                Application.Run(main);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.ToString(), ex.TargetSite.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-		private const int SW_SHOW = 5;
-		private const int SW_RESTORE = 9;
+        public static bool IsDarkThemeEnabled()
+        {
+            var registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            if (registryKey != null)
+            {
+                var value = registryKey.GetValue("AppsUseLightTheme");
+                if (value != null && (int)value == 0)
+                {
+                    return true; // Modo escuro está ativado
+                }
+            }
+            return false; // Modo claro está ativado
+        }
 
-		[STAThread]
-		static void Main()
-		{
-			try
-			{
-				if (IsDarkThemeEnabled())
-					UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");
-
-				SplashScreenManager.ShowForm(typeof(LoadingForm), true, true);
-
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
-
-				string processName = Process.GetCurrentProcess().ProcessName;
-				bool createdNew;
-				mutex = new Mutex(true, "CommandsRunnerMutex", out createdNew);
-
-				if (!createdNew)
-				{
-					Thread.Sleep(100);
-
-					Process existingProcess = GetExistingProcess();
-
-					if (existingProcess != null)
-					{
-						AllowSetForegroundWindow(existingProcess.Id);
-						IntPtr hWnd = FindWindow(null, existingProcess.MainWindowTitle);
-
-						if (hWnd != IntPtr.Zero)
-						{
-							uint foregroundThread = GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
-							uint currentThread = GetCurrentThreadId();
-
-							if (AttachThreadInput(currentThread, foregroundThread, true))
-							{
-								ShowWindow(hWnd, SW_SHOW);
-								SetForegroundWindow(hWnd);
-								AttachThreadInput(currentThread, foregroundThread, false);
-							}
-						}
-					}
-
-					return;
-				}
-
-				Main main = new Main();
-
-				main.Shown += (object sender, EventArgs e) =>
-				{
-					SplashScreenManager.CloseForm();
-				};
-
-				Application.Run(main);
-			}
-			catch (Exception ex)
-			{
-				XtraMessageBox.Show(ex.ToString(), ex.TargetSite.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
-
-		public static void BringToFront(string windowTitle)
-		{
-			IntPtr hWnd = FindWindow(null, windowTitle);
-			if (hWnd != IntPtr.Zero)
-			{
-				ShowWindow(hWnd, SW_RESTORE);
-				SetForegroundWindow(hWnd);
-			}
-		}
-
-		public static Process GetExistingProcess()
-		{
-			string processName = Process.GetCurrentProcess().ProcessName;
-			foreach (Process process in Process.GetProcessesByName(processName))
-			{
-				if (process.Id != Process.GetCurrentProcess().Id)
-					return process;
-			}
-
-			return null;
-		}
-
-		public static bool IsDarkThemeEnabled()
-		{
-			var registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
-			if (registryKey != null)
-			{
-				var value = registryKey.GetValue("AppsUseLightTheme");
-				if (value != null && (int)value == 0)
-				{
-					return true; // Modo escuro está ativado
-				}
-			}
-			return false; // Modo claro está ativado
-		}
-
-	}
+    }
 }

@@ -93,6 +93,26 @@ namespace Commands_Runner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
         /// </summary>
+        internal static DevExpress.Utils.Svg.SvgImage actions_checkcircled {
+            get {
+                object obj = ResourceManager.GetObject("actions_checkcircled", resourceCulture);
+                return ((DevExpress.Utils.Svg.SvgImage)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
+        /// </summary>
+        internal static DevExpress.Utils.Svg.SvgImage actions_deletecircled {
+            get {
+                object obj = ResourceManager.GetObject("actions_deletecircled", resourceCulture);
+                return ((DevExpress.Utils.Svg.SvgImage)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
+        /// </summary>
         internal static DevExpress.Utils.Svg.SvgImage actions_edit {
             get {
                 object obj = ResourceManager.GetObject("actions_edit", resourceCulture);
@@ -153,9 +173,9 @@ namespace Commands_Runner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
         /// </summary>
-        internal static DevExpress.Utils.Svg.SvgImage bo_fileattachment {
+        internal static DevExpress.Utils.Svg.SvgImage bo_document {
             get {
-                object obj = ResourceManager.GetObject("bo_fileattachment", resourceCulture);
+                object obj = ResourceManager.GetObject("bo_document", resourceCulture);
                 return ((DevExpress.Utils.Svg.SvgImage)(obj));
             }
         }
@@ -163,9 +183,9 @@ namespace Commands_Runner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
         /// </summary>
-        internal static DevExpress.Utils.Svg.SvgImage bo_fileattachment1 {
+        internal static DevExpress.Utils.Svg.SvgImage bo_fileattachment {
             get {
-                object obj = ResourceManager.GetObject("bo_fileattachment1", resourceCulture);
+                object obj = ResourceManager.GetObject("bo_fileattachment", resourceCulture);
                 return ((DevExpress.Utils.Svg.SvgImage)(obj));
             }
         }
@@ -213,16 +233,6 @@ namespace Commands_Runner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
         /// </summary>
-        internal static DevExpress.Utils.Svg.SvgImage copy1 {
-            get {
-                object obj = ResourceManager.GetObject("copy1", resourceCulture);
-                return ((DevExpress.Utils.Svg.SvgImage)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
-        /// </summary>
         internal static DevExpress.Utils.Svg.SvgImage del {
             get {
                 object obj = ResourceManager.GetObject("del", resourceCulture);
@@ -256,6 +266,26 @@ namespace Commands_Runner.Properties {
         internal static DevExpress.Utils.Svg.SvgImage exportfile {
             get {
                 object obj = ResourceManager.GetObject("exportfile", resourceCulture);
+                return ((DevExpress.Utils.Svg.SvgImage)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
+        /// </summary>
+        internal static DevExpress.Utils.Svg.SvgImage exporttopdf {
+            get {
+                object obj = ResourceManager.GetObject("exporttopdf", resourceCulture);
+                return ((DevExpress.Utils.Svg.SvgImage)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
+        /// </summary>
+        internal static DevExpress.Utils.Svg.SvgImage exporttoxls {
+            get {
+                object obj = ResourceManager.GetObject("exporttoxls", resourceCulture);
                 return ((DevExpress.Utils.Svg.SvgImage)(obj));
             }
         }

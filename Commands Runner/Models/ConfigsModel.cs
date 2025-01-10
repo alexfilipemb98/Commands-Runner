@@ -13,7 +13,7 @@ public class ConfigsModel
     public string SQLUsername { get; set; }
     public string SQLPassword { get; set; }
     public string SQLAddress { get; set; }
-    public string SQLDataSource { get; set; }
+    public string SQLDatabase { get; set; }
 
     public string CMDPath { get; set; }
     public string CMDArgs { get; set; }
@@ -52,7 +52,7 @@ public class ConfigsModel
             SQLUsername = connection?.Element(nameof(SQLUsername))?.Value?.Decrypt(),
             SQLPassword = connection?.Element(nameof(SQLPassword))?.Value?.Decrypt(),
             SQLAddress = connection?.Element(nameof(SQLAddress))?.Value?.Decrypt(),
-            SQLDataSource = connection?.Element(nameof(SQLDataSource))?.Value?.Decrypt(),
+            SQLDatabase = connection?.Element(nameof(SQLDatabase))?.Value?.Decrypt(),
 
             CMDPath = programs?.Element(nameof(CMDPath))?.Value,
             CMDArgs = programs?.Element(nameof(CMDArgs))?.Value,
@@ -75,7 +75,7 @@ public class ConfigsModel
         };
 
         ok = model.SQLUsername != null && model.SQLPassword != null &&
-             model.SQLAddress != null && model.SQLDataSource != null;
+             model.SQLAddress != null && model.SQLDatabase != null;
 
         return model;
     }
@@ -98,7 +98,7 @@ public class ConfigsModel
             writer.WriteElementString(nameof(SQLUsername), model.SQLUsername.Encrypt() ?? string.Empty);
             writer.WriteElementString(nameof(SQLPassword), model.SQLPassword.Encrypt() ?? string.Empty);
             writer.WriteElementString(nameof(SQLAddress), model.SQLAddress.Encrypt() ?? string.Empty);
-            writer.WriteElementString(nameof(SQLDataSource), model.SQLDataSource.Encrypt() ?? string.Empty);
+            writer.WriteElementString(nameof(SQLDatabase), model.SQLDatabase.Encrypt() ?? string.Empty);
             writer.WriteEndElement();
 
             writer.WriteStartElement("Programs");

@@ -1,15 +1,8 @@
 ﻿using Commands_Runner.Helpers;
-using Commands_Runner.Models;
-using DevExpress.XtraEditors;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Commands_Runner.Views
@@ -24,7 +17,7 @@ namespace Commands_Runner.Views
             teSqlAddress.Text = AppHelper.Configs.SQLAddress;
             teSqlUsername.Text = AppHelper.Configs.SQLUsername;
             beSqlPassword.Text = AppHelper.Configs.SQLPassword;
-            teSqlDatabase.Text = AppHelper.Configs.SQLDataSource;
+            teSqlDatabase.Text = AppHelper.Configs.SQLDatabase;
 
             teCMDArgs.Text = AppHelper.Configs.CMDArgs;
             teCMDPath.Text = AppHelper.Configs.CMDPath;
@@ -52,7 +45,7 @@ namespace Commands_Runner.Views
             AppHelper.Configs.SQLAddress = teSqlAddress.Text;
             AppHelper.Configs.SQLUsername = teSqlUsername.Text;
             AppHelper.Configs.SQLPassword = beSqlPassword.Text;
-            AppHelper.Configs.SQLDataSource = teSqlDatabase.Text;
+            AppHelper.Configs.SQLDatabase = teSqlDatabase.Text;
 
             AppHelper.Configs.CMDArgs = teCMDArgs.Text;
             AppHelper.Configs.CMDPath = teCMDPath.Text;
@@ -119,6 +112,8 @@ namespace Commands_Runner.Views
             }
 
             AppHelper.Configs = ConfigsModel.ReadFile(out _);
+            AppHelper.Instance.Height = AppHelper.Configs.FormHeight;
+            AppHelper.Instance.Width = AppHelper.Configs.FormWidth;
             LoadData();
         }
 

@@ -46,39 +46,26 @@ namespace Commands_Runner.Helpers
 
         public static void SqlStart()
         {
-            Task.Run(() =>
+            try
             {
-                if (Instance != null && Instance.InvokeRequired)
+                SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder
                 {
-                    Instance.Invoke((MethodInvoker)(() => ld()));
-                }
-                else
-                    ld();
+                    UserID = Configs.SQLUsername,
+                    Password = Configs.SQLPassword,
+                    InitialCatalog = Configs.SQLDatabase,
+                    DataSource = Configs.SQLAddress,
+                    ConnectTimeout = 1,
+                    PersistSecurityInfo = true,
+                    IntegratedSecurity = false,
+                    MultipleActiveResultSets = true,
+                    AsynchronousProcessing = true
+                };
 
-                void ld()
-                {
-                    try
-                    {
-                        SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder
-                        {
-                            UserID = Configs.SQLUsername,
-                            Password = Configs.SQLPassword,
-                            InitialCatalog = Configs.SQLAddress,
-                            DataSource = Configs.SQLDataSource,
-                            ConnectTimeout = 1,
-                            PersistSecurityInfo = true,
-                            IntegratedSecurity = false,
-                            MultipleActiveResultSets = true,
-                            AsynchronousProcessing = true
-                        };
-
-                        SQL = new SqlDataAccess(scsb.ToString());
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            });
+                SQL = new SqlDataAccess(scsb.ToString());
+            }
+            catch (Exception)
+            {
+            }
         }
 
         public static void SqlStausLabel()

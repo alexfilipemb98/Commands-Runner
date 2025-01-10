@@ -96,10 +96,7 @@ namespace Commands_Runner
         /// Inicia a conexao com a base de dados
         /// </summary>
         /// <param name="connectionStringName"></param>
-        public void StartConnection(bool useConn = false, string conn = null, string connectionStringName = "DefaultConnection")
-        {
-
-        }
+        public bool IsOpen() => _connection != null && _connection.State == ConnectionState.Open;
 
         /// <summary>
         /// On dispose fechar a conexão com a base de dados!

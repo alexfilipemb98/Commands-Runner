@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions13 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasswordsListView));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject49 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject50 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject51 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject52 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions14 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject53 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject54 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject55 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject56 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions15 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject57 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject58 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject59 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject60 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
             this.popupMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
             this.bbiEdit = new DevExpress.XtraBars.BarButtonItem();
@@ -52,46 +52,48 @@
             this.bbiDelete = new DevExpress.XtraBars.BarButtonItem();
             this.barManager = new DevExpress.XtraBars.BarManager(this.components);
             this.bar = new DevExpress.XtraBars.Bar();
+            this.btsEditModePasswords = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.bbiSearch = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemSearchControl1 = new DevExpress.XtraEditors.Repository.RepositoryItemSearchControl();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.bbiExportPDF = new DevExpress.XtraBars.BarButtonItem();
             this.bbiExportExcel = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiExportToXML = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiImport = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btsEditModePasswords = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.gcPasswords = new DevExpress.XtraGrid.GridControl();
+            this.passwordsModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gvPasswords = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPasswordsName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPasswordsUsername = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPassword = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.ribShowPasswords = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colPasswordsAction = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ribActionsPasswords = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.passwordsModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcPasswords)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvPasswords)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ribActionsPasswords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPasswords)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ribShowPasswords)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ribActionsPasswords)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // popupMenu
@@ -154,8 +156,10 @@
             this.barSubItem1,
             this.bbiExportPDF,
             this.bbiExportExcel,
-            this.btsEditModePasswords});
-            this.barManager.MaxItemId = 28;
+            this.btsEditModePasswords,
+            this.bbiImport,
+            this.bbiExportToXML});
+            this.barManager.MaxItemId = 30;
             this.barManager.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemSearchControl1,
             this.repositoryItemTextEdit1});
@@ -170,12 +174,21 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.btsEditModePasswords),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.Width, this.bbiSearch, "", false, true, true, 224),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiRefresh),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barSubItem1, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barSubItem1, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiImport)});
             this.bar.OptionsBar.AllowQuickCustomization = false;
             this.bar.OptionsBar.DrawDragBorder = false;
             this.bar.OptionsBar.MultiLine = true;
             this.bar.OptionsBar.UseWholeRow = true;
             this.bar.Text = "Main menu";
+            // 
+            // btsEditModePasswords
+            // 
+            this.btsEditModePasswords.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.btsEditModePasswords.Caption = "Edit Mode";
+            this.btsEditModePasswords.Id = 27;
+            this.btsEditModePasswords.Name = "btsEditModePasswords";
+            this.btsEditModePasswords.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.btsEditModePasswords_CheckedChanged);
             // 
             // bbiSearch
             // 
@@ -201,7 +214,8 @@
             this.barSubItem1.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.exportfile;
             this.barSubItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiExportPDF),
-            new DevExpress.XtraBars.LinkPersistInfo(this.bbiExportExcel)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiExportExcel),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiExportToXML)});
             this.barSubItem1.Name = "barSubItem1";
             // 
             // bbiExportPDF
@@ -219,6 +233,23 @@
             this.bbiExportExcel.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.exporttoxls;
             this.bbiExportExcel.Name = "bbiExportExcel";
             this.bbiExportExcel.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiExportExcel_ItemClick);
+            // 
+            // bbiExportToXML
+            // 
+            this.bbiExportToXML.Caption = "To XML";
+            this.bbiExportToXML.Id = 29;
+            this.bbiExportToXML.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("bbiExportToXML.ImageOptions.SvgImage")));
+            this.bbiExportToXML.Name = "bbiExportToXML";
+            this.bbiExportToXML.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiExportToXML_ItemClick);
+            // 
+            // bbiImport
+            // 
+            this.bbiImport.Caption = "Import";
+            this.bbiImport.Id = 28;
+            this.bbiImport.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.import;
+            this.bbiImport.Name = "bbiImport";
+            this.bbiImport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.bbiImport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiImport_ItemClick);
             // 
             // barDockControlTop
             // 
@@ -268,16 +299,6 @@
             this.layoutControl1.TabIndex = 4;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // Root
-            // 
-            this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
-            this.Root.GroupBordersVisible = false;
-            this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1});
-            this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(840, 521);
-            this.Root.TextVisible = false;
-            // 
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.gcPasswords);
@@ -285,23 +306,6 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(808, 489);
             this.panelControl1.TabIndex = 4;
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.panelControl1;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(814, 495);
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
-            // 
-            // btsEditModePasswords
-            // 
-            this.btsEditModePasswords.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            this.btsEditModePasswords.Caption = "Edit Mode";
-            this.btsEditModePasswords.Id = 27;
-            this.btsEditModePasswords.Name = "btsEditModePasswords";
-            this.btsEditModePasswords.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.btsEditModePasswords_CheckedChanged);
             // 
             // gcPasswords
             // 
@@ -312,12 +316,16 @@
             this.gcPasswords.Margin = new System.Windows.Forms.Padding(0);
             this.gcPasswords.Name = "gcPasswords";
             this.gcPasswords.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemButtonEdit1,
+            this.ribShowPasswords,
             this.ribActionsPasswords});
             this.gcPasswords.Size = new System.Drawing.Size(804, 485);
             this.gcPasswords.TabIndex = 1;
             this.gcPasswords.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPasswords});
+            // 
+            // passwordsModelBindingSource
+            // 
+            this.passwordsModelBindingSource.DataSource = typeof(Commands_Runner.Models.PasswordsModel);
             // 
             // gvPasswords
             // 
@@ -334,6 +342,8 @@
             this.gvPasswords.OptionsView.ShowAutoFilterRow = true;
             this.gvPasswords.OptionsView.ShowGroupPanel = false;
             this.gvPasswords.OptionsView.ShowIndicator = false;
+            this.gvPasswords.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvPasswords_CustomRowCellEdit);
+            this.gvPasswords.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gvPasswords_RowUpdated);
             // 
             // colId1
             // 
@@ -362,7 +372,7 @@
             // 
             // colPassword
             // 
-            this.colPassword.ColumnEdit = this.repositoryItemButtonEdit1;
+            this.colPassword.ColumnEdit = this.ribShowPasswords;
             this.colPassword.FieldName = "Password";
             this.colPassword.Name = "colPassword";
             this.colPassword.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
@@ -370,15 +380,16 @@
             this.colPassword.VisibleIndex = 2;
             this.colPassword.Width = 358;
             // 
-            // repositoryItemButtonEdit1
+            // ribShowPasswords
             // 
-            this.repositoryItemButtonEdit1.AutoHeight = false;
-            editorButtonImageOptions13.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions13.SvgImage")));
-            editorButtonImageOptions13.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions13, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject49, serializableAppearanceObject50, serializableAppearanceObject51, serializableAppearanceObject52, "", "ShowPassword", null, DevExpress.Utils.ToolTipAnchor.Default)});
-            this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
-            this.repositoryItemButtonEdit1.UseSystemPasswordChar = true;
+            this.ribShowPasswords.AutoHeight = false;
+            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.ribShowPasswords.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "ShowPassword", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.ribShowPasswords.Name = "ribShowPasswords";
+            this.ribShowPasswords.UseSystemPasswordChar = true;
+            this.ribShowPasswords.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.ribShowPasswords_ButtonClick);
             // 
             // colPasswordsAction
             // 
@@ -413,19 +424,35 @@
             // ribActionsPasswords
             // 
             this.ribActionsPasswords.AutoHeight = false;
-            editorButtonImageOptions14.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions14.SvgImage")));
-            editorButtonImageOptions14.SvgImageSize = new System.Drawing.Size(20, 20);
-            editorButtonImageOptions15.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions15.SvgImage")));
-            editorButtonImageOptions15.SvgImageSize = new System.Drawing.Size(24, 24);
+            editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
+            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(20, 20);
+            editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
+            editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(24, 24);
             this.ribActionsPasswords.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions14, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject53, serializableAppearanceObject54, serializableAppearanceObject55, serializableAppearanceObject56, "", "COPY", null, DevExpress.Utils.ToolTipAnchor.Default),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions15, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject57, serializableAppearanceObject58, serializableAppearanceObject59, serializableAppearanceObject60, "", "DEL", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "COPY", null, DevExpress.Utils.ToolTipAnchor.Default),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", "DEL", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.ribActionsPasswords.Name = "ribActionsPasswords";
             this.ribActionsPasswords.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            this.ribActionsPasswords.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.ribActionsPasswords_ButtonClick);
             // 
-            // passwordsModelBindingSource
+            // Root
             // 
-            this.passwordsModelBindingSource.DataSource = typeof(Commands_Runner.Models.PasswordsModel);
+            this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.Root.GroupBordersVisible = false;
+            this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1});
+            this.Root.Name = "Root";
+            this.Root.Size = new System.Drawing.Size(840, 521);
+            this.Root.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.panelControl1;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(814, 495);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
             // 
             // PasswordsListView
             // 
@@ -444,15 +471,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcPasswords)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvPasswords)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ribActionsPasswords)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPasswords)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ribShowPasswords)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ribActionsPasswords)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -488,9 +515,11 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPasswordsName;
         private DevExpress.XtraGrid.Columns.GridColumn colPasswordsUsername;
         private DevExpress.XtraGrid.Columns.GridColumn colPassword;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ribShowPasswords;
         private DevExpress.XtraGrid.Columns.GridColumn colPasswordsAction;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ribActionsPasswords;
         private System.Windows.Forms.BindingSource passwordsModelBindingSource;
+        private DevExpress.XtraBars.BarButtonItem bbiExportToXML;
+        private DevExpress.XtraBars.BarButtonItem bbiImport;
     }
 }

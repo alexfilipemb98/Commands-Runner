@@ -36,7 +36,7 @@ namespace Commands_Runner.Views
             if (CommandsEditorForm.Show(new CommandsModel() { Enabled = true }) == DialogResult.OK)
             {
                 AppHelper.SetStatus($"Commnand was been created!", Color.Green);
-                LoadCommands(false);
+                LoadData(false);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Commands_Runner.Views
             if (command != null && CommandsEditorForm.Show(command) == DialogResult.OK)
             {
                 AppHelper.SetStatus($"Commnand was been updated!", Color.Green);
-                LoadCommands(false);
+                LoadData(false);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Commands_Runner.Views
                     CommandsModel.DeleteFromXml(command.Id);
                     AppHelper.SetStatus($"Commnand was been deleted!", Color.Red);
 
-                    LoadCommands(false);
+                    LoadData(false);
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace Commands_Runner.Views
 
             CommandsModel.UpdateEnabledPropertyInXml(command);
 
-            LoadCommands(false);
+            LoadData(false);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Commands_Runner.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bbiRefresh_ItemClick(object sender, ItemClickEventArgs e) => LoadCommands();
+        private void bbiRefresh_ItemClick(object sender, ItemClickEventArgs e) => LoadData();
 
         /// <summary>
         /// Run command in admin mode
@@ -131,22 +131,18 @@ namespace Commands_Runner.Views
         /// <param name="e"></param>
         private void bbiExport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            string sourceFilePath = @"commands.xml"; // Replace this with the actual path of passwords.xml
-
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.FileName = "commands.xml"; // Default file name
-                saveFileDialog.Filter = "XML files (*.xml)|*.xml"; // Filter for XML files
-                saveFileDialog.Title = "Export commands.xml";
+                saveFileDialog.FileName = CommandsModel.FilePath;
+                saveFileDialog.Filter = "XML files (*.xml)|*.xml";
+                saveFileDialog.Title = $"Export {CommandsModel.FilePath}";
 
-                // Show SaveFileDialog and check if the user selected a file
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string destinationFilePath = saveFileDialog.FileName;
 
-                    System.IO.File.Copy(sourceFilePath, destinationFilePath, overwrite: true);
+                    File.Copy(CommandsModel.FilePath, destinationFilePath, overwrite: true);
                 }
-
             }
         }
 
@@ -159,18 +155,18 @@ namespace Commands_Runner.Views
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.FileName = "commands.xml";
+                openFileDialog.FileName = CommandsModel.FilePath;
                 openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-                openFileDialog.Title = "Select the source commands.xml file";
+                openFileDialog.Title = $"Select the source {CommandsModel.FilePath} file";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string sourceFilePath = openFileDialog.FileName;
-                    System.IO.File.Copy(sourceFilePath, "commands.xml", overwrite: true);
+                    File.Copy(sourceFilePath, CommandsModel.FilePath, overwrite: true);
                 }
             }
 
-            LoadCommands();
+            LoadData();
         }
 
         /// <summary>
@@ -310,25 +306,25 @@ namespace Commands_Runner.Views
         private void btsiShowDisabled_CheckedChanged(object sender, ItemClickEventArgs e)
         {
             AppHelper.CommandsFilters.ShowDisabled = btsiShowDisabled.Checked;
-            LoadCommands();
+            LoadData();
         }
 
         private void btsiFilterCmd_CheckedChanged(object sender, ItemClickEventArgs e)
         {
             AppHelper.CommandsFilters.ShowCMD = btsiFilterCmd.Checked;
-            LoadCommands();
+            LoadData();
         }
 
         private void btsiFilterPs1_CheckedChanged(object sender, ItemClickEventArgs e)
         {
             AppHelper.CommandsFilters.ShowPS1 = btsiFilterPs1.Checked;
-            LoadCommands();
+            LoadData();
         }
 
         private void btsiFilterPy_CheckedChanged(object sender, ItemClickEventArgs e)
         {
             AppHelper.CommandsFilters.ShowPY = btsiFilterPy.Checked;
-            LoadCommands();
+            LoadData();
         }
 
         #endregion
@@ -338,7 +334,7 @@ namespace Commands_Runner.Views
         /// <summary>
         /// Load Commands to list
         /// </summary>
-        public void LoadCommands(bool showmsg = true)
+        public void LoadData(bool showmsg = true)
         {
             tvCommands.BeginDataUpdate();
 
@@ -375,6 +371,7 @@ namespace Commands_Runner.Views
             string batchFilePath = string.Empty;
             string fileName = string.Empty;
             string arguments = string.Empty;
+            string fileExtension = string.Empty;
 
             try
             {
@@ -383,24 +380,41 @@ namespace Commands_Runner.Views
                     AppHelper.SetStatus("Command is disabled!", Color.Red);
                     return Task.CompletedTask;
                 }
-                batchFilePath = Path.Combine(Path.GetTempPath(), $"temp_{Guid.NewGuid()}");
+
+                batchFilePath = Path.Combine("Temp", $"temp_{Guid.NewGuid()}");
+
                 if (file.Type == Enums.CommandTypeEnum.CMD)
                 {
-                    batchFilePath += ".bat";
-                    fileName = "cmd.exe";
-                    arguments = $"/C \"{batchFilePath}\"";
+                    fileExtension = AppHelper.Configs.CMDFileExt.Replace(".", string.Empty);
+                    batchFilePath += $".{AppHelper.Configs.CMDFileExt}";
+                    fileName = AppHelper.Configs.CMDPath;
+                    arguments = $"{AppHelper.Configs.CMDArgs} {batchFilePath}";
+
+                    //batchFilePath += ".bat";
+                    //fileName = "cmd.exe";
+                    //arguments = $"/C \"{batchFilePath}\"";
                 }
                 else if (file.Type == Enums.CommandTypeEnum.PS1)
                 {
-                    batchFilePath += ".ps1";
-                    fileName = "powershell.exe";
-                    arguments = $"-ExecutionPolicy Bypass -File \"{batchFilePath}\"";
+                    fileExtension = AppHelper.Configs.PS1FileExt.Replace(".", string.Empty);
+                    batchFilePath += $".{AppHelper.Configs.PS1FileExt}";
+                    fileName = AppHelper.Configs.PS1Path;
+                    arguments = $"{AppHelper.Configs.PS1Args} {batchFilePath}";
+
+                    //batchFilePath += ".ps1";
+                    //fileName = "powershell.exe";
+                    //arguments = $"-ExecutionPolicy Bypass -File \"{batchFilePath}\"";
                 }
                 else if (file.Type == Enums.CommandTypeEnum.PY)
                 {
-                    batchFilePath += ".py";
-                    fileName = "py";
-                    arguments = $" \"{batchFilePath}\"";
+                    fileExtension = AppHelper.Configs.PYFileExt.Replace(".", string.Empty);
+                    batchFilePath += $".{AppHelper.Configs.PYFileExt}";
+                    fileName = AppHelper.Configs.PYPath;
+                    arguments = $"{AppHelper.Configs.PYArgs} {batchFilePath}";
+
+                    //batchFilePath += ".py";
+                    //fileName = "py";
+                    //arguments = $" \"{batchFilePath}\"";
                 }
                 else
                 {

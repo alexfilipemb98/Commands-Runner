@@ -61,11 +61,15 @@ namespace Commands_Runner
                     this.Invoke((MethodInvoker)(() =>
                     {
                         bsiSizse.Caption = $"Size: {Size.Width} X {Size.Height}";
+                        settingsView.teHeight.Text = Size.Height.ToString();
+                        settingsView.teWidth.Text = Size.Width.ToString();
                     }));
                 }
                 else
                 {
                     bsiSizse.Caption = $"Size: {Size.Width} X {Size.Height}";
+                    settingsView.teHeight.Text = Size.Height.ToString();
+                    settingsView.teWidth.Text = Size.Width.ToString();
                 }
             });
         }
@@ -79,8 +83,7 @@ namespace Commands_Runner
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            config.AppSettings.Settings["FormWidth"].Value = this.Width.ToString();
-            config.AppSettings.Settings["FormHeight"].Value = this.Height.ToString();
+            ConfigsModel.UpdateGeneralSettings(this.Height, this.Width);
 
             config.AppSettings.Settings[nameof(CommandFilterModel.ShowDisabled)].Value = AppHelper.CommandsFilters.ShowDisabled.ToString();
             config.AppSettings.Settings[nameof(CommandFilterModel.ShowCMD)].Value = AppHelper.CommandsFilters.ShowCMD.ToString();
@@ -94,16 +97,6 @@ namespace Commands_Runner
         #endregion
 
         #region CLICK
-
-        /// <summary>
-        /// Reset form size
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bbiResetFormSize_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.Size = new Size(1000, 530);
-        }
 
         /// <summary>
         /// Show the three simple rule
@@ -127,11 +120,8 @@ namespace Commands_Runner
         /// </summary>
         private void LoadSettings()
         {
-            if (int.TryParse(ConfigurationManager.AppSettings["FormWidth"], out int width))
-                this.Width = width;
-
-            if (int.TryParse(ConfigurationManager.AppSettings["FormHeight"], out int height))
-                this.Height = height;
+            this.Width = AppHelper.Configs.FormWidth;
+            this.Height = AppHelper.Configs.FormHeight;
 
             AppHelper.CommandsFilters = new CommandFilterModel();
 
@@ -181,11 +171,21 @@ namespace Commands_Runner
         private void ConvertHtmlFilesToPng(string folderPath)
         {
             if (!Directory.Exists(folderPath))
-                throw new DirectoryNotFoundException("A pasta especificada não existe.");
+            {
+                AppHelper.SetStatus("Folder not found!", Color.Red);
+                return;
+            }
 
             string[] files = Directory.GetFiles(folderPath, "*.htm")
                           .OrderBy(f => File.GetCreationTime(f))
                           .ToArray();
+
+            if (string.IsNullOrWhiteSpace(AppHelper.Configs.HTMIMGPath) ||
+                string.IsNullOrWhiteSpace(AppHelper.Configs.HTMIMGFileExt))
+            {
+                AppHelper.SetStatus("Not Configured", Color.Red);
+                return;
+            }
 
             Task.Run(() =>
             {
@@ -195,18 +195,20 @@ namespace Commands_Runner
                 if (!Directory.Exists(PastaDeConversao))
                     Directory.CreateDirectory(PastaDeConversao);
 
+
                 int count = 1;
                 foreach (var file in files)
                 {
-                    string outputFileName = Path.Combine(PastaDeConversao, Path.GetFileNameWithoutExtension(file) + ".png");
+                    string fileExtension = AppHelper.Configs.HTMIMGFileExt.Replace(".", string.Empty);
+                    string outputFileName = Path.Combine(PastaDeConversao, Path.GetFileNameWithoutExtension(file) + fileExtension);
 
                     if (File.Exists(outputFileName))
                         continue;
 
                     ProcessStartInfo StartInfo = new ProcessStartInfo
                     {
-                        FileName = "wkhtmltoimage", // Substitua pelo caminho correto
-                        Arguments = $"\"{file}\" \"{outputFileName}\"",
+                        FileName = AppHelper.Configs.HTMIMGPath,
+                        Arguments = $"{AppHelper.Configs.HTMIMGArgs} {file} {outputFileName}",
                         RedirectStandardOutput = true,
                         UseShellExecute = false,
                         CreateNoWindow = true
@@ -225,15 +227,9 @@ namespace Commands_Runner
                     Invoke((MethodInvoker)(() =>
                     {
                         if (File.Exists(outputFileName))
-                        {
-                            bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
-                            bsiStatus.Caption = $"Created Image: {Path.GetFileName(outputFileName)} ({count} of {files.Length})";
-                        }
+                            AppHelper.SetStatus($"Created Image: {Path.GetFileName(outputFileName)} ({count} of {files.Length})", Color.Green);
                         else
-                        {
-                            bsiStatus.ItemAppearance.Normal.ForeColor = Color.Red;
-                            bsiStatus.Caption = $"Failed Image: {Path.GetFileName(file)} ({count} of {files.Length})";
-                        }
+                            AppHelper.SetStatus($"Failed Image: {Path.GetFileName(file)} ({count} of {files.Length})", Color.Red);
 
                     }));
 
@@ -241,19 +237,20 @@ namespace Commands_Runner
                 }
             }).ContinueWith(t =>
             {
-                bsiStatus.ItemAppearance.Normal.ForeColor = Color.Green;
-                bsiStatus.Caption = $"Converted {files.Length} images";
+                AppHelper.SetStatus($"Converted {files.Length} images", Color.Red);
             });
         }
 
         private void navigationPaneEx_SelectedPageChanged(object sender, SelectedPageChangedEventArgs e)
         {
             if (e.Page == npCommandsListView)
-                commandsListView.LoadCommands();
+                commandsListView.LoadData();
             else if (e.Page == npPrimaveraExtensions)
                 priExtensionsListView1.LoadData();
             else if (e.Page == npPasswordsListView)
                 passwordsListView.LoadData();
+            else if (e.Page == npSettingsView)
+                settingsView.LoadData();
         }
     }
 }

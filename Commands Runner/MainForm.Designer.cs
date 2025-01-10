@@ -39,10 +39,10 @@ namespace Commands_Runner
             this.bbiNewCommand = new DevExpress.XtraBars.BarButtonItem();
             this.bsiVersion = new DevExpress.XtraBars.BarStaticItem();
             this.bsiSizse = new DevExpress.XtraBars.BarStaticItem();
-            this.bbiResetFormSize = new DevExpress.XtraBars.BarButtonItem();
             this.bbiThreeSimpleRule = new DevExpress.XtraBars.BarButtonItem();
             this.btsEditModePasswords = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.bbiConverterHtmPNG = new DevExpress.XtraBars.BarButtonItem();
+            this.bsiSQLState = new DevExpress.XtraBars.BarStaticItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgMainPage = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgFilters = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -59,6 +59,8 @@ namespace Commands_Runner
             this.commandsListView = new Commands_Runner.Views.CommandsListView();
             this.npPrimaveraExtensions = new Life_Log.Components.NavigationPageEx();
             this.priExtensionsListView1 = new Commands_Runner.Views.PriExtensionsListView();
+            this.npSettingsView = new Life_Log.Components.NavigationPageEx();
+            this.settingsView = new Commands_Runner.Views.SettingsView();
             this.passwordsModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
@@ -75,6 +77,7 @@ namespace Commands_Runner
             this.npPasswordsListView.SuspendLayout();
             this.npCommandsListView.SuspendLayout();
             this.npPrimaveraExtensions.SuspendLayout();
+            this.npSettingsView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -96,12 +99,12 @@ namespace Commands_Runner
             this.bbiNewCommand,
             this.bsiVersion,
             this.bsiSizse,
-            this.bbiResetFormSize,
             this.bbiThreeSimpleRule,
             this.btsEditModePasswords,
-            this.bbiConverterHtmPNG});
+            this.bbiConverterHtmPNG,
+            this.bsiSQLState});
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl.MaxItemId = 44;
+            this.ribbonControl.MaxItemId = 45;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.OptionsSearchMenu.SearchItemPosition = DevExpress.XtraBars.Ribbon.SearchItemPosition.Caption;
             this.ribbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -162,14 +165,6 @@ namespace Commands_Runner
             this.bsiSizse.Name = "bsiSizse";
             this.bsiSizse.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
-            // bbiResetFormSize
-            // 
-            this.bbiResetFormSize.Caption = "Reset Size";
-            this.bbiResetFormSize.Id = 21;
-            this.bbiResetFormSize.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("bbiResetFormSize.ImageOptions.SvgImage")));
-            this.bbiResetFormSize.Name = "bbiResetFormSize";
-            this.bbiResetFormSize.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiResetFormSize_ItemClick);
-            // 
             // bbiThreeSimpleRule
             // 
             this.bbiThreeSimpleRule.Caption = "Three Simple Rule";
@@ -188,11 +183,20 @@ namespace Commands_Runner
             // 
             // bbiConverterHtmPNG
             // 
-            this.bbiConverterHtmPNG.Caption = "HTM to PNG";
+            this.bbiConverterHtmPNG.Caption = "HTM to IMG";
             this.bbiConverterHtmPNG.Id = 43;
             this.bbiConverterHtmPNG.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("bbiConverterHtmPNG.ImageOptions.SvgImage")));
             this.bbiConverterHtmPNG.Name = "bbiConverterHtmPNG";
             this.bbiConverterHtmPNG.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiConverterHtmPNG_ItemClick);
+            // 
+            // bsiSQLState
+            // 
+            this.bsiSQLState.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.bsiSQLState.Caption = "SQL";
+            this.bsiSQLState.Id = 44;
+            this.bsiSQLState.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.actions_deletecircled;
+            this.bsiSQLState.Name = "bsiSQLState";
+            this.bsiSQLState.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
             // ribbonPage1
             // 
@@ -206,7 +210,6 @@ namespace Commands_Runner
             // 
             this.rpgMainPage.ItemLinks.Add(this.bbiConverterHtmPNG);
             this.rpgMainPage.ItemLinks.Add(this.bbiThreeSimpleRule);
-            this.rpgMainPage.ItemLinks.Add(this.bbiResetFormSize);
             this.rpgMainPage.Name = "rpgMainPage";
             this.rpgMainPage.Text = "Main Page";
             // 
@@ -223,6 +226,7 @@ namespace Commands_Runner
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiTime);
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiVersion);
             this.ribbonStatusBar1.ItemLinks.Add(this.bsiSizse);
+            this.ribbonStatusBar1.ItemLinks.Add(this.bsiSQLState);
             this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 607);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl;
@@ -264,6 +268,7 @@ namespace Commands_Runner
             this.navigationPaneEx.Controls.Add(this.npPasswordsListView);
             this.navigationPaneEx.Controls.Add(this.npCommandsListView);
             this.navigationPaneEx.Controls.Add(this.npPrimaveraExtensions);
+            this.navigationPaneEx.Controls.Add(this.npSettingsView);
             this.navigationPaneEx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigationPaneEx.Location = new System.Drawing.Point(2, 2);
             this.navigationPaneEx.Name = "navigationPaneEx";
@@ -273,7 +278,8 @@ namespace Commands_Runner
             this.navigationPaneEx.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.npCommandsListView,
             this.npPasswordsListView,
-            this.npPrimaveraExtensions});
+            this.npPrimaveraExtensions,
+            this.npSettingsView});
             this.navigationPaneEx.RegularSize = new System.Drawing.Size(962, 488);
             this.navigationPaneEx.SelectedPage = this.npCommandsListView;
             this.navigationPaneEx.Size = new System.Drawing.Size(962, 488);
@@ -337,6 +343,24 @@ namespace Commands_Runner
             this.priExtensionsListView1.Name = "priExtensionsListView1";
             this.priExtensionsListView1.Size = new System.Drawing.Size(816, 488);
             this.priExtensionsListView1.TabIndex = 0;
+            // 
+            // npSettingsView
+            // 
+            this.npSettingsView.BackgroundPadding = new System.Windows.Forms.Padding(0);
+            this.npSettingsView.Caption = "Settings";
+            this.npSettingsView.Controls.Add(this.settingsView);
+            this.npSettingsView.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("npSettingsView.ImageOptions.SvgImage")));
+            this.npSettingsView.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.npSettingsView.Name = "npSettingsView";
+            this.npSettingsView.Size = new System.Drawing.Size(816, 488);
+            // 
+            // settingsView
+            // 
+            this.settingsView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsView.Location = new System.Drawing.Point(0, 0);
+            this.settingsView.Name = "settingsView";
+            this.settingsView.Size = new System.Drawing.Size(816, 488);
+            this.settingsView.TabIndex = 0;
             // 
             // passwordsModelBindingSource
             // 
@@ -415,6 +439,7 @@ namespace Commands_Runner
             this.npPasswordsListView.ResumeLayout(false);
             this.npCommandsListView.ResumeLayout(false);
             this.npPrimaveraExtensions.ResumeLayout(false);
+            this.npSettingsView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -439,7 +464,6 @@ namespace Commands_Runner
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgFilters;
         private DevExpress.XtraBars.BarStaticItem bsiSizse;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgMainPage;
-        private DevExpress.XtraBars.BarButtonItem bbiResetFormSize;
         private DevExpress.XtraBars.BarButtonItem bbiThreeSimpleRule;
         private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchItem2;
         private System.Windows.Forms.BindingSource passwordsModelBindingSource;
@@ -459,6 +483,9 @@ namespace Commands_Runner
         private Views.PriExtensionsListView priExtensionsListView1;
         private Views.PasswordsListView passwordsListView;
         public Life_Log.Components.NavigationPageEx npPrimaveraExtensions;
+        private Life_Log.Components.NavigationPageEx npSettingsView;
+        private Views.SettingsView settingsView;
+        public DevExpress.XtraBars.BarStaticItem bsiSQLState;
     }
 }
 

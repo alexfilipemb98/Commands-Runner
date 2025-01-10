@@ -27,32 +27,16 @@ namespace Commands_Runner
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                ConnectionSQLModel connectionSQLModel = ConnectionSQLModel.ReadFile(out bool primaveraExtensionsOK);
+                AppHelper.Configs = ConfigsModel.ReadFile(out bool primaveraExtensionsOK);
 
                 if (primaveraExtensionsOK)
-                {
-                    SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder
-                    {
-                        UserID = connectionSQLModel.UserID,
-                        Password = connectionSQLModel.Password,
-                        InitialCatalog = connectionSQLModel.InitialCatalog,
-                        DataSource = connectionSQLModel.DataSource,
-                        ConnectTimeout = 0,
-                        PersistSecurityInfo = true,
-                        IntegratedSecurity = false,
-                        MultipleActiveResultSets = true,
-                        AsynchronousProcessing = true
-                    };
-
-                    AppHelper.SQL = new SqlDataAccess(scsb.ToString());
-                }
+                    AppHelper.SqlStart();
 
                 MainForm main = new MainForm();
 
                 main.Shown += (object sender, EventArgs e) =>
                 {
-                    main.npPrimaveraExtensions.PageEnabled = primaveraExtensionsOK;
-
+                    AppHelper.SqlStausLabel();
                     SplashScreenManager.CloseForm();
                 };
 
@@ -61,6 +45,10 @@ namespace Commands_Runner
             catch (Exception ex)
             {
                 XtraMessageBox.Show(ex.ToString(), ex.TargetSite.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                AppHelper.SQL?.Dispose();
             }
         }
 

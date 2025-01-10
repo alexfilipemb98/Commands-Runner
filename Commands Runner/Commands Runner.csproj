@@ -111,7 +111,7 @@
     </Compile>
     <Compile Include="Models\CommandTypeInfoModel.cs" />
     <Compile Include="Models\CommandFilterModel.cs" />
-    <Compile Include="Models\ConnectionSQLModel.cs" />
+    <Compile Include="Models\ConfigsModel.cs" />
     <Compile Include="Models\PasswordsModel.cs" />
     <Compile Include="Models\PrimaveraEmpresasModel.cs" />
     <Compile Include="Models\PrimaveraExtensionModel.cs" />
@@ -138,6 +138,12 @@
     <Compile Include="Views\PriExtensionsListView.Designer.cs">
       <DependentUpon>PriExtensionsListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SettingsView.Designer.cs">
+      <DependentUpon>SettingsView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\CommandsEditorForm.resx">
       <DependentUpon>CommandsEditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PriExtensionsListView.resx">
       <DependentUpon>PriExtensionsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SettingsView.resx">
+      <DependentUpon>SettingsView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Commands_Runner.Models.PasswordsModel.datasource" />
     <None Include="Properties\DataSources\Commands_Runner.Models.PrimaveraExtensionModel.datasource" />

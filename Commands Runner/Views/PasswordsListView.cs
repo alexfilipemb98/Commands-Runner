@@ -8,6 +8,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,22 +32,19 @@ namespace Commands_Runner.Views
             colPasswordsName.OptionsColumn.AllowFocus = btsEditModePasswords.Checked;
         }
 
-        private void repositoryItemButtonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void ribShowPasswords_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             if (e.Button.Tag?.ToString() == "ShowPassword")
             {
-                var gridView = gcPasswords.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
+                GridView gridView = gcPasswords.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
                 if (gridView == null) return;
 
-                // Obter o editor ativo
-                var activeEditor = gridView.ActiveEditor as DevExpress.XtraEditors.ButtonEdit;
+                ButtonEdit activeEditor = gridView.ActiveEditor as DevExpress.XtraEditors.ButtonEdit;
                 if (activeEditor == null) return;
 
-                // Alternar o estado diretamente no editor ativo
                 bool usePasswordChar = activeEditor.Properties.UseSystemPasswordChar;
                 activeEditor.Properties.UseSystemPasswordChar = !usePasswordChar;
 
-                // Alterar a imagem do botão no editor ativo
                 activeEditor.Properties.Buttons[0].ImageOptions.SvgImage = usePasswordChar
                     ? Resources.security_visibility
                     : Resources.security_visibilityoff;
@@ -67,20 +65,20 @@ namespace Commands_Runner.Views
             if (e.Column.FieldName == colPassword.Name)
             {
                 RepositoryItemButtonEdit clonedRepo = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-                clonedRepo.Assign(repositoryItemButtonEdit1);
+                clonedRepo.Assign(ribShowPasswords);
                 clonedRepo.UseSystemPasswordChar = true;
                 clonedRepo.Buttons[0].ImageOptions.SvgImage = Resources.security_visibility;
                 e.RepositoryItem = clonedRepo;
             }
         }
 
-        private void repositoryItemButtonEdit2_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void ribActionsPasswords_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             if (gvPasswords.GetFocusedRow() is PasswordsModel passwordsModel)
             {
                 if (e.Button.Tag?.ToString() == "DEL")
                 {
-                    var result = XtraMessageBox.Show($"Do you realy want to delete '{passwordsModel.Name}'?", "Delete password", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = XtraMessageBox.Show($"Do you realy want to delete '{passwordsModel.Name}'?", "Delete password", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
                         PasswordsModel.DeleteFromXml(passwordsModel.Id);
@@ -165,6 +163,40 @@ namespace Commands_Runner.Views
                     gvPasswords.ExportToXls(destinationFilePath);
                 }
             }
+        }
+
+        private void bbiExportToXML_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.FileName = PasswordsModel.FilePath;
+                saveFileDialog.Filter = "XML files (*.xml)|*.xml";
+                saveFileDialog.Title = $"Export {PasswordsModel.FilePath}";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string destinationFilePath = saveFileDialog.FileName;
+                    File.Copy(PasswordsModel.FilePath, destinationFilePath, overwrite: true);
+                }
+            }
+        }
+
+        private void bbiImport_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.FileName = PasswordsModel.FilePath;
+                openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                openFileDialog.Title = $"Select the source {PasswordsModel.FilePath} file";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string sourceFilePath = openFileDialog.FileName;
+                    File.Copy(sourceFilePath, PasswordsModel.FilePath, overwrite: true);
+                }
+            }
+
+            LoadData();
         }
     }
 }

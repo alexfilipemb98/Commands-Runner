@@ -173,13 +173,13 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 87);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(598, 392);
+            this.layoutControl1.Size = new System.Drawing.Size(598, 296);
             this.layoutControl1.TabIndex = 2;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // ccbeCompanys
             // 
-            this.ccbeCompanys.Location = new System.Drawing.Point(16, 256);
+            this.ccbeCompanys.Location = new System.Drawing.Point(16, 160);
             this.ccbeCompanys.MenuManager = this.ribbon;
             this.ccbeCompanys.Name = "ccbeCompanys";
             this.ccbeCompanys.Properties.AdvancedModeOptions.Label = "Empresas";
@@ -217,20 +217,20 @@
             0,
             0,
             0});
-            this.seExecutionQueue.Location = new System.Drawing.Point(16, 160);
+            this.seExecutionQueue.Location = new System.Drawing.Point(459, 112);
             this.seExecutionQueue.MenuManager = this.ribbon;
             this.seExecutionQueue.Name = "seExecutionQueue";
             this.seExecutionQueue.Properties.AdvancedModeOptions.Label = "Execution Queue";
             this.seExecutionQueue.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.seExecutionQueue.Size = new System.Drawing.Size(566, 42);
+            this.seExecutionQueue.Size = new System.Drawing.Size(123, 42);
             this.seExecutionQueue.StyleController = this.layoutControl1;
             this.seExecutionQueue.TabIndex = 11;
             // 
             // tsIsActive
             // 
             this.tsIsActive.AutoSizeInLayoutControl = true;
-            this.tsIsActive.Location = new System.Drawing.Point(320, 352);
+            this.tsIsActive.Location = new System.Drawing.Point(320, 256);
             this.tsIsActive.MenuManager = this.ribbon;
             this.tsIsActive.Name = "tsIsActive";
             this.tsIsActive.Properties.AutoWidth = true;
@@ -244,7 +244,7 @@
             // tsCommonExtension
             // 
             this.tsCommonExtension.AutoSizeInLayoutControl = true;
-            this.tsCommonExtension.Location = new System.Drawing.Point(112, 352);
+            this.tsCommonExtension.Location = new System.Drawing.Point(112, 256);
             this.tsCommonExtension.MenuManager = this.ribbon;
             this.tsCommonExtension.Name = "tsCommonExtension";
             this.tsCommonExtension.Properties.AutoWidth = true;
@@ -258,7 +258,7 @@
             // tsIsSystem
             // 
             this.tsIsSystem.AutoSizeInLayoutControl = true;
-            this.tsIsSystem.Location = new System.Drawing.Point(532, 352);
+            this.tsIsSystem.Location = new System.Drawing.Point(532, 256);
             this.tsIsSystem.MenuManager = this.ribbon;
             this.tsIsSystem.Name = "tsIsSystem";
             this.tsIsSystem.Properties.AutoWidth = true;
@@ -271,7 +271,7 @@
             // 
             // teAssemblyName
             // 
-            this.teAssemblyName.Location = new System.Drawing.Point(16, 304);
+            this.teAssemblyName.Location = new System.Drawing.Point(16, 208);
             this.teAssemblyName.MenuManager = this.ribbon;
             this.teAssemblyName.Name = "teAssemblyName";
             this.teAssemblyName.Properties.AdvancedModeOptions.Label = "Assembly Name";
@@ -281,21 +281,21 @@
             // 
             // teHashCode
             // 
-            this.teHashCode.Location = new System.Drawing.Point(16, 208);
+            this.teHashCode.Location = new System.Drawing.Point(16, 112);
             this.teHashCode.MenuManager = this.ribbon;
             this.teHashCode.Name = "teHashCode";
             this.teHashCode.Properties.AdvancedModeOptions.Label = "HashCode";
-            this.teHashCode.Size = new System.Drawing.Size(566, 42);
+            this.teHashCode.Size = new System.Drawing.Size(437, 42);
             this.teHashCode.StyleController = this.layoutControl1;
             this.teHashCode.TabIndex = 6;
             // 
             // teFileVersion
             // 
-            this.teFileVersion.Location = new System.Drawing.Point(16, 112);
+            this.teFileVersion.Location = new System.Drawing.Point(397, 64);
             this.teFileVersion.MenuManager = this.ribbon;
             this.teFileVersion.Name = "teFileVersion";
             this.teFileVersion.Properties.AdvancedModeOptions.Label = "File Version";
-            this.teFileVersion.Size = new System.Drawing.Size(566, 42);
+            this.teFileVersion.Size = new System.Drawing.Size(185, 42);
             this.teFileVersion.StyleController = this.layoutControl1;
             this.teFileVersion.TabIndex = 5;
             // 
@@ -305,7 +305,7 @@
             this.teFileName.MenuManager = this.ribbon;
             this.teFileName.Name = "teFileName";
             this.teFileName.Properties.AdvancedModeOptions.Label = "File Name";
-            this.teFileName.Size = new System.Drawing.Size(566, 42);
+            this.teFileName.Size = new System.Drawing.Size(375, 42);
             this.teFileName.StyleController = this.layoutControl1;
             this.teFileName.TabIndex = 4;
             // 
@@ -315,8 +315,6 @@
             this.Root.GroupBordersVisible = false;
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
-            this.layoutControlItem2,
-            this.layoutControlItem3,
             this.layoutControlItem4,
             this.layoutControlItem5,
             this.layoutControlItem6,
@@ -325,9 +323,11 @@
             this.layoutControlItem8,
             this.emptySpaceItem3,
             this.emptySpaceItem4,
-            this.layoutControlItem12});
+            this.layoutControlItem12,
+            this.layoutControlItem2,
+            this.layoutControlItem3});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(598, 392);
+            this.Root.Size = new System.Drawing.Size(598, 296);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem1
@@ -336,17 +336,18 @@
             this.layoutControlItem1.CustomizationFormText = "File Name";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 48);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(572, 48);
+            this.layoutControlItem1.Size = new System.Drawing.Size(381, 48);
             this.layoutControlItem1.Text = "File Name";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem2
             // 
+            this.layoutControlItem2.BestFitWeight = 50;
             this.layoutControlItem2.Control = this.teFileVersion;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 96);
+            this.layoutControlItem2.Location = new System.Drawing.Point(381, 48);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(572, 48);
+            this.layoutControlItem2.Size = new System.Drawing.Size(191, 48);
             this.layoutControlItem2.Text = "File Version";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
@@ -354,9 +355,9 @@
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.teHashCode;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 192);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 96);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(572, 48);
+            this.layoutControlItem3.Size = new System.Drawing.Size(443, 48);
             this.layoutControlItem3.Text = "HashCode";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
@@ -364,7 +365,7 @@
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.teAssemblyName;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 288);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 192);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(572, 48);
             this.layoutControlItem4.Text = "Assembly Name";
@@ -374,7 +375,7 @@
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.tsIsSystem;
-            this.layoutControlItem5.Location = new System.Drawing.Point(464, 336);
+            this.layoutControlItem5.Location = new System.Drawing.Point(464, 240);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(108, 30);
             this.layoutControlItem5.Text = "Is System";
@@ -387,7 +388,7 @@
             this.layoutControlItem6.ContentHorzAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.layoutControlItem6.ContentVertAlignment = DevExpress.Utils.VertAlignment.Center;
             this.layoutControlItem6.Control = this.tsCommonExtension;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 336);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 240);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(152, 30);
             this.layoutControlItem6.Text = "Common Extension";
@@ -398,7 +399,7 @@
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.tsIsActive;
-            this.layoutControlItem7.Location = new System.Drawing.Point(257, 336);
+            this.layoutControlItem7.Location = new System.Drawing.Point(257, 240);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(103, 30);
             this.layoutControlItem7.Text = "Is Active";
@@ -419,9 +420,12 @@
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.seExecutionQueue;
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 144);
+            this.layoutControlItem8.Location = new System.Drawing.Point(443, 96);
+            this.layoutControlItem8.MaxSize = new System.Drawing.Size(129, 48);
+            this.layoutControlItem8.MinSize = new System.Drawing.Size(129, 48);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(572, 48);
+            this.layoutControlItem8.Size = new System.Drawing.Size(129, 48);
+            this.layoutControlItem8.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem8.Text = "Execution Queue";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
@@ -429,7 +433,7 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(360, 336);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(360, 240);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
             this.emptySpaceItem3.Size = new System.Drawing.Size(104, 30);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -437,7 +441,7 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(152, 336);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(152, 240);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(105, 30);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -445,7 +449,7 @@
             // layoutControlItem12
             // 
             this.layoutControlItem12.Control = this.ccbeCompanys;
-            this.layoutControlItem12.Location = new System.Drawing.Point(0, 240);
+            this.layoutControlItem12.Location = new System.Drawing.Point(0, 144);
             this.layoutControlItem12.Name = "layoutControlItem12";
             this.layoutControlItem12.Size = new System.Drawing.Size(572, 48);
             this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
@@ -456,7 +460,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 479);
+            this.ClientSize = new System.Drawing.Size(598, 383);
             this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.ribbon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

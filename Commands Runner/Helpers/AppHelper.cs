@@ -68,10 +68,12 @@ namespace Commands_Runner.Helpers
             }
         }
 
-        public static void SqlStausLabel()
+        public static bool SqlStausLabel()
         {
-            Instance.npPrimaveraExtensions.PageEnabled = SQL != null && SQL.IsOpen();
-            Instance.bsiSQLState.ImageOptions.SvgImage = SQL != null && SQL.IsOpen() ? Resources.actions_checkcircled : Resources.actions_deletecircled;
+            bool ok = SQL != null && SQL.IsOpen();
+            Instance.npPrimaveraExtensions.PageEnabled = ok;
+            Instance.bsiSQLState.ImageOptions.SvgImage = ok ? Resources.actions_checkcircled : Resources.actions_deletecircled;
+            return ok;
         }
     }
 }

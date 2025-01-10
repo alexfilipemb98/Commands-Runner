@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.repositoryItemSearchControl3 = new DevExpress.XtraEditors.Repository.RepositoryItemSearchControl();
             this.barManager = new DevExpress.XtraBars.BarManager(this.components);
             this.bar = new DevExpress.XtraBars.Bar();
@@ -63,7 +63,6 @@
             this.teSqlAddress = new DevExpress.XtraEditors.TextEdit();
             this.teSqlUsername = new DevExpress.XtraEditors.TextEdit();
             this.beSqlPassword = new DevExpress.XtraEditors.ButtonEdit();
-            this.teSqlDatabase = new DevExpress.XtraEditors.TextEdit();
             this.teHeight = new DevExpress.XtraEditors.SpinEdit();
             this.teWidth = new DevExpress.XtraEditors.SpinEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -112,6 +111,10 @@
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControl4 = new DevExpress.XtraBars.BarDockControl();
+            this.sbGetDatabases = new DevExpress.XtraEditors.SimpleButton();
+            this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.teSqlDatabase = new DevExpress.XtraEditors.ComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchControl1)).BeginInit();
@@ -133,7 +136,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.teSqlAddress.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teSqlUsername.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.beSqlPassword.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.teSqlDatabase.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teHeight.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teWidth.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
@@ -166,6 +168,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teSqlDatabase.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // repositoryItemSearchControl3
@@ -283,6 +288,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.sbGetDatabases);
             this.layoutControl1.Controls.Add(this.sbResetSize);
             this.layoutControl1.Controls.Add(this.teCMDFileExt);
             this.layoutControl1.Controls.Add(this.teHTMIMGArgs);
@@ -299,9 +305,9 @@
             this.layoutControl1.Controls.Add(this.teSqlAddress);
             this.layoutControl1.Controls.Add(this.teSqlUsername);
             this.layoutControl1.Controls.Add(this.beSqlPassword);
-            this.layoutControl1.Controls.Add(this.teSqlDatabase);
             this.layoutControl1.Controls.Add(this.teHeight);
             this.layoutControl1.Controls.Add(this.teWidth);
+            this.layoutControl1.Controls.Add(this.teSqlDatabase);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 39);
             this.layoutControl1.Name = "layoutControl1";
@@ -446,21 +452,15 @@
             // 
             this.beSqlPassword.Location = new System.Drawing.Point(476, 157);
             this.beSqlPassword.Name = "beSqlPassword";
-            editorButtonImageOptions2.SvgImage = global::Commands_Runner.Properties.Resources.security_visibilityoff;
-            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(20, 20);
+            editorButtonImageOptions1.SvgImage = global::Commands_Runner.Properties.Resources.security_visibilityoff;
+            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(20, 20);
             this.beSqlPassword.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.beSqlPassword.Properties.UseSystemPasswordChar = true;
             this.beSqlPassword.Size = new System.Drawing.Size(343, 28);
             this.beSqlPassword.StyleController = this.layoutControl1;
             this.beSqlPassword.TabIndex = 6;
-            // 
-            // teSqlDatabase
-            // 
-            this.teSqlDatabase.Location = new System.Drawing.Point(73, 191);
-            this.teSqlDatabase.Name = "teSqlDatabase";
-            this.teSqlDatabase.Size = new System.Drawing.Size(746, 28);
-            this.teSqlDatabase.StyleController = this.layoutControl1;
-            this.teSqlDatabase.TabIndex = 7;
+            this.beSqlPassword.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.beSqlPassword_ButtonClick);
             // 
             // teHeight
             // 
@@ -725,9 +725,9 @@
             this.layoutControlGroup9.GroupStyle = DevExpress.Utils.GroupStyle.Title;
             this.layoutControlGroup9.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem17,
-            this.layoutControlItem18,
             this.layoutControlItem19,
-            this.layoutControlItem20});
+            this.layoutControlItem20,
+            this.layoutControlGroup6});
             this.layoutControlGroup9.Location = new System.Drawing.Point(0, 72);
             this.layoutControlGroup9.Name = "layoutControlGroup9";
             this.layoutControlGroup9.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignModeGroup.AlignLocal;
@@ -752,11 +752,11 @@
             this.layoutControlItem18.Control = this.teSqlDatabase;
             this.layoutControlItem18.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem18.CustomizationFormText = "layoutControlItem16";
-            this.layoutControlItem18.Location = new System.Drawing.Point(0, 68);
+            this.layoutControlItem18.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(806, 34);
+            this.layoutControlItem18.Size = new System.Drawing.Size(597, 34);
             this.layoutControlItem18.Text = "Database";
-            this.layoutControlItem18.TextSize = new System.Drawing.Size(48, 13);
+            this.layoutControlItem18.TextSize = new System.Drawing.Size(46, 13);
             // 
             // layoutControlItem19
             // 
@@ -961,6 +961,46 @@
             this.barDockControl4.Manager = null;
             this.barDockControl4.Size = new System.Drawing.Size(0, 458);
             // 
+            // sbGetDatabases
+            // 
+            this.sbGetDatabases.Location = new System.Drawing.Point(616, 191);
+            this.sbGetDatabases.Name = "sbGetDatabases";
+            this.sbGetDatabases.Size = new System.Drawing.Size(203, 28);
+            this.sbGetDatabases.StyleController = this.layoutControl1;
+            this.sbGetDatabases.TabIndex = 17;
+            this.sbGetDatabases.Text = "Get Databases";
+            this.sbGetDatabases.Click += new System.EventHandler(this.sbGetDatabases_Click);
+            // 
+            // layoutControlItem16
+            // 
+            this.layoutControlItem16.BestFitWeight = 35;
+            this.layoutControlItem16.Control = this.sbGetDatabases;
+            this.layoutControlItem16.Location = new System.Drawing.Point(597, 0);
+            this.layoutControlItem16.Name = "layoutControlItem16";
+            this.layoutControlItem16.Size = new System.Drawing.Size(209, 34);
+            this.layoutControlItem16.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem16.TextVisible = false;
+            // 
+            // layoutControlGroup6
+            // 
+            this.layoutControlGroup6.GroupBordersVisible = false;
+            this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem18,
+            this.layoutControlItem16});
+            this.layoutControlGroup6.Location = new System.Drawing.Point(0, 68);
+            this.layoutControlGroup6.Name = "layoutControlGroup6";
+            this.layoutControlGroup6.Size = new System.Drawing.Size(806, 34);
+            // 
+            // teSqlDatabase
+            // 
+            this.teSqlDatabase.Location = new System.Drawing.Point(71, 191);
+            this.teSqlDatabase.Name = "teSqlDatabase";
+            this.teSqlDatabase.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.teSqlDatabase.Size = new System.Drawing.Size(539, 28);
+            this.teSqlDatabase.StyleController = this.layoutControl1;
+            this.teSqlDatabase.TabIndex = 7;
+            // 
             // SettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -994,7 +1034,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.teSqlAddress.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teSqlUsername.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.beSqlPassword.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.teSqlDatabase.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teHeight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teWidth.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
@@ -1027,6 +1066,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teSqlDatabase.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1102,7 +1144,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem19;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem20;
         private DevExpress.XtraBars.BarButtonItem bbiSave;
-        private DevExpress.XtraEditors.TextEdit teSqlDatabase;
         private DevExpress.XtraEditors.SimpleButton sbResetSize;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
@@ -1111,5 +1152,9 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         public DevExpress.XtraEditors.SpinEdit teHeight;
         public DevExpress.XtraEditors.SpinEdit teWidth;
+        private DevExpress.XtraEditors.SimpleButton sbGetDatabases;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup6;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
+        private DevExpress.XtraEditors.ComboBoxEdit teSqlDatabase;
     }
 }

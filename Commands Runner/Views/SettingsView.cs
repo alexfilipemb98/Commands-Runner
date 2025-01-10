@@ -1,5 +1,8 @@
 ﻿using Commands_Runner.Helpers;
+using Commands_Runner.Properties;
+using DevExpress.XtraEditors;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -120,6 +123,35 @@ namespace Commands_Runner.Views
         private void sbResetSize_Click(object sender, EventArgs e)
         {
             AppHelper.Instance.Size = new Size(1000, 530);
+        }
+
+        private void sbGetDatabases_Click(object sender, EventArgs e)
+        {
+            teSqlDatabase.Properties.Items.Clear();
+
+            AppHelper.SqlStart();
+            if (AppHelper.SqlStausLabel())
+            {
+                string sql = "SELECT name FROM master.dbo.sysdatabases";
+                List<string> lista = AppHelper.SQL.LoadDataListOpen<string>(sql);
+
+                teSqlDatabase.Properties.Items.AddRange(lista);
+                teSqlDatabase.Properties.DropDownRows = Math.Min(lista.Count, 7);
+            }
+            else
+            {
+                XtraMessageBox.Show("Could not connect to database!", "Connection ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void beSqlPassword_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            bool usePasswordChar = beSqlPassword.Properties.UseSystemPasswordChar;
+            beSqlPassword.Properties.UseSystemPasswordChar = !usePasswordChar;
+
+            beSqlPassword.Properties.Buttons[0].ImageOptions.SvgImage = usePasswordChar
+                ? Resources.security_visibility
+                : Resources.security_visibilityoff;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Commands_Runner.Models
                 SELECT CONCAT(Codigo, ' - ', IDNome) AS StringComcat,
                        Codigo,
                        IDNome AS Nome
-                FROM dbo.Empresas;
+                FROM PRIEMPRE.dbo.Empresas;
             ";
 
             return AppHelper.SQL.LoadDataListOpen<PrimaveraEmpresasModel>(SQL);

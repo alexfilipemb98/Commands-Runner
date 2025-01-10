@@ -38,7 +38,7 @@ namespace Commands_Runner.Models
                        IsActive,
                        AssemblyName,
                        IsSystem
-                FROM dbo.ExtensibilityConfiguration;
+                FROM PRIEMPRE.dbo.ExtensibilityConfiguration;
             ";
 
             return AppHelper.SQL.LoadDataListOpen<PrimaveraExtensionModel>(query);
@@ -47,9 +47,9 @@ namespace Commands_Runner.Models
         public static bool Save(PrimaveraExtensionModel model)
         {
             string query = @"
-                IF EXISTS (SELECT 1 FROM dbo.ExtensibilityConfiguration WHERE ID = @ID)
+                IF EXISTS (SELECT 1 FROM PRIEMPRE.dbo.ExtensibilityConfiguration WHERE ID = @ID)
                 BEGIN
-                    UPDATE dbo.ExtensibilityConfiguration
+                    UPDATE PRIEMPRE.dbo.ExtensibilityConfiguration
                     SET FileName = @FileName,
                         FileVersion = @FileVersion,
                         ExecutionQueue = @ExecutionQueue,
@@ -63,7 +63,7 @@ namespace Commands_Runner.Models
                 END;
                 ELSE
                 BEGIN
-                    INSERT INTO dbo.ExtensibilityConfiguration
+                    INSERT INTO PRIEMPRE.dbo.ExtensibilityConfiguration
                     (
                         ID,
                         FileName,
@@ -100,7 +100,7 @@ namespace Commands_Runner.Models
         public static bool Delete(string id)
         {
             string query = @"
-                DELETE FROM dbo.ExtensibilityConfiguration
+                DELETE FROM PRIEMPRE.dbo.ExtensibilityConfiguration
                 WHERE ID = @ID;
             ";
 

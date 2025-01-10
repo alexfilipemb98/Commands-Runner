@@ -18,7 +18,7 @@ namespace Commands_Runner.Forms
 
         public ExtensionsEditorForm(PrimaveraExtensionModel ec, bool isNew = false)
         {
-            string cap = ec.AssemblyName ?? "Novo";
+            string cap = ec.AssemblyName ?? "New Extension";
 
             InitializeComponent();
 

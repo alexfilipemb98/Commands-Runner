@@ -223,7 +223,7 @@
             &lt;/div&gt;
             &lt;div class="description no-select"&gt;
             	&lt;div class="description-line no-select"&gt;${Description}&lt;/div&gt;
-                &lt;div class="description-line no-select"&gt;&lt;b&gt;Type:&lt;/b&gt; @@ProgramType@@&lt;/div&gt;
+                &lt;div class="description-line no-select"&gt;&lt;b&gt;Type:&lt;/b&gt; ${Type}&lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;

@@ -383,6 +383,9 @@ namespace Commands_Runner.Views
 
                 batchFilePath = Path.Combine("Temp", $"temp_{Guid.NewGuid()}");
 
+                if (!Directory.Exists(Path.GetDirectoryName(batchFilePath)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(batchFilePath));
+
                 if (file.Type == Enums.CommandTypeEnum.CMD)
                 {
                     fileExtension = AppHelper.Configs.CMDFileExt.Replace(".", string.Empty);
@@ -451,7 +454,7 @@ namespace Commands_Runner.Views
             }
             catch (Exception ex)
             {
-                AppHelper.SetStatus($"Problem executing the command: {ex}", Color.Red);
+                AppHelper.SetStatus($"Problem executing the command!", Color.Red);
             }
             finally
             {

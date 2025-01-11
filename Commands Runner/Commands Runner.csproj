@@ -84,6 +84,12 @@
     <Compile Include="Forms\ExtensionsEditorForm.Designer.cs">
       <DependentUpon>ExtensionsEditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TextInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TextInputForm.Designer.cs">
+      <DependentUpon>TextInputForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ThreeSimpleRuleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,7 @@
     <Compile Include="Models\CommandTypeInfoModel.cs" />
     <Compile Include="Models\CommandFilterModel.cs" />
     <Compile Include="Models\ConfigsModel.cs" />
+    <Compile Include="Models\NotesModel.cs" />
     <Compile Include="Models\PasswordsModel.cs" />
     <Compile Include="Models\PrimaveraEmpresasModel.cs" />
     <Compile Include="Models\PrimaveraExtensionModel.cs" />
@@ -125,6 +132,12 @@
     </Compile>
     <Compile Include="Views\CommandsListView.Designer.cs">
       <DependentUpon>CommandsListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotesListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NotesListView.Designer.cs">
+      <DependentUpon>NotesListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PasswordsListView.cs">
       <SubType>UserControl</SubType>
@@ -150,6 +163,9 @@
     <EmbeddedResource Include="Forms\ExtensionsEditorForm.resx">
       <DependentUpon>ExtensionsEditorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TextInputForm.resx">
+      <DependentUpon>TextInputForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ThreeSimpleRuleForm.resx">
       <DependentUpon>ThreeSimpleRuleForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CommandsListView.resx">
       <DependentUpon>CommandsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NotesListView.resx">
+      <DependentUpon>NotesListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PasswordsListView.resx">
       <DependentUpon>PasswordsListView.cs</DependentUpon>
@@ -199,20 +218,32 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Costura.Fody">
-      <Version>5.7.0</Version>
+      <Version>6.0.0</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive; compile</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Dapper">
       <Version>2.1.35</Version>
     </PackageReference>
+    <PackageReference Include="EntityFramework">
+      <Version>6.5.1</Version>
+    </PackageReference>
     <PackageReference Include="Fody">
-      <Version>6.8.1</Version>
+      <Version>6.9.1</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite">
+      <Version>1.0.119</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.EF6">
+      <Version>1.0.119</Version>
+    </PackageReference>
+    <PackageReference Include="Z.EntityFramework.Extensions">
+      <Version>9.103.6.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +267,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
+    <None Include="Resources\bo_note.svg" />
     <None Include="Resources\exporttoxls.svg" />
     <None Include="Resources\exporttopdf.svg" />
     <None Include="Resources\bo_document.svg" />
@@ -272,6 +304,9 @@
     <None Include="Resources\gettingstarted.svg" />
     <None Include="Resources\bo_fileattachment.svg" />
     <None Include="Resources\actions_refresh.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

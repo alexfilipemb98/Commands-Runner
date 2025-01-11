@@ -61,6 +61,8 @@ namespace Commands_Runner
             this.priExtensionsListView1 = new Commands_Runner.Views.PriExtensionsListView();
             this.npSettingsView = new Life_Log.Components.NavigationPageEx();
             this.settingsView = new Commands_Runner.Views.SettingsView();
+            this.npNoteView = new Life_Log.Components.NavigationPageEx();
+            this.notesView = new Commands_Runner.Views.NotesListView();
             this.passwordsModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
@@ -78,6 +80,7 @@ namespace Commands_Runner
             this.npCommandsListView.SuspendLayout();
             this.npPrimaveraExtensions.SuspendLayout();
             this.npSettingsView.SuspendLayout();
+            this.npNoteView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -269,6 +272,7 @@ namespace Commands_Runner
             this.navigationPaneEx.Controls.Add(this.npCommandsListView);
             this.navigationPaneEx.Controls.Add(this.npPrimaveraExtensions);
             this.navigationPaneEx.Controls.Add(this.npSettingsView);
+            this.navigationPaneEx.Controls.Add(this.npNoteView);
             this.navigationPaneEx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigationPaneEx.Location = new System.Drawing.Point(2, 2);
             this.navigationPaneEx.Name = "navigationPaneEx";
@@ -278,6 +282,7 @@ namespace Commands_Runner
             this.navigationPaneEx.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.npCommandsListView,
             this.npPasswordsListView,
+            this.npNoteView,
             this.npPrimaveraExtensions,
             this.npSettingsView});
             this.navigationPaneEx.RegularSize = new System.Drawing.Size(962, 488);
@@ -334,14 +339,14 @@ namespace Commands_Runner
             this.npPrimaveraExtensions.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
             this.npPrimaveraExtensions.Name = "npPrimaveraExtensions";
             this.npPrimaveraExtensions.PageEnabled = false;
-            this.npPrimaveraExtensions.Size = new System.Drawing.Size(816, 488);
+            this.npPrimaveraExtensions.Size = new System.Drawing.Size(962, 488);
             // 
             // priExtensionsListView1
             // 
             this.priExtensionsListView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.priExtensionsListView1.Location = new System.Drawing.Point(0, 0);
             this.priExtensionsListView1.Name = "priExtensionsListView1";
-            this.priExtensionsListView1.Size = new System.Drawing.Size(816, 488);
+            this.priExtensionsListView1.Size = new System.Drawing.Size(962, 488);
             this.priExtensionsListView1.TabIndex = 0;
             // 
             // npSettingsView
@@ -352,15 +357,33 @@ namespace Commands_Runner
             this.npSettingsView.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("npSettingsView.ImageOptions.SvgImage")));
             this.npSettingsView.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
             this.npSettingsView.Name = "npSettingsView";
-            this.npSettingsView.Size = new System.Drawing.Size(816, 488);
+            this.npSettingsView.Size = new System.Drawing.Size(962, 488);
             // 
             // settingsView
             // 
             this.settingsView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.settingsView.Location = new System.Drawing.Point(0, 0);
             this.settingsView.Name = "settingsView";
-            this.settingsView.Size = new System.Drawing.Size(816, 488);
+            this.settingsView.Size = new System.Drawing.Size(962, 488);
             this.settingsView.TabIndex = 0;
+            // 
+            // npNoteView
+            // 
+            this.npNoteView.BackgroundPadding = new System.Windows.Forms.Padding(0);
+            this.npNoteView.Caption = " Notes";
+            this.npNoteView.Controls.Add(this.notesView);
+            this.npNoteView.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.bo_note;
+            this.npNoteView.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.npNoteView.Name = "npNoteView";
+            this.npNoteView.Size = new System.Drawing.Size(816, 488);
+            // 
+            // notesView
+            // 
+            this.notesView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.notesView.Location = new System.Drawing.Point(0, 0);
+            this.notesView.Name = "notesView";
+            this.notesView.Size = new System.Drawing.Size(816, 488);
+            this.notesView.TabIndex = 0;
             // 
             // passwordsModelBindingSource
             // 
@@ -440,6 +463,7 @@ namespace Commands_Runner
             this.npCommandsListView.ResumeLayout(false);
             this.npPrimaveraExtensions.ResumeLayout(false);
             this.npSettingsView.ResumeLayout(false);
+            this.npNoteView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -486,6 +510,8 @@ namespace Commands_Runner
         private Life_Log.Components.NavigationPageEx npSettingsView;
         private Views.SettingsView settingsView;
         public DevExpress.XtraBars.BarStaticItem bsiSQLState;
+        private Life_Log.Components.NavigationPageEx npNoteView;
+        private Views.NotesListView notesView;
     }
 }
 

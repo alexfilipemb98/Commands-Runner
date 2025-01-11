@@ -88,7 +88,7 @@ namespace Commands_Runner.Forms
                 dxErrorProvider.SetError(cbeType, "Type is required!");
 
             if (string.IsNullOrWhiteSpace(meCommand.Text))
-                dxErrorProvider.SetError(meCommand, "Commnand is required!");
+                dxErrorProvider.SetError(meCommand, "Command is required!");
 
             return !dxErrorProvider.HasErrors;
         }

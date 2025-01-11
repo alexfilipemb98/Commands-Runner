@@ -29,9 +29,9 @@ namespace Commands_Runner.Models
                  Id = (int?)s.Element("Id") ?? 0
              })
              .OrderByDescending(w => w.Id)
-             .FirstOrDefault() ?? new PasswordsModel { Id = 1 };
+             .FirstOrDefault() ?? new PasswordsModel();
 
-            return passwords.Id;
+            return passwords.Id + 1;
         }
 
         public static List<PasswordsModel> Get()

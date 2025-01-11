@@ -35,7 +35,7 @@ namespace Commands_Runner.Views
         {
             if (CommandsEditorForm.Show(new CommandsModel() { Enabled = true }) == DialogResult.OK)
             {
-                AppHelper.SetStatus($"Commnand was been created!", Color.Green);
+                AppHelper.SetStatus($"Command was been created!", Color.Green);
                 LoadData(false);
             }
         }
@@ -49,7 +49,7 @@ namespace Commands_Runner.Views
         {
             if (command != null && CommandsEditorForm.Show(command) == DialogResult.OK)
             {
-                AppHelper.SetStatus($"Commnand was been updated!", Color.Green);
+                AppHelper.SetStatus($"Command was been updated!", Color.Green);
                 LoadData(false);
             }
         }
@@ -68,7 +68,7 @@ namespace Commands_Runner.Views
                 if (result == DialogResult.Yes)
                 {
                     CommandsModel.DeleteFromXml(command.Id);
-                    AppHelper.SetStatus($"Commnand was been deleted!", Color.Red);
+                    AppHelper.SetStatus($"Command was been deleted!", Color.Red);
 
                     LoadData(false);
                 }
@@ -87,13 +87,13 @@ namespace Commands_Runner.Views
                 if (command.Enabled)
                 {
                     command.Enabled = false;
-                    AppHelper.SetStatus($"Commnand was been disabled!", Color.Red);
+                    AppHelper.SetStatus($"Command was been disabled!", Color.Red);
                 }
                 else
                 {
 
                     command.Enabled = true;
-                    AppHelper.SetStatus($"Commnand was been enabled!", Color.Green);
+                    AppHelper.SetStatus($"Command was been enabled!", Color.Green);
                 }
             }
 
@@ -452,7 +452,7 @@ namespace Commands_Runner.Views
 
                 AppHelper.SetStatus($"Command '{file.Name}' executed!", Color.Green);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 AppHelper.SetStatus($"Problem executing the command!", Color.Red);
             }

@@ -241,4 +241,7 @@
   <data name="exporttoxls" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exporttoxls.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v24.1, Version=24.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
   </data>
+  <data name="bo_note" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bo_note.svg;DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v24.1, Version=24.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</value>
+  </data>
 </root>

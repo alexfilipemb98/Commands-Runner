@@ -251,6 +251,11 @@ namespace Commands_Runner
                 passwordsListView.LoadData();
             else if (e.Page == npSettingsView)
                 settingsView.LoadData();
+            else if (e.Page == npNoteView)
+                notesView.LoadData();
+
+            if (e.Page != npNoteView)
+                notesView.SaveData();
         }
     }
 }

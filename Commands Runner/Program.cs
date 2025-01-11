@@ -1,12 +1,10 @@
 ﻿using Commands_Runner.Forms;
 using Commands_Runner.Helpers;
-using Commands_Runner.Models;
 using DevExpress.LookAndFeel;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 using Microsoft.Win32;
 using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 

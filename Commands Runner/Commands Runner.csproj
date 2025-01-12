@@ -133,11 +133,11 @@
     <Compile Include="Views\CommandsListView.Designer.cs">
       <DependentUpon>CommandsListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\NotesListView.cs">
+    <Compile Include="Views\NotesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\NotesListView.Designer.cs">
-      <DependentUpon>NotesListView.cs</DependentUpon>
+    <Compile Include="Views\NotesView.Designer.cs">
+      <DependentUpon>NotesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PasswordsListView.cs">
       <SubType>UserControl</SubType>
@@ -156,6 +156,12 @@
     </Compile>
     <Compile Include="Views\SettingsView.Designer.cs">
       <DependentUpon>SettingsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TasksView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TasksView.Designer.cs">
+      <DependentUpon>TasksView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\CommandsEditorForm.resx">
       <DependentUpon>CommandsEditorForm.cs</DependentUpon>
@@ -178,8 +184,8 @@
     <EmbeddedResource Include="Views\CommandsListView.resx">
       <DependentUpon>CommandsListView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\NotesListView.resx">
-      <DependentUpon>NotesListView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\NotesView.resx">
+      <DependentUpon>NotesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PasswordsListView.resx">
       <DependentUpon>PasswordsListView.cs</DependentUpon>
@@ -190,8 +196,12 @@
     <EmbeddedResource Include="Views\SettingsView.resx">
       <DependentUpon>SettingsView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\TasksView.resx">
+      <DependentUpon>TasksView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\Commands_Runner.Models.PasswordsModel.datasource" />
     <None Include="Properties\DataSources\Commands_Runner.Models.PrimaveraExtensionModel.datasource" />
+    <None Include="Properties\DataSources\Commands_Runner.Views.TaskModel.datasource" />
     <None Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

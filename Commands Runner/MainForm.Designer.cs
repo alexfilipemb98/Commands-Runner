@@ -63,6 +63,8 @@ namespace Commands_Runner
             this.settingsView = new Commands_Runner.Views.SettingsView();
             this.npNoteView = new Life_Log.Components.NavigationPageEx();
             this.notesView = new Commands_Runner.Views.NotesListView();
+            this.navigationPage1 = new DevExpress.XtraBars.Navigation.NavigationPage();
+            this.tasksView1 = new Commands_Runner.Views.TasksView();
             this.passwordsModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
@@ -81,6 +83,7 @@ namespace Commands_Runner
             this.npPrimaveraExtensions.SuspendLayout();
             this.npSettingsView.SuspendLayout();
             this.npNoteView.SuspendLayout();
+            this.navigationPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -273,6 +276,7 @@ namespace Commands_Runner
             this.navigationPaneEx.Controls.Add(this.npPrimaveraExtensions);
             this.navigationPaneEx.Controls.Add(this.npSettingsView);
             this.navigationPaneEx.Controls.Add(this.npNoteView);
+            this.navigationPaneEx.Controls.Add(this.navigationPage1);
             this.navigationPaneEx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigationPaneEx.Location = new System.Drawing.Point(2, 2);
             this.navigationPaneEx.Name = "navigationPaneEx";
@@ -284,7 +288,8 @@ namespace Commands_Runner
             this.npPasswordsListView,
             this.npNoteView,
             this.npPrimaveraExtensions,
-            this.npSettingsView});
+            this.npSettingsView,
+            this.navigationPage1});
             this.navigationPaneEx.RegularSize = new System.Drawing.Size(962, 488);
             this.navigationPaneEx.SelectedPage = this.npCommandsListView;
             this.navigationPaneEx.Size = new System.Drawing.Size(962, 488);
@@ -385,6 +390,21 @@ namespace Commands_Runner
             this.notesView.Size = new System.Drawing.Size(816, 488);
             this.notesView.TabIndex = 0;
             // 
+            // navigationPage1
+            // 
+            this.navigationPage1.Caption = "navigationPage1";
+            this.navigationPage1.Controls.Add(this.tasksView1);
+            this.navigationPage1.Name = "navigationPage1";
+            this.navigationPage1.Size = new System.Drawing.Size(783, 429);
+            // 
+            // tasksView1
+            // 
+            this.tasksView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tasksView1.Location = new System.Drawing.Point(0, 0);
+            this.tasksView1.Name = "tasksView1";
+            this.tasksView1.Size = new System.Drawing.Size(783, 429);
+            this.tasksView1.TabIndex = 0;
+            // 
             // passwordsModelBindingSource
             // 
             this.passwordsModelBindingSource.DataSource = typeof(Commands_Runner.Models.PasswordsModel);
@@ -464,6 +484,7 @@ namespace Commands_Runner
             this.npPrimaveraExtensions.ResumeLayout(false);
             this.npSettingsView.ResumeLayout(false);
             this.npNoteView.ResumeLayout(false);
+            this.navigationPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.passwordsModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -512,6 +533,8 @@ namespace Commands_Runner
         public DevExpress.XtraBars.BarStaticItem bsiSQLState;
         private Life_Log.Components.NavigationPageEx npNoteView;
         private Views.NotesListView notesView;
+        private DevExpress.XtraBars.Navigation.NavigationPage navigationPage1;
+        private Views.TasksView tasksView1;
     }
 }
 

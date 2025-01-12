@@ -254,8 +254,11 @@ namespace Commands_Runner
             else if (e.Page == npNoteView)
                 notesView.LoadData();
 
-            if (e.Page != npNoteView)
+            if (e.Page != npNoteView && e.OldPage == npNoteView)
                 notesView.SaveData();
+
+            if (e.Page == navigationPage1)
+                tasksView1.DemoData();
         }
     }
 }

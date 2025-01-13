@@ -463,7 +463,6 @@ namespace Commands_Runner
             this.Controls.Add(this.ribbonControl);
             this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
             this.IconOptions.Image = ((System.Drawing.Image)(resources.GetObject("MainForm.IconOptions.Image")));
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 260);
             this.Name = "MainForm";
             this.Ribbon = this.ribbonControl;

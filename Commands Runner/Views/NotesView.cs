@@ -4,6 +4,7 @@ using Commands_Runner.Models;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraRichEdit;
 using DevExpress.XtraTab;
 using System;
 using System.Collections.Generic;
@@ -39,17 +40,23 @@ namespace Commands_Runner.Views
             xtraTabPage.Text = note.Name;
             xtraTabPage.Tag = note.Id;
 
-            // Create a MemoEdit control
-            MemoEdit memoEdit = new MemoEdit();
-            memoEdit.Dock = DockStyle.Fill;
-            memoEdit.Name = $"memoEdit{count}";
-            memoEdit.BorderStyle = BorderStyles.NoBorder;
-            memoEdit.Margin = new Padding(0);
-            memoEdit.Text = note.Text;
+            RichEditControl richEdit = new RichEditControl();
+            richEdit.Dock = DockStyle.Fill;
+            richEdit.Name = $"richEdit{count}";
+            richEdit.BorderStyle = BorderStyles.NoBorder;
+            richEdit.Margin = new Padding(0);
+            richEdit.HtmlText = note.Text;
+            richEdit.Options.DocumentSaveOptions.CurrentFormat = DocumentFormat.PlainText;
+            richEdit.Options.HorizontalScrollbar.Visibility = RichEditScrollbarVisibility.Hidden;
+            richEdit.Options.Printing.PrintPreviewFormKind = PrintPreviewFormKind.Bars;
+            richEdit.MenuManager = this.barManager;
+            richEdit.TabIndex = 0;
 
-            xtraTabPage.Controls.Add(memoEdit);
+            xtraTabPage.Controls.Add(richEdit);
 
             xtraTabControl.TabPages.Add(xtraTabPage);
+
+            richEditBarController.Control = richEdit;
         }
 
         public void LoadData(bool showmsg = true)
@@ -84,7 +91,7 @@ namespace Commands_Runner.Views
         {
             XtraTabPage page = xtraTabControl.SelectedTabPage;
 
-            if (page != null)
+            if (page != null && XtraMessageBox.Show($"Do you realy want to delete '{page.Name}'", "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 NotesModel.DeleteFromXml(int.Parse(page.Tag.ToString()));
                 xtraTabControl.TabPages.Remove(page);
@@ -106,8 +113,8 @@ namespace Commands_Runner.Views
 
                     foreach (var tabPageControl in tabPage.Controls)
                     {
-                        if (tabPageControl is MemoEdit memo)
-                            note.Text = memo.Text;
+                        if (tabPageControl is RichEditControl richEdit)
+                            note.Text = richEdit.HtmlText;
                     }
 
                     NotesModel.SaveToXml(note);
@@ -165,6 +172,26 @@ namespace Commands_Runner.Views
             }
 
             LoadData();
+        }
+
+        private void xtraTabControl_SelectedPageChanged(object sender, TabPageChangedEventArgs e)
+        {
+            if (e.Page != null)
+            {
+                foreach (var tabPageControl in e.Page.Controls)
+                {
+                    if (tabPageControl is RichEditControl richEdit)
+                        richEditBarController.Control = richEdit;
+                }
+            }
+            else
+                richEditBarController.Control = null;
+
+        }
+
+        private void richEditControl1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

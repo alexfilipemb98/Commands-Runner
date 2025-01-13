@@ -75,6 +75,7 @@ namespace Commands_Runner.Models
                     new XElement(nameof(Name), note.Name)
                 );
                 root.Add(element);
+                note.Id = newId;
             }
             else
             {

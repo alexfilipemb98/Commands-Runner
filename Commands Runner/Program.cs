@@ -23,7 +23,7 @@ namespace Commands_Runner
             try
             {
                 Process currentProcess = Process.GetCurrentProcess();
-                Process checkProcess = Process.GetProcessesByName(currentProcess.ProcessName).FirstOrDefault();
+                Process checkProcess = Process.GetProcessesByName(currentProcess.ProcessName).FirstOrDefault(p => p.Id != currentProcess.Id);
 
                 if (checkProcess != null)
                 {

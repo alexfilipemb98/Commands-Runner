@@ -50,7 +50,8 @@ namespace Commands_Runner.Views
             richEdit.Options.HorizontalScrollbar.Visibility = RichEditScrollbarVisibility.Hidden;
             richEdit.Options.Printing.PrintPreviewFormKind = PrintPreviewFormKind.Bars;
             richEdit.MenuManager = this.barManager;
-            richEdit.TabIndex = 0;
+            richEdit.ActiveViewType = RichEditViewType.Simple;
+            richEdit.SpellChecker = this.spellChecker;
 
             xtraTabPage.Controls.Add(richEdit);
 
@@ -186,11 +187,6 @@ namespace Commands_Runner.Views
             }
             else
                 richEditBarController.Control = null;
-
-        }
-
-        private void richEditControl1_Click(object sender, EventArgs e)
-        {
 
         }
     }

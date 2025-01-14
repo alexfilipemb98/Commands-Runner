@@ -22,6 +22,7 @@ namespace Commands_Runner
         {
             try
             {
+#if !DEBUG
                 Process currentProcess = Process.GetCurrentProcess();
                 Process checkProcess = Process.GetProcessesByName(currentProcess.ProcessName).FirstOrDefault(p => p.Id != currentProcess.Id);
 
@@ -31,7 +32,8 @@ namespace Commands_Runner
                     hWnd = checkProcess.MainWindowHandle;
                     SetForegroundWindow(hWnd);
                     return;
-                }
+                } 
+#endif
 
                 if (IsDarkThemeEnabled())
                     UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");

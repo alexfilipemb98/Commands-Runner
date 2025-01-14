@@ -83,7 +83,7 @@ namespace Commands_Runner
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            ConfigsModel.UpdateGeneralSettings(this.Height, this.Width);
+            ConfigsModel.UpdateGeneralSettings(this.Height, this.Width, this.WindowState);
 
             config.AppSettings.Settings[nameof(CommandFilterModel.ShowDisabled)].Value = AppHelper.CommandsFilters.ShowDisabled.ToString();
             config.AppSettings.Settings[nameof(CommandFilterModel.ShowCMD)].Value = AppHelper.CommandsFilters.ShowCMD.ToString();
@@ -120,6 +120,7 @@ namespace Commands_Runner
         /// </summary>
         private void LoadSettings()
         {
+            this.WindowState = AppHelper.Configs.FormState;
             this.Width = AppHelper.Configs.FormWidth;
             this.Height = AppHelper.Configs.FormHeight;
 

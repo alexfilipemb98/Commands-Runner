@@ -53,11 +53,14 @@ namespace Commands_Runner.Views
             richEdit.ActiveViewType = RichEditViewType.Simple;
             richEdit.SpellChecker = this.spellChecker;
 
+            richEdit.GotFocus += (object sender, EventArgs e) =>
+            {
+                richEditBarController.Control = richEdit;
+            };
+
             xtraTabPage.Controls.Add(richEdit);
 
             xtraTabControl.TabPages.Add(xtraTabPage);
-
-            richEditBarController.Control = richEdit;
         }
 
         public void LoadData(bool showmsg = true)
@@ -92,7 +95,7 @@ namespace Commands_Runner.Views
         {
             XtraTabPage page = xtraTabControl.SelectedTabPage;
 
-            if (page != null && XtraMessageBox.Show($"Do you realy want to delete '{page.Name}'", "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (page != null && XtraMessageBox.Show($"Do you realy want to delete '{page.Text}'", "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 NotesModel.DeleteFromXml(int.Parse(page.Tag.ToString()));
                 xtraTabControl.TabPages.Remove(page);
@@ -173,21 +176,6 @@ namespace Commands_Runner.Views
             }
 
             LoadData();
-        }
-
-        private void xtraTabControl_SelectedPageChanged(object sender, TabPageChangedEventArgs e)
-        {
-            if (e.Page != null)
-            {
-                foreach (var tabPageControl in e.Page.Controls)
-                {
-                    if (tabPageControl is RichEditControl richEdit)
-                        richEditBarController.Control = richEdit;
-                }
-            }
-            else
-                richEditBarController.Control = null;
-
         }
     }
 }

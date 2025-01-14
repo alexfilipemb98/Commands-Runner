@@ -3,6 +3,7 @@ using Commands_Runner.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -33,6 +34,7 @@ public class ConfigsModel
 
     public int FormWidth { get; set; }
     public int FormHeight { get; set; }
+    public FormWindowState FormState { get; set; }
 
     public static ConfigsModel ReadFile(out bool ok)
     {
@@ -72,6 +74,7 @@ public class ConfigsModel
 
             FormWidth = int.Parse(general?.Element(nameof(FormWidth))?.Value ?? "1000"),
             FormHeight = int.Parse(general?.Element(nameof(FormHeight))?.Value ?? "530"),
+            FormState = (FormWindowState)int.Parse(general?.Element(nameof(FormState))?.Value ?? ((int)FormWindowState.Normal).ToString()),
         };
 
         ok = model.SQLUsername != null && model.SQLPassword != null &&
@@ -91,6 +94,7 @@ public class ConfigsModel
             writer.WriteStartElement("General");
             writer.WriteElementString(nameof(FormHeight), model.FormHeight.ToString());
             writer.WriteElementString(nameof(FormWidth), model.FormWidth.ToString());
+            writer.WriteElementString(nameof(FormState), ((int)model.FormState).ToString());
 
             writer.WriteEndElement();
 
@@ -126,7 +130,7 @@ public class ConfigsModel
 
     }
 
-    public static void UpdateGeneralSettings(int formHeight, int formWidth)
+    public static void UpdateGeneralSettings(int formHeight, int formWidth, FormWindowState windowState)
     {
         XDocument xmlDoc = File.Exists(FilePath)
             ? XDocument.Load(FilePath)
@@ -145,6 +149,7 @@ public class ConfigsModel
 
         generalElement.SetElementValue(nameof(FormHeight), formHeight);
         generalElement.SetElementValue(nameof(FormWidth), formWidth);
+        generalElement.SetElementValue(nameof(FormState), ((int)windowState).ToString());
 
         xmlDoc.Save(FilePath);
     }

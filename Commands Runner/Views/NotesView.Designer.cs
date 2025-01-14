@@ -43,6 +43,7 @@ namespace Commands_Runner.Views
             this.bbiImport = new DevExpress.XtraBars.BarButtonItem();
             this.fontBar1 = new DevExpress.XtraRichEdit.UI.FontBar();
             this.richEditControl2 = new DevExpress.XtraRichEdit.RichEditControl();
+            this.spellChecker = new DevExpress.XtraSpellChecker.SpellChecker(this.components);
             this.changeFontNameItem1 = new DevExpress.XtraRichEdit.UI.ChangeFontNameItem();
             this.repositoryItemFontEditRichEdit1 = new DevExpress.XtraRichEdit.UI.RepositoryItemFontEditRichEdit();
             this.changeFontSizeItem1 = new DevExpress.XtraRichEdit.UI.ChangeFontSizeItem();
@@ -124,7 +125,6 @@ namespace Commands_Runner.Views
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.richEditBarController = new DevExpress.XtraRichEdit.UI.RichEditBarController(this.components);
-            this.spellChecker = new DevExpress.XtraSpellChecker.SpellChecker(this.components);
             this.spellChecker1 = new DevExpress.XtraSpellChecker.SpellChecker(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemFontEditRichEdit1)).BeginInit();
@@ -321,6 +321,7 @@ namespace Commands_Runner.Views
             // richEditControl2
             // 
             this.richEditControl2.ActiveViewType = DevExpress.XtraRichEdit.RichEditViewType.Simple;
+            this.richEditControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.richEditControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richEditControl2.LayoutUnit = DevExpress.XtraRichEdit.DocumentLayoutUnit.Pixel;
             this.richEditControl2.Location = new System.Drawing.Point(0, 0);
@@ -338,8 +339,13 @@ namespace Commands_Runner.Views
             this.spellChecker.SetSpellCheckerOptions(this.richEditControl2, optionsSpelling1);
             this.spellChecker1.SetSpellCheckerOptions(this.richEditControl2, optionsSpelling2);
             this.richEditControl2.TabIndex = 0;
-            this.richEditControl2.Text = " tesf";
+            this.richEditControl2.Text = "Test";
             this.richEditControl2.UseWaitCursor = true;
+            // 
+            // spellChecker
+            // 
+            this.spellChecker.Culture = new System.Globalization.CultureInfo("pt-PT");
+            this.spellChecker.ParentContainer = null;
             // 
             // changeFontNameItem1
             // 
@@ -825,7 +831,7 @@ namespace Commands_Runner.Views
             this.xtraTabControl.TabIndex = 4;
             this.xtraTabControl.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage2});
-            this.xtraTabControl.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl_SelectedPageChanged);
+            this.xtraTabControl.Visible = false;
             this.xtraTabControl.CloseButtonClick += new System.EventHandler(this.xtraTabControl_CloseButtonClick);
             // 
             // xtraTabPage2
@@ -921,11 +927,6 @@ namespace Commands_Runner.Views
             this.richEditBarController.BarItems.Add(this.findItem1);
             this.richEditBarController.BarItems.Add(this.replaceItem1);
             this.richEditBarController.Control = this.richEditControl2;
-            // 
-            // spellChecker
-            // 
-            this.spellChecker.Culture = new System.Globalization.CultureInfo("pt-PT");
-            this.spellChecker.ParentContainer = null;
             // 
             // spellChecker1
             // 

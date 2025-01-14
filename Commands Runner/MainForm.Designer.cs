@@ -184,7 +184,6 @@ namespace Commands_Runner
             this.btsSetTopMost.Caption = "EditMode";
             this.btsSetTopMost.Id = 42;
             this.btsSetTopMost.Name = "btsSetTopMost";
-            this.btsSetTopMost.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.btsSetTopMost.VisibleInSearchMenu = false;
             this.btsSetTopMost.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.btsSetTopMost_CheckedChanged);
             // 

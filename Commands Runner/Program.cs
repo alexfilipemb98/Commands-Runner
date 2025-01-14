@@ -5,18 +5,34 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Commands_Runner
 {
     internal static class Program
     {
+        [DllImport("User32.dll")]
+        private static extern int SetForegroundWindow(IntPtr hWnd);
+
         [STAThread]
         static void Main()
         {
             try
             {
+                Process currentProcess = Process.GetCurrentProcess();
+                Process checkProcess = Process.GetProcessesByName(currentProcess.ProcessName).FirstOrDefault();
+
+                if (checkProcess != null)
+                {
+                    IntPtr hWnd = IntPtr.Zero;
+                    hWnd = checkProcess.MainWindowHandle;
+                    SetForegroundWindow(hWnd);
+                    return;
+                }
+
                 if (IsDarkThemeEnabled())
                     UserLookAndFeel.Default.ActiveLookAndFeel.SetSkinStyle(SkinStyle.WXI, "DARK");
 
@@ -63,6 +79,5 @@ namespace Commands_Runner
             }
             return false; // Modo claro está ativado
         }
-
     }
 }

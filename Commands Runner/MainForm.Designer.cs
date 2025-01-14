@@ -40,7 +40,7 @@ namespace Commands_Runner
             this.bsiVersion = new DevExpress.XtraBars.BarStaticItem();
             this.bsiSizse = new DevExpress.XtraBars.BarStaticItem();
             this.bbiThreeSimpleRule = new DevExpress.XtraBars.BarButtonItem();
-            this.btsEditModePasswords = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.btsSetTopMost = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.bbiConverterHtmPNG = new DevExpress.XtraBars.BarButtonItem();
             this.bsiSQLState = new DevExpress.XtraBars.BarStaticItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -106,7 +106,7 @@ namespace Commands_Runner
             this.bsiVersion,
             this.bsiSizse,
             this.bbiThreeSimpleRule,
-            this.btsEditModePasswords,
+            this.btsSetTopMost,
             this.bbiConverterHtmPNG,
             this.bsiSQLState});
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
@@ -179,13 +179,14 @@ namespace Commands_Runner
             this.bbiThreeSimpleRule.Name = "bbiThreeSimpleRule";
             this.bbiThreeSimpleRule.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiThreeSimpleRule_ItemClick);
             // 
-            // btsEditModePasswords
+            // btsSetTopMost
             // 
-            this.btsEditModePasswords.Caption = "EditMode";
-            this.btsEditModePasswords.Id = 42;
-            this.btsEditModePasswords.Name = "btsEditModePasswords";
-            this.btsEditModePasswords.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.btsEditModePasswords.VisibleInSearchMenu = false;
+            this.btsSetTopMost.Caption = "EditMode";
+            this.btsSetTopMost.Id = 42;
+            this.btsSetTopMost.Name = "btsSetTopMost";
+            this.btsSetTopMost.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.btsSetTopMost.VisibleInSearchMenu = false;
+            this.btsSetTopMost.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.btsSetTopMost_CheckedChanged);
             // 
             // bbiConverterHtmPNG
             // 
@@ -222,7 +223,7 @@ namespace Commands_Runner
             // rpgFilters
             // 
             this.rpgFilters.Alignment = DevExpress.XtraBars.Ribbon.RibbonPageGroupAlignment.Far;
-            this.rpgFilters.ItemLinks.Add(this.btsEditModePasswords);
+            this.rpgFilters.ItemLinks.Add(this.btsSetTopMost);
             this.rpgFilters.Name = "rpgFilters";
             this.rpgFilters.Text = "Filters";
             // 
@@ -514,7 +515,7 @@ namespace Commands_Runner
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private PanelControl panelControl1;
-        private DevExpress.XtraBars.BarToggleSwitchItem btsEditModePasswords;
+        private DevExpress.XtraBars.BarToggleSwitchItem btsSetTopMost;
         private DevExpress.XtraBars.BarButtonItem bbiConverterHtmPNG;
         private LayoutControl layoutControl1;
         private LayoutControlGroup Root;

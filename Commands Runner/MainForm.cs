@@ -260,5 +260,10 @@ namespace Commands_Runner
             if (e.Page == navigationPage1)
                 tasksView1.DemoData();
         }
+
+        private void btsSetTopMost_CheckedChanged(object sender, ItemClickEventArgs e)
+        {
+            this.TopMost = btsSetTopMost.Checked;
+        }
     }
 }

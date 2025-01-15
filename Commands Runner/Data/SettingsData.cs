@@ -160,7 +160,7 @@ namespace Commands_Runner.Data
         public static void UpdateGeneralSettings(int id,int height, int width, FormWindowState windowState)
         {
             string query = @"
-                UPDATE Commands
+                UPDATE Settings
                 SET FormWidth = @FormWidth,
                     FormHeight = @FormHeight,
                     FormState = @FormState                

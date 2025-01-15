@@ -131,7 +131,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDataAccess.cs" />
-    <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\SecurityUtil.cs" />
     <Compile Include="Views\CommandsListView.cs">
       <SubType>UserControl</SubType>

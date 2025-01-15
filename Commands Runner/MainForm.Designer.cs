@@ -291,7 +291,7 @@ namespace Commands_Runner
             this.npSettingsView,
             this.navigationPage1});
             this.navigationPaneEx.RegularSize = new System.Drawing.Size(962, 488);
-            this.navigationPaneEx.SelectedPage = this.npCommandsListView;
+            this.navigationPaneEx.SelectedPage = null;
             this.navigationPaneEx.Size = new System.Drawing.Size(962, 488);
             this.navigationPaneEx.State = DevExpress.XtraBars.Navigation.NavigationPaneState.Expanded;
             this.navigationPaneEx.TabIndex = 0;

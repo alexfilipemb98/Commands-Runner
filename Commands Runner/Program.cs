@@ -5,6 +5,7 @@ using DevExpress.LookAndFeel;
 using DevExpress.XtraEditors;
 using DevExpress.XtraRichEdit.Model;
 using DevExpress.XtraSplashScreen;
+using Life_Log.Components;
 using Microsoft.Win32;
 using System;
 using System.Configuration;
@@ -36,7 +37,7 @@ namespace Commands_Runner
                     hWnd = checkProcess.MainWindowHandle;
                     SetForegroundWindow(hWnd);
                     return;
-                } 
+                }
 #endif
 
                 if (IsDarkThemeEnabled())
@@ -50,10 +51,12 @@ namespace Commands_Runner
                 string connectionString = ConfigurationManager.ConnectionStrings["SQLiteConnection"].ConnectionString;
 
                 AppHelper.DATA = new SqlDataAccess(connectionString, true);
+
                 CommandsData.CheckTable();
                 PasswordsData.CheckTable();
                 NotesData.CheckTable();
                 SettingsData.CheckTable();
+
                 AppHelper.Configs = SettingsData.GetByID(Properties.Settings.Default.SettingId, out bool primaveraExtensionsOK);
 
                 if (primaveraExtensionsOK)
@@ -61,9 +64,25 @@ namespace Commands_Runner
 
                 MainForm main = new MainForm();
 
+                AppHelper.Instance = main;
+
+                main.WindowState = AppHelper.Configs.FormState;
+
+                if (AppHelper.Configs.FormState != FormWindowState.Maximized)
+                {
+                    main.Width = AppHelper.Configs.FormWidth;
+                    main.Height = AppHelper.Configs.FormHeight;
+                }
+
                 main.Shown += (object sender, EventArgs e) =>
                 {
                     AppHelper.SqlStausLabel();
+
+                    NavigationPageEx page = main.navigationPaneEx.Pages.FirstOrDefault(w => w.Caption == AppHelper.Configs.StartUpPage) as NavigationPageEx;
+                    
+                    if (page != null)
+                        main.navigationPaneEx.SelectedPage = page;
+
                     SplashScreenManager.CloseForm();
                 };
 

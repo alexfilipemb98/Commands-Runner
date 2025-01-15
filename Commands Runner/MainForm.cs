@@ -33,8 +33,6 @@ namespace Commands_Runner
         {
             InitializeComponent();
 
-            AppHelper.Instance = this;
-
             LoadSettings();
 
             bsiVersion.Caption = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -85,17 +83,27 @@ namespace Commands_Runner
         /// <param name="e"></param>
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            try
+            {
+                if (XtraMessageBox.Show("Do you really want to exit?", "Exit Program", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    e.Cancel = true;
 
-            SettingsData.UpdateGeneralSettings(Properties.Settings.Default.SettingId,this.Height, this.Width, this.WindowState);
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            config.AppSettings.Settings[nameof(CommandFilterModel.ShowDisabled)].Value = AppHelper.CommandsFilters.ShowDisabled.ToString();
-            config.AppSettings.Settings[nameof(CommandFilterModel.ShowCMD)].Value = AppHelper.CommandsFilters.ShowCMD.ToString();
-            config.AppSettings.Settings[nameof(CommandFilterModel.ShowPS1)].Value = AppHelper.CommandsFilters.ShowPS1.ToString();
-            config.AppSettings.Settings[nameof(CommandFilterModel.ShowPY)].Value = AppHelper.CommandsFilters.ShowPY.ToString();
+                SettingsData.UpdateGeneralSettings(Properties.Settings.Default.SettingId, this.Height, this.Width, this.WindowState);
 
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings[nameof(CommandFilterModel.ShowDisabled)].Value = AppHelper.CommandsFilters.ShowDisabled.ToString();
+                config.AppSettings.Settings[nameof(CommandFilterModel.ShowCMD)].Value = AppHelper.CommandsFilters.ShowCMD.ToString();
+                config.AppSettings.Settings[nameof(CommandFilterModel.ShowPS1)].Value = AppHelper.CommandsFilters.ShowPS1.ToString();
+                config.AppSettings.Settings[nameof(CommandFilterModel.ShowPY)].Value = AppHelper.CommandsFilters.ShowPY.ToString();
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+            catch (Exception ex)
+            {
+                AppHelper.ErrorHandler(ex);
+            }
         }
 
         #endregion
@@ -124,18 +132,6 @@ namespace Commands_Runner
         /// </summary>
         private void LoadSettings()
         {
-            this.WindowState = AppHelper.Configs.FormState;
-            
-            if (AppHelper.Configs.FormState != FormWindowState.Maximized)
-            {
-                this.Width = AppHelper.Configs.FormWidth;
-                this.Height = AppHelper.Configs.FormHeight;
-            }
-
-            NavigationPageEx page = navigationPaneEx.Pages.FirstOrDefault(w => w.Caption == AppHelper.Configs.StartUpPage) as NavigationPageEx;
-            if (page != null)
-                navigationPaneEx.SelectedPage = page;
-
             AppHelper.CommandsFilters = new CommandFilterModel();
 
             if (bool.TryParse(ConfigurationManager.AppSettings[nameof(CommandFilterModel.ShowDisabled)], out bool showdisabled))

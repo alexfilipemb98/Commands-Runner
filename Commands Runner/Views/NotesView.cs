@@ -121,7 +121,7 @@ namespace Commands_Runner.Views
                     foreach (var tabPageControl in tabPage.Controls)
                     {
                         if (tabPageControl is RichEditControl richEdit)
-                            note.Text = richEdit.HtmlText;
+                            richEdit.Invoke((MethodInvoker)(() => note.Text = richEdit.HtmlText));
                     }
 
                     NotesData.Save(note);

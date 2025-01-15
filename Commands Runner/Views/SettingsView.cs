@@ -1,7 +1,10 @@
-﻿using Commands_Runner.Helpers;
+﻿using Commands_Runner.Data;
+using Commands_Runner.Helpers;
+using Commands_Runner.Models;
 using Commands_Runner.Properties;
+using DevExpress.XtraBars;
+using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
-using Life_Log.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -44,7 +47,7 @@ namespace Commands_Runner.Views
                 teHeight.Text = AppHelper.Instance.Height.ToString();
                 teWidth.Text = AppHelper.Instance.Width.ToString();
 
-                var lista = AppHelper.Instance.navigationPaneEx.Pages.Where(w => w.PageVisible);
+                IEnumerable<NavigationPageBase> lista = AppHelper.Instance.navigationPaneEx.Pages.Where(w => w.PageVisible);
 
                 cbePages.Properties.Items.Clear();
 
@@ -62,6 +65,11 @@ namespace Commands_Runner.Views
         }
 
         private void bbiSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SaveData();
+        }
+
+        private void SaveData()
         {
             AppHelper.Configs.SQLAddress = teSqlAddress.Text;
             AppHelper.Configs.SQLUsername = teSqlUsername.Text;
@@ -96,47 +104,61 @@ namespace Commands_Runner.Views
 
             AppHelper.SetStatus("Settings Saved", Color.Green);
 
-            ConfigsModel.SaveToFile(AppHelper.Configs);
+            SettingsData.Save(AppHelper.Configs);
         }
 
         private void bbiExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            SaveData();
+
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.FileName = ConfigsModel.FilePath;
+                saveFileDialog.FileName = "Settings.xml";
                 saveFileDialog.Filter = "XML files (*.xml)|*.xml";
-                saveFileDialog.Title = $"Export {ConfigsModel.FilePath}";
+                saveFileDialog.Title = $"Export Settings";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string destinationFilePath = saveFileDialog.FileName;
 
-                    File.Copy(ConfigsModel.FilePath, destinationFilePath, overwrite: true);
+                    string xml = AppHelper.SerializeToXml(AppHelper.Configs);
+                    File.WriteAllText(destinationFilePath, xml);
 
                     AppHelper.SetStatus("Settings exported!", Color.Green);
                 }
             }
         }
 
-        private void bbiImportCommands_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void bbiImport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            try
             {
-                openFileDialog.FileName = ConfigsModel.FilePath;
-                openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-                openFileDialog.Title = $"Select the source {ConfigsModel.FilePath} file";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    string sourceFilePath = openFileDialog.FileName;
-                    File.Copy(sourceFilePath, ConfigsModel.FilePath, overwrite: true);
-                }
-            }
+                    openFileDialog.FileName = "Settings.xml";
+                    openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                    openFileDialog.Title = $"Select the source file";
 
-            AppHelper.Configs = ConfigsModel.ReadFile(out _);
-            AppHelper.Instance.Height = AppHelper.Configs.FormHeight;
-            AppHelper.Instance.Width = AppHelper.Configs.FormWidth;
-            LoadData();
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string sourceFilePath = openFileDialog.FileName;
+                        string xml = File.ReadAllText(sourceFilePath);
+                        SettingModel root = AppHelper.DeserializeFromXml<SettingModel>(xml);
+
+                        SettingsData.ImportToId(root, Properties.Settings.Default.SettingId);
+                        AppHelper.Configs = root;
+
+                        AppHelper.Instance.Height = AppHelper.Configs.FormHeight;
+                        AppHelper.Instance.Width = AppHelper.Configs.FormWidth;
+                    }
+                }
+
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                AppHelper.ErrorHandler(ex);
+            }
         }
 
         private void sbResetSize_Click(object sender, EventArgs e)

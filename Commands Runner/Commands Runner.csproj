@@ -77,6 +77,8 @@
     <Compile Include="Components\NavigationPaneEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Data\CommandsData.cs" />
+    <Compile Include="Data\SettingsData.cs" />
     <Compile Include="Data\NotesData.cs" />
     <Compile Include="Data\PasswordsData.cs" />
     <Compile Include="Enums\CommandTypeEnum.cs" />
@@ -121,7 +123,7 @@
     </Compile>
     <Compile Include="Models\CommandTypeInfoModel.cs" />
     <Compile Include="Models\CommandFilterModel.cs" />
-    <Compile Include="Models\ConfigsModel.cs" />
+    <Compile Include="Models\SettingModel.cs" />
     <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\PasswordModel.cs" />
     <Compile Include="Models\PrimaveraEmpresasModel.cs" />
@@ -218,7 +220,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
-    <Compile Include="Models\CommandsModel.cs" />
+    <Compile Include="Models\CommandModel.cs" />
     <None Include="Properties\DataSources\CommandsModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

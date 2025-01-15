@@ -47,6 +47,7 @@
             this.repositoryItemSearchControl1 = new DevExpress.XtraEditors.Repository.RepositoryItemSearchControl();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.cbePages = new DevExpress.XtraEditors.ComboBoxEdit();
             this.sbGetDatabases = new DevExpress.XtraEditors.SimpleButton();
             this.sbResetSize = new DevExpress.XtraEditors.SimpleButton();
             this.teCMDFileExt = new DevExpress.XtraEditors.TextEdit();
@@ -99,6 +100,7 @@
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem21 = new DevExpress.XtraLayout.LayoutControlItem();
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
             this.bbiEdit = new DevExpress.XtraBars.BarButtonItem();
             this.bbiRunAdmin = new DevExpress.XtraBars.BarButtonItem();
@@ -115,14 +117,13 @@
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControl4 = new DevExpress.XtraBars.BarDockControl();
-            this.cbePages = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.layoutControlItem21 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbePages.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teCMDFileExt.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teHTMIMGArgs.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.teHTMIMGPath.Properties)).BeginInit();
@@ -173,7 +174,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbePages.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem21)).BeginInit();
             this.SuspendLayout();
             // 
@@ -240,9 +240,9 @@
             // 
             this.bbiImportCommands.Caption = "Import";
             this.bbiImportCommands.Id = 23;
-            this.bbiImportCommands.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.exportfile;
+            this.bbiImportCommands.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.import;
             this.bbiImportCommands.Name = "bbiImportCommands";
-            this.bbiImportCommands.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiImportCommands_ItemClick);
+            this.bbiImportCommands.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiImport_ItemClick);
             // 
             // barDockControlTop
             // 
@@ -321,6 +321,17 @@
             this.layoutControl1.Size = new System.Drawing.Size(838, 458);
             this.layoutControl1.TabIndex = 4;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // cbePages
+            // 
+            this.cbePages.Location = new System.Drawing.Point(86, 51);
+            this.cbePages.MenuManager = this.barManager;
+            this.cbePages.Name = "cbePages";
+            this.cbePages.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbePages.Size = new System.Drawing.Size(733, 28);
+            this.cbePages.StyleController = this.layoutControl1;
+            this.cbePages.TabIndex = 18;
             // 
             // sbGetDatabases
             // 
@@ -877,6 +888,15 @@
             this.emptySpaceItem2.Size = new System.Drawing.Size(248, 34);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // layoutControlItem21
+            // 
+            this.layoutControlItem21.Control = this.cbePages;
+            this.layoutControlItem21.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem21.Name = "layoutControlItem21";
+            this.layoutControlItem21.Size = new System.Drawing.Size(806, 34);
+            this.layoutControlItem21.Text = "Start Page";
+            this.layoutControlItem21.TextSize = new System.Drawing.Size(51, 13);
+            // 
             // bbiNew
             // 
             this.bbiNew.Border = DevExpress.XtraEditors.Controls.BorderStyles.Default;
@@ -1007,26 +1027,6 @@
             this.barDockControl4.Manager = null;
             this.barDockControl4.Size = new System.Drawing.Size(0, 458);
             // 
-            // cbePages
-            // 
-            this.cbePages.Location = new System.Drawing.Point(86, 51);
-            this.cbePages.MenuManager = this.barManager;
-            this.cbePages.Name = "cbePages";
-            this.cbePages.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbePages.Size = new System.Drawing.Size(733, 28);
-            this.cbePages.StyleController = this.layoutControl1;
-            this.cbePages.TabIndex = 18;
-            // 
-            // layoutControlItem21
-            // 
-            this.layoutControlItem21.Control = this.cbePages;
-            this.layoutControlItem21.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem21.Name = "layoutControlItem21";
-            this.layoutControlItem21.Size = new System.Drawing.Size(806, 34);
-            this.layoutControlItem21.Text = "Start Page";
-            this.layoutControlItem21.TextSize = new System.Drawing.Size(51, 13);
-            // 
             // SettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1045,6 +1045,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cbePages.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teCMDFileExt.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teHTMIMGArgs.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.teHTMIMGPath.Properties)).EndInit();
@@ -1095,7 +1096,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbePages.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem21)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

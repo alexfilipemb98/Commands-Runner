@@ -84,9 +84,11 @@ namespace Commands_Runner
         public void CommitTransaction()
         {
             _transaction.Commit();
+            _transaction.Dispose();
+            _transaction = null;
         }
 
-        public bool isInTransaction() =>
+        public bool IsInTransaction() =>
             _transaction?.Connection != null;
 
         public void RollbackTransaction()

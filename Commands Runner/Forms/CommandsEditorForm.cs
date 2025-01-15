@@ -1,4 +1,5 @@
-﻿using Commands_Runner.Enums;
+﻿using Commands_Runner.Data;
+using Commands_Runner.Enums;
 using Commands_Runner.Extensions;
 using Commands_Runner.Models;
 using DevExpress.Utils;
@@ -14,9 +15,9 @@ namespace Commands_Runner.Forms
 {
     public partial class CommandsEditorForm : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        private CommandsModel command;
+        private CommandModel command;
 
-        public CommandsEditorForm(CommandsModel command)
+        public CommandsEditorForm(CommandModel command)
         {
             InitializeComponent();
 
@@ -49,7 +50,7 @@ namespace Commands_Runner.Forms
             if (!ValidarCampos()) return;
          
             CommandTypeEnum commandType = EnumExtension.GetEnumByName<CommandTypeEnum>(type, true);
-            if (CommandsModel.SaveCommandToFile(commandType, fileContent, fileName))
+            if (CommandsData.SaveCommandToFile(commandType, fileContent, fileName))
                 XtraMessageBox.Show(
                         "File saved successfully!",
                         "Success",
@@ -69,7 +70,7 @@ namespace Commands_Runner.Forms
             command.Type = EnumExtension.GetEnumByName<CommandTypeEnum>(type, true);
             command.Enabled = (bool)tsEnabled.EditValue;
 
-            CommandsModel.SaveToXml(command);
+            CommandsData.Save(command);
 
             this.DialogResult = DialogResult.OK;
         }
@@ -93,7 +94,7 @@ namespace Commands_Runner.Forms
             return !dxErrorProvider.HasErrors;
         }
 
-        public static DialogResult Show(CommandsModel command)
+        public static DialogResult Show(CommandModel command)
         {
             using (CommandsEditorForm frm = new CommandsEditorForm(command))
             {

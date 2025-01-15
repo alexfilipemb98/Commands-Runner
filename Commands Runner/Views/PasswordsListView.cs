@@ -112,20 +112,27 @@ namespace Commands_Runner.Views
 
             Task.Run(() =>
             {
-                if (this.InvokeRequired)
-                    this.Invoke((MethodInvoker)(() => ld()));
-                else
-                    ld();
-
-                void ld()
+                try
                 {
-                    List<PasswordModel> passwords = PasswordsData.GetAll();
-                    passwordsModelBindingSource.DataSource = passwords;
+                    if (this.InvokeRequired)
+                        this.Invoke((MethodInvoker)(() => ld()));
+                    else
+                        ld();
 
-                    if (showmsg)
+                    void ld()
                     {
-                        AppHelper.SetStatus($"'{passwords.Count}' passwords found!", Color.Green);
+                        List<PasswordModel> passwords = PasswordsData.GetAll();
+                        passwordsModelBindingSource.DataSource = passwords;
+
+                        if (showmsg)
+                        {
+                            AppHelper.SetStatus($"'{passwords.Count}' passwords found!", Color.Green);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    AppHelper.ErrorHandler(ex);
                 }
             })
             .ContinueWith(t =>

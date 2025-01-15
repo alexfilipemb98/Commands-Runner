@@ -1,10 +1,12 @@
-﻿using Commands_Runner.Forms;
+﻿using Commands_Runner.Data;
+using Commands_Runner.Forms;
 using Commands_Runner.Helpers;
 using Commands_Runner.Models;
 using Commands_Runner.Properties;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Tile;
+using DevExpress.XtraPrinting.Native.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +22,7 @@ namespace Commands_Runner.Views
 {
     public partial class CommandsListView : DevExpress.XtraEditors.XtraUserControl
     {
-        private CommandsModel command;
+        private CommandModel command;
 
         public CommandsListView() => InitializeComponent();
 
@@ -33,10 +35,11 @@ namespace Commands_Runner.Views
         /// <param name="e"></param>
         private void bbiNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (CommandsEditorForm.Show(new CommandsModel() { Enabled = true }) == DialogResult.OK)
+            CommandModel command = new CommandModel() { Enabled = true };
+            if (CommandsEditorForm.Show(command) == DialogResult.OK)
             {
                 AppHelper.SetStatus($"Command was been created!", Color.Green);
-                LoadData(false);
+                commandsModelBindingSource.Add(command);
             }
         }
 
@@ -67,10 +70,10 @@ namespace Commands_Runner.Views
 
                 if (result == DialogResult.Yes)
                 {
-                    CommandsModel.DeleteFromXml(command.Id);
+                    CommandsData.Delete(command.Id);
                     AppHelper.SetStatus($"Command was been deleted!", Color.Red);
 
-                    LoadData(false);
+                    commandsModelBindingSource.Remove(command);
                 }
             }
         }
@@ -97,9 +100,9 @@ namespace Commands_Runner.Views
                 }
             }
 
-            CommandsModel.UpdateEnabledPropertyInXml(command);
+            CommandsData.SaveEnabled(command);
 
-            LoadData(false);
+            tvCommands.RefreshRow(tvCommands.FocusedRowHandle);
         }
 
         /// <summary>
@@ -133,15 +136,19 @@ namespace Commands_Runner.Views
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.FileName = CommandsModel.FilePath;
+                saveFileDialog.FileName = "Commands.xml";
                 saveFileDialog.Filter = "XML files (*.xml)|*.xml";
-                saveFileDialog.Title = $"Export {CommandsModel.FilePath}";
+                saveFileDialog.Title = $"Export Commands";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string destinationFilePath = saveFileDialog.FileName;
 
-                    File.Copy(CommandsModel.FilePath, destinationFilePath, overwrite: true);
+                    RootCommandsModel notes = new RootCommandsModel();
+                    notes.CommandList = CommandsData.GetAll();
+
+                    string xml = AppHelper.SerializeToXml(notes);
+                    File.WriteAllText(destinationFilePath, xml);
                 }
             }
         }
@@ -153,20 +160,30 @@ namespace Commands_Runner.Views
         /// <param name="e"></param>
         private void bbiImportCommands_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            try
             {
-                openFileDialog.FileName = CommandsModel.FilePath;
-                openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-                openFileDialog.Title = $"Select the source {CommandsModel.FilePath} file";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    string sourceFilePath = openFileDialog.FileName;
-                    File.Copy(sourceFilePath, CommandsModel.FilePath, overwrite: true);
-                }
-            }
+                    openFileDialog.FileName = "Commands.xml";
+                    openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                    openFileDialog.Title = $"Select the source file";
 
-            LoadData();
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string sourceFilePath = openFileDialog.FileName;
+                        string xml = File.ReadAllText(sourceFilePath);
+                        RootCommandsModel root = AppHelper.DeserializeFromXml<RootCommandsModel>(xml);
+
+                        CommandsData.Import(root.CommandList);
+                    }
+                }
+
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                AppHelper.ErrorHandler(ex);
+            }
         }
 
         /// <summary>
@@ -177,7 +194,7 @@ namespace Commands_Runner.Views
         private void bbiCreateFile_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (command != null)
-                CommandsModel.SaveCommandToFile(command.Type, command.Command, command.Name);
+                CommandsData.SaveCommandToFile(command.Type, command.Command, command.Name);
         }
 
         #endregion
@@ -191,7 +208,7 @@ namespace Commands_Runner.Views
         /// <param name="e"></param>
         private void tvCommands_ItemClick(object sender, TileViewItemClickEventArgs e)
         {
-            CommandsModel rowData = GetObjectByRowHandle(e.Item.RowHandle);
+            CommandModel rowData = GetObjectByRowHandle(e.Item.RowHandle);
 
             if (rowData != null)
             {
@@ -245,7 +262,7 @@ namespace Commands_Runner.Views
         /// <param name="e"></param>
         private void tvCommands_CustomItemTemplate(object sender, TileViewCustomItemTemplateEventArgs e)
         {
-            CommandsModel data = GetObjectByRowHandle(e.RowHandle);
+            CommandModel data = GetObjectByRowHandle(e.RowHandle);
 
             if (data != null)
             {
@@ -288,10 +305,10 @@ namespace Commands_Runner.Views
                 {
                     int rowHandle = tvCommands.GetRowHandle(i);
 
-                    if (tvCommands.GetRow(rowHandle) is CommandsModel command)
+                    if (tvCommands.GetRow(rowHandle) is CommandModel command)
                     {
                         command.Position = i;
-                        CommandsModel.UpdatePositionPropertyInXml(command);
+                        CommandsData.SavePosition(command);
                     }
                 }
             });
@@ -347,7 +364,7 @@ namespace Commands_Runner.Views
 
                 void ld()
                 {
-                    List<CommandsModel> commands = CommandsModel.Get(AppHelper.CommandsFilters);
+                    List<CommandModel> commands = CommandsData.GetByFilters(AppHelper.CommandsFilters);
                     commandsModelBindingSource.DataSource = commands;
 
                     if (showmsg)
@@ -366,7 +383,7 @@ namespace Commands_Runner.Views
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        private Task ExecuteFile(CommandsModel file, bool runInAdmin = false)
+        private Task ExecuteFile(CommandModel file, bool runInAdmin = false)
         {
             string batchFilePath = string.Empty;
             string fileName = string.Empty;
@@ -472,10 +489,10 @@ namespace Commands_Runner.Views
         /// </summary>
         /// <param name="rowIndex"></param>
         /// <returns></returns>
-        private CommandsModel GetObjectByRowHandle(int rowIndex)
+        private CommandModel GetObjectByRowHandle(int rowIndex)
         {
             if (rowIndex >= 0)
-                return tvCommands.GetRow(rowIndex) as CommandsModel;
+                return tvCommands.GetRow(rowIndex) as CommandModel;
             else
                 return null;
         }

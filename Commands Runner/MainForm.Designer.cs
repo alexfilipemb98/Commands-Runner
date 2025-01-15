@@ -240,7 +240,7 @@ namespace Commands_Runner
             // 
             // commandsModelBindingSource
             // 
-            this.commandsModelBindingSource.DataSource = typeof(Commands_Runner.Models.CommandsModel);
+            this.commandsModelBindingSource.DataSource = typeof(Commands_Runner.Models.CommandModel);
             // 
             // popupMenu
             // 

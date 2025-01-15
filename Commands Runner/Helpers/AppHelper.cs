@@ -22,7 +22,7 @@ namespace Commands_Runner.Helpers
         public static CommandFilterModel CommandsFilters { get; set; }
         public static SqlDataAccess SQL { get; set; }
         public static SqlDataAccess DATA { get; set; }
-        public static ConfigsModel Configs { get; set; }
+        public static SettingModel Configs { get; set; }
 
         /// <summary>
         /// Instance of main form

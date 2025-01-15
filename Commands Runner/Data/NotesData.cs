@@ -25,7 +25,8 @@ namespace Commands_Runner.Data
         public static int NextId()
         {
             string query = @"SELECT max(Id) as ID FROM Notes";
-            return AppHelper.DATA.GetValueOpen<int>(query) + 1;
+            int result = AppHelper.DATA.GetValueOpen<int?>(query) ?? 0;
+            return result + 1;
         }
 
         public static void Save(NoteModel model)
@@ -44,13 +45,16 @@ namespace Commands_Runner.Data
             parameters.Add("@Name", model.Name);
             parameters.Add("@Text", model.Text);
 
-            AppHelper.DATA.ExecuteScalarOpen(query, ref parameters);
+            if (AppHelper.DATA.IsInTransaction())
+                AppHelper.DATA.SaveDataInTransaction(query, ref parameters);
+            else
+                AppHelper.DATA.ExecuteScalarOpen(query, ref parameters);
         }
 
         public static List<NoteModel> GetAll()
         {
             string query = @"SELECT Id, Name, Text FROM Notes";
-            List<NoteModel> results = AppHelper.DATA.LoadDataListOpen<NoteModel>(query);
+            List<NoteModel> results = AppHelper.DATA.LoadDataListOpen<NoteModel>(query) ?? new List<NoteModel>();
             return results;
         }
 
@@ -64,15 +68,27 @@ namespace Commands_Runner.Data
             AppHelper.DATA.ExecuteScalarOpen(query, ref parameters);
         }
 
-        public static void Import(List<NoteModel> notesList)
+        public static void Import(List<NoteModel> list)
         {
-            string query = "DELETE FROM Notes;";
-
-            AppHelper.DATA.ExecuteScalarOpen(query);
-
-            foreach (var note in notesList)
+            try
             {
-                Save(note);
+                AppHelper.DATA.StartTransactionOpen();
+
+                string query = "DELETE FROM Notes;";
+
+                AppHelper.DATA.ExecuteScalarOpen(query);
+
+                foreach (NoteModel note in list)
+                {
+                    Save(note);
+                }
+
+                AppHelper.DATA.CommitTransaction();
+            }
+            finally
+            {
+                if (AppHelper.DATA.IsInTransaction())
+                    AppHelper.DATA.RollbackTransaction();
             }
         }
     }

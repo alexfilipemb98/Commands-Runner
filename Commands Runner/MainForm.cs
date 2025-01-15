@@ -1,4 +1,5 @@
-﻿using Commands_Runner.Forms;
+﻿using Commands_Runner.Data;
+using Commands_Runner.Forms;
 using Commands_Runner.Helpers;
 using Commands_Runner.Models;
 using Commands_Runner.Properties;
@@ -86,7 +87,7 @@ namespace Commands_Runner
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            ConfigsModel.UpdateGeneralSettings(this.Height, this.Width, this.WindowState);
+            SettingsData.UpdateGeneralSettings(Properties.Settings.Default.SettingId,this.Height, this.Width, this.WindowState);
 
             config.AppSettings.Settings[nameof(CommandFilterModel.ShowDisabled)].Value = AppHelper.CommandsFilters.ShowDisabled.ToString();
             config.AppSettings.Settings[nameof(CommandFilterModel.ShowCMD)].Value = AppHelper.CommandsFilters.ShowCMD.ToString();
@@ -124,8 +125,12 @@ namespace Commands_Runner
         private void LoadSettings()
         {
             this.WindowState = AppHelper.Configs.FormState;
-            this.Width = AppHelper.Configs.FormWidth;
-            this.Height = AppHelper.Configs.FormHeight;
+            
+            if (AppHelper.Configs.FormState != FormWindowState.Maximized)
+            {
+                this.Width = AppHelper.Configs.FormWidth;
+                this.Height = AppHelper.Configs.FormHeight;
+            }
 
             NavigationPageEx page = navigationPaneEx.Pages.FirstOrDefault(w => w.Caption == AppHelper.Configs.StartUpPage) as NavigationPageEx;
             if (page != null)

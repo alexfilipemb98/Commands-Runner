@@ -47,16 +47,17 @@ namespace Commands_Runner
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                AppHelper.Configs = ConfigsModel.ReadFile(out bool primaveraExtensionsOK);
-
-                if (primaveraExtensionsOK)
-                    AppHelper.SqlStart();
-
                 string connectionString = ConfigurationManager.ConnectionStrings["SQLiteConnection"].ConnectionString;
 
                 AppHelper.DATA = new SqlDataAccess(connectionString, true);
-                NotesData.CheckTable();
+                CommandsData.CheckTable();
                 PasswordsData.CheckTable();
+                NotesData.CheckTable();
+                SettingsData.CheckTable();
+                AppHelper.Configs = SettingsData.GetByID(Properties.Settings.Default.SettingId, out bool primaveraExtensionsOK);
+
+                if (primaveraExtensionsOK)
+                    AppHelper.SqlStart();
 
                 MainForm main = new MainForm();
 

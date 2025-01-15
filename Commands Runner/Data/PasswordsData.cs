@@ -2,6 +2,7 @@
 using Commands_Runner.Helpers;
 using Commands_Runner.Models;
 using Dapper;
+using DevExpress.Internal.WinApi.Windows.UI.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,13 +51,16 @@ namespace Commands_Runner.Data
             parameters.Add("@Username", model.Username.Encrypt());
             parameters.Add("@Password", model.Password.Encrypt());
 
-            AppHelper.DATA.ExecuteScalarOpen(query, ref parameters);
+            if (AppHelper.DATA.IsInTransaction())
+                AppHelper.DATA.SaveDataInTransaction(query, ref parameters);
+            else
+                AppHelper.DATA.ExecuteScalarOpen(query, ref parameters);
         }
 
         public static List<PasswordModel> GetAll()
         {
             string query = @"SELECT Id, Name, Username, Password FROM Passwords";
-            List<PasswordModel> results = AppHelper.DATA.LoadDataListOpen<PasswordModel>(query);
+            List<PasswordModel> results = AppHelper.DATA.LoadDataListOpen<PasswordModel>(query) ?? new List<PasswordModel>();
 
             foreach (PasswordModel item in results)
             {
@@ -77,15 +81,30 @@ namespace Commands_Runner.Data
             AppHelper.DATA.ExecuteScalarOpen(query, ref parameters);
         }
 
-        public static void Import(List<PasswordModel> notesList)
+        public static void Import(List<PasswordModel> list)
         {
-            string query = "DELETE FROM Passwords;";
-
-            AppHelper.DATA.ExecuteScalarOpen(query);
-
-            foreach (var note in notesList)
+            try
             {
-                Save(note);
+                AppHelper.DATA.StartTransactionOpen();
+
+                string query = "DELETE FROM Passwords;";
+
+                AppHelper.DATA.ExecuteScalarOpen(query);
+
+                foreach (PasswordModel password in list)
+                {
+                    password.Username = password.Username.Decrypt();
+                    password.Password = password.Password.Decrypt();
+
+                    Save(password);
+                }
+
+                AppHelper.DATA.CommitTransaction();
+            }
+            finally
+            {
+                if (AppHelper.DATA.IsInTransaction())
+                    AppHelper.DATA.RollbackTransaction();
             }
         }
     }

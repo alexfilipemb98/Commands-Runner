@@ -101,7 +101,7 @@
             // 
             // commandsModelBindingSource
             // 
-            this.commandsModelBindingSource.DataSource = typeof(Commands_Runner.Models.CommandsModel);
+            this.commandsModelBindingSource.DataSource = typeof(Commands_Runner.Models.CommandModel);
             // 
             // popupMenu
             // 
@@ -404,7 +404,7 @@
             // 
             this.bbiImportCommands.Caption = "Import";
             this.bbiImportCommands.Id = 23;
-            this.bbiImportCommands.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.exportfile;
+            this.bbiImportCommands.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.import;
             this.bbiImportCommands.Name = "bbiImportCommands";
             this.bbiImportCommands.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiImportCommands_ItemClick);
             // 

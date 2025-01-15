@@ -35,6 +35,8 @@ public class ConfigsModel
     public int FormWidth { get; set; }
     public int FormHeight { get; set; }
     public FormWindowState FormState { get; set; }
+    public string StartUpPage { get; set; }
+
 
     public static ConfigsModel ReadFile(out bool ok)
     {
@@ -75,6 +77,7 @@ public class ConfigsModel
             FormWidth = int.Parse(general?.Element(nameof(FormWidth))?.Value ?? "1000"),
             FormHeight = int.Parse(general?.Element(nameof(FormHeight))?.Value ?? "530"),
             FormState = (FormWindowState)int.Parse(general?.Element(nameof(FormState))?.Value ?? ((int)FormWindowState.Normal).ToString()),
+            StartUpPage = general?.Element(nameof(StartUpPage))?.Value,
         };
 
         ok = model.SQLUsername != null && model.SQLPassword != null &&
@@ -89,13 +92,13 @@ public class ConfigsModel
         {
             writer.WriteStartDocument();
 
-            writer.WriteStartElement("Root"); // Nó raiz
+            writer.WriteStartElement("Root");
 
             writer.WriteStartElement("General");
-            writer.WriteElementString(nameof(FormHeight), model.FormHeight.ToString());
-            writer.WriteElementString(nameof(FormWidth), model.FormWidth.ToString());
-            writer.WriteElementString(nameof(FormState), ((int)model.FormState).ToString());
-
+            writer.WriteElementString(nameof(FormHeight), model.FormHeight.ToString() ?? string.Empty);
+            writer.WriteElementString(nameof(FormWidth), model.FormWidth.ToString() ?? string.Empty);
+            writer.WriteElementString(nameof(FormState), ((int)model.FormState).ToString() ?? string.Empty);
+            writer.WriteElementString(nameof(StartUpPage), model.StartUpPage ?? string.Empty);
             writer.WriteEndElement();
 
             writer.WriteStartElement("Connection");
@@ -127,7 +130,6 @@ public class ConfigsModel
             writer.WriteEndElement(); // Fecha o nó raiz
             writer.WriteEndDocument();
         }
-
     }
 
     public static void UpdateGeneralSettings(int formHeight, int formWidth, FormWindowState windowState)

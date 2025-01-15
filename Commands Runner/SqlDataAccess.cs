@@ -1,8 +1,10 @@
 ﻿using Dapper;
+using DevExpress.XtraRichEdit.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace Commands_Runner
@@ -17,11 +19,15 @@ namespace Commands_Runner
         private IDbConnection _connection;
         private IDbTransaction _transaction;
 
-        public SqlDataAccess(string stringConn)
+        public SqlDataAccess(string stringConn, bool useLite = false)
         {
             if (_connection == null || _connection.State != ConnectionState.Open)
             {
-                _connection = new SqlConnection(stringConn);
+                if (useLite)
+                    _connection = new SQLiteConnection(stringConn);
+                else
+                    _connection = new SqlConnection(stringConn);
+
                 _connection.Open();
             }
         }

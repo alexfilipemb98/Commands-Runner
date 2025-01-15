@@ -121,9 +121,9 @@ namespace Commands_Runner.Views
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.xtraTabControl = new DevExpress.XtraTab.XtraTabControl();
-            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.richEditBarController = new DevExpress.XtraRichEdit.UI.RichEditBarController(this.components);
             this.spellChecker1 = new DevExpress.XtraSpellChecker.SpellChecker(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
@@ -135,10 +135,9 @@ namespace Commands_Runner.Views
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl)).BeginInit();
-            this.xtraTabControl.SuspendLayout();
-            this.xtraTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.richEditBarController)).BeginInit();
             this.SuspendLayout();
             // 
@@ -287,7 +286,7 @@ namespace Commands_Runner.Views
             // 
             this.bbiImport.Caption = "Import";
             this.bbiImport.Id = 23;
-            this.bbiImport.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.exportfile;
+            this.bbiImport.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.import;
             this.bbiImport.Name = "bbiImport";
             this.bbiImport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiImport_ItemClick);
             // 
@@ -322,9 +321,8 @@ namespace Commands_Runner.Views
             // 
             this.richEditControl2.ActiveViewType = DevExpress.XtraRichEdit.RichEditViewType.Simple;
             this.richEditControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.richEditControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richEditControl2.LayoutUnit = DevExpress.XtraRichEdit.DocumentLayoutUnit.Pixel;
-            this.richEditControl2.Location = new System.Drawing.Point(0, 0);
+            this.richEditControl2.Location = new System.Drawing.Point(16, 424);
             this.richEditControl2.MenuManager = this.barManager;
             this.richEditControl2.Name = "richEditControl2";
             this.richEditControl2.Options.DocumentCapabilities.FootNotes = DevExpress.XtraRichEdit.DocumentCapability.Disabled;
@@ -334,13 +332,14 @@ namespace Commands_Runner.Views
             this.richEditControl2.Options.HorizontalRuler.ShowRightIndent = false;
             this.richEditControl2.Options.HorizontalRuler.ShowTabs = false;
             this.richEditControl2.Options.HorizontalRuler.Visibility = DevExpress.XtraRichEdit.RichEditRulerVisibility.Hidden;
-            this.richEditControl2.Size = new System.Drawing.Size(913, 397);
+            this.richEditControl2.Size = new System.Drawing.Size(915, 20);
             this.richEditControl2.SpellChecker = this.spellChecker;
             this.spellChecker.SetSpellCheckerOptions(this.richEditControl2, optionsSpelling1);
             this.spellChecker1.SetSpellCheckerOptions(this.richEditControl2, optionsSpelling2);
             this.richEditControl2.TabIndex = 0;
             this.richEditControl2.Text = "Test";
             this.richEditControl2.UseWaitCursor = true;
+            this.richEditControl2.Visible = false;
             // 
             // spellChecker
             // 
@@ -807,6 +806,7 @@ namespace Commands_Runner.Views
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.richEditControl2);
             this.layoutControl1.Controls.Add(this.xtraTabControl);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 103);
@@ -826,27 +826,19 @@ namespace Commands_Runner.Views
             | DevExpress.XtraTab.TabButtons.Default)));
             this.xtraTabControl.Location = new System.Drawing.Point(16, 16);
             this.xtraTabControl.Name = "xtraTabControl";
-            this.xtraTabControl.SelectedTabPage = this.xtraTabPage2;
-            this.xtraTabControl.Size = new System.Drawing.Size(915, 428);
+            this.xtraTabControl.Size = new System.Drawing.Size(915, 402);
             this.xtraTabControl.TabIndex = 4;
-            this.xtraTabControl.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.xtraTabPage2});
             this.xtraTabControl.Visible = false;
+            this.xtraTabControl.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl_SelectedPageChanged);
             this.xtraTabControl.CloseButtonClick += new System.EventHandler(this.xtraTabControl_CloseButtonClick);
-            // 
-            // xtraTabPage2
-            // 
-            this.xtraTabPage2.Controls.Add(this.richEditControl2);
-            this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(913, 397);
-            this.xtraTabPage2.Text = "xtraTabPage2";
             // 
             // Root
             // 
             this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
             this.Root.GroupBordersVisible = false;
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1});
+            this.layoutControlItem1,
+            this.layoutControlItem2});
             this.Root.Name = "Root";
             this.Root.Size = new System.Drawing.Size(947, 460);
             this.Root.TextVisible = false;
@@ -856,9 +848,19 @@ namespace Commands_Runner.Views
             this.layoutControlItem1.Control = this.xtraTabControl;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(921, 434);
+            this.layoutControlItem1.Size = new System.Drawing.Size(921, 408);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.richEditControl2;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 408);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(921, 26);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextVisible = false;
+            this.layoutControlItem2.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // richEditBarController
             // 
@@ -953,10 +955,9 @@ namespace Commands_Runner.Views
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl)).EndInit();
-            this.xtraTabControl.ResumeLayout(false);
-            this.xtraTabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.richEditBarController)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1053,9 +1054,9 @@ namespace Commands_Runner.Views
         private DevExpress.XtraRichEdit.UI.FindItem findItem1;
         private DevExpress.XtraRichEdit.UI.ReplaceItem replaceItem1;
         private DevExpress.XtraRichEdit.UI.RichEditBarController richEditBarController;
-        private XtraTabPage xtraTabPage2;
         private RichEditControl richEditControl2;
         private DevExpress.XtraSpellChecker.SpellChecker spellChecker;
         private DevExpress.XtraSpellChecker.SpellChecker spellChecker1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
     }
 }

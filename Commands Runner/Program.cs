@@ -1,10 +1,14 @@
-﻿using Commands_Runner.Forms;
+﻿using Commands_Runner.Data;
+using Commands_Runner.Forms;
 using Commands_Runner.Helpers;
 using DevExpress.LookAndFeel;
 using DevExpress.XtraEditors;
+using DevExpress.XtraRichEdit.Model;
 using DevExpress.XtraSplashScreen;
 using Microsoft.Win32;
 using System;
+using System.Configuration;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -48,6 +52,12 @@ namespace Commands_Runner
                 if (primaveraExtensionsOK)
                     AppHelper.SqlStart();
 
+                string connectionString = ConfigurationManager.ConnectionStrings["SQLiteConnection"].ConnectionString;
+
+                AppHelper.DATA = new SqlDataAccess(connectionString, true);
+                NotesData.CheckTable();
+                PasswordsData.CheckTable();
+
                 MainForm main = new MainForm();
 
                 main.Shown += (object sender, EventArgs e) =>
@@ -65,20 +75,21 @@ namespace Commands_Runner
             finally
             {
                 AppHelper.SQL?.Dispose();
+                AppHelper.DATA?.Dispose();
             }
         }
 
         public static bool IsDarkThemeEnabled()
         {
-            var registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+
             if (registryKey != null)
             {
-                var value = registryKey.GetValue("AppsUseLightTheme");
+                object value = registryKey.GetValue("AppsUseLightTheme");
                 if (value != null && (int)value == 0)
-                {
                     return true; // Modo escuro está ativado
-                }
             }
+
             return false; // Modo claro está ativado
         }
     }

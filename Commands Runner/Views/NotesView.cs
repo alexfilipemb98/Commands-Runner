@@ -1,4 +1,5 @@
-﻿using Commands_Runner.Forms;
+﻿using Commands_Runner.Data;
+using Commands_Runner.Forms;
 using Commands_Runner.Helpers;
 using Commands_Runner.Models;
 using DevExpress.XtraBars;
@@ -27,10 +28,10 @@ namespace Commands_Runner.Views
         {
             string name = string.Empty;
             if (TextInputForm.SD(ref name) == DialogResult.OK)
-                CreateTab(new NotesModel { Name = name });
+                CreateTab(new NoteModel { Name = name });
         }
 
-        private void CreateTab(NotesModel note)
+        private void CreateTab(NoteModel note)
         {
             int count = xtraTabControl.TabPages.Count + 1;
 
@@ -39,6 +40,7 @@ namespace Commands_Runner.Views
             xtraTabPage.Name = $"xtraTabPage{count}";
             xtraTabPage.Text = note.Name;
             xtraTabPage.Tag = note.Id;
+            xtraTabPage.PageVisible = true;
 
             RichEditControl richEdit = new RichEditControl();
             richEdit.Dock = DockStyle.Fill;
@@ -74,9 +76,9 @@ namespace Commands_Runner.Views
 
                 void ld()
                 {
-                    List<NotesModel> notesList = NotesModel.Get();
+                    List<NoteModel> notesList = NotesData.GetAll();
                     xtraTabControl.TabPages.Clear();
-                    foreach (NotesModel note in notesList)
+                    foreach (NoteModel note in notesList)
                     {
                         CreateTab(note);
                     }
@@ -87,6 +89,7 @@ namespace Commands_Runner.Views
             })
             .ContinueWith(t =>
             {
+                xtraTabControl.Refresh();
             }, TaskScheduler.FromCurrentSynchronizationContext());
 
         }
@@ -95,14 +98,14 @@ namespace Commands_Runner.Views
         {
             XtraTabPage page = xtraTabControl.SelectedTabPage;
 
-            if (page != null && XtraMessageBox.Show($"Do you realy want to delete '{page.Text}'", "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (page != null && XtraMessageBox.Show($"Do you really want to delete '{page.Text}'", "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                NotesModel.DeleteFromXml(int.Parse(page.Tag.ToString()));
+                NotesData.Delete(int.Parse(page.Tag.ToString()));
                 xtraTabControl.TabPages.Remove(page);
             }
         }
 
-        private void bbiSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) => SaveData();
+        private void bbiSave_ItemClick(object sender, ItemClickEventArgs e) => SaveData();
 
         public void SaveData()
         {
@@ -110,7 +113,7 @@ namespace Commands_Runner.Views
             {
                 foreach (XtraTabPage tabPage in xtraTabControl.TabPages.ToList<XtraTabPage>())
                 {
-                    NotesModel note = new NotesModel();
+                    NoteModel note = new NoteModel();
 
                     note.Id = int.Parse(tabPage.Tag?.ToString());
                     note.Name = tabPage.Text;
@@ -121,7 +124,7 @@ namespace Commands_Runner.Views
                             note.Text = richEdit.HtmlText;
                     }
 
-                    NotesModel.SaveToXml(note);
+                    NotesData.Save(note);
 
                     tabPage.Tag = note.Id;
                 }
@@ -146,36 +149,60 @@ namespace Commands_Runner.Views
 
         private void bbiExport_ItemClick(object sender, ItemClickEventArgs e)
         {
+            SaveData();
+
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.FileName = NotesModel.FilePath;
+                saveFileDialog.FileName = "Notes.xml";
                 saveFileDialog.Filter = "XML files (*.xml)|*.xml";
-                saveFileDialog.Title = $"Export {NotesModel.FilePath}";
+                saveFileDialog.Title = $"Export Notes";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string destinationFilePath = saveFileDialog.FileName;
-                    File.Copy(NotesModel.FilePath, destinationFilePath, overwrite: true);
+
+                    RootNotesModel notes = new RootNotesModel();
+                    notes.NoteList = NotesData.GetAll();
+
+                    string xml = AppHelper.SerializeToXml(notes);
+                    File.WriteAllText(destinationFilePath, xml);
                 }
             }
         }
 
         private void bbiImport_ItemClick(object sender, ItemClickEventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            try
             {
-                openFileDialog.FileName = NotesModel.FilePath;
-                openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-                openFileDialog.Title = $"Select the source {NotesModel.FilePath} file";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    string sourceFilePath = openFileDialog.FileName;
-                    File.Copy(sourceFilePath, NotesModel.FilePath, overwrite: true);
-                }
-            }
+                    openFileDialog.FileName = "Notes.xml";
+                    openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                    openFileDialog.Title = $"Select the source file";
 
-            LoadData();
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string sourceFilePath = openFileDialog.FileName;
+                        string xml = File.ReadAllText(sourceFilePath);
+                        RootNotesModel notes = AppHelper.DeserializeFromXml<RootNotesModel>(xml);
+
+                        NotesData.Import(notes.NoteList);
+                    }
+                }
+
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                AppHelper.ErrorHandler(ex);
+            }
         }
+
+        private void xtraTabControl_SelectedPageChanged(object sender, TabPageChangedEventArgs e)
+        {
+            if (e.Page == null)
+                richEditBarController.Control = null;
+        }
+
     }
 }

@@ -8,6 +8,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
+using Life_Log.Components;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,11 +31,13 @@ namespace Commands_Runner
         public MainForm()
         {
             InitializeComponent();
+
+            AppHelper.Instance = this;
+
             LoadSettings();
 
             bsiVersion.Caption = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             bsiSizse.Caption = $"Size: {Size.Width} X {Size.Height}";
-            AppHelper.Instance = this;
         }
 
         /// <summary>
@@ -123,6 +126,10 @@ namespace Commands_Runner
             this.WindowState = AppHelper.Configs.FormState;
             this.Width = AppHelper.Configs.FormWidth;
             this.Height = AppHelper.Configs.FormHeight;
+
+            NavigationPageEx page = navigationPaneEx.Pages.FirstOrDefault(w => w.Caption == AppHelper.Configs.StartUpPage) as NavigationPageEx;
+            if (page != null)
+                navigationPaneEx.SelectedPage = page;
 
             AppHelper.CommandsFilters = new CommandFilterModel();
 

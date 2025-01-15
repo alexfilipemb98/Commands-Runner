@@ -1,4 +1,5 @@
-﻿using Commands_Runner.Helpers;
+﻿using Commands_Runner.Data;
+using Commands_Runner.Helpers;
 using Commands_Runner.Models;
 using Commands_Runner.Properties;
 using DevExpress.XtraBars;
@@ -53,10 +54,17 @@ namespace Commands_Runner.Views
 
         private void gvPasswords_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
         {
-            if (e.Row is PasswordsModel pp && pp != null)
+            try
             {
-                PasswordsModel.SaveToXml(pp);
-                AppHelper.SetStatus("Password saved!", Color.Green);
+                if (e.Row is PasswordModel pp && pp != null)
+                {
+                    PasswordsData.Save(pp);
+                    AppHelper.SetStatus("Password saved!", Color.Green);
+                }
+            }
+            catch (Exception ex)
+            {
+                AppHelper.ErrorHandler(ex);
             }
         }
 
@@ -74,14 +82,14 @@ namespace Commands_Runner.Views
 
         private void ribActionsPasswords_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            if (gvPasswords.GetFocusedRow() is PasswordsModel passwordsModel)
+            if (gvPasswords.GetFocusedRow() is PasswordModel passwordsModel)
             {
                 if (e.Button.Tag?.ToString() == "DEL")
                 {
                     DialogResult result = XtraMessageBox.Show($"Do you realy want to delete '{passwordsModel.Name}'?", "Delete password", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
-                        PasswordsModel.DeleteFromXml(passwordsModel.Id);
+                        PasswordsData.Delete(passwordsModel.Id);
                         AppHelper.SetStatus("Password deleted!", Color.Red);
                         passwordsModelBindingSource.Remove(passwordsModel);
                     }
@@ -111,7 +119,7 @@ namespace Commands_Runner.Views
 
                 void ld()
                 {
-                    List<PasswordsModel> passwords = PasswordsModel.Get();
+                    List<PasswordModel> passwords = PasswordsData.GetAll();
                     passwordsModelBindingSource.DataSource = passwords;
 
                     if (showmsg)
@@ -147,7 +155,6 @@ namespace Commands_Runner.Views
             }
 
         }
-
         private void bbiExportExcel_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -169,14 +176,19 @@ namespace Commands_Runner.Views
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.FileName = PasswordsModel.FilePath;
+                saveFileDialog.FileName = "Passwords.xml";
                 saveFileDialog.Filter = "XML files (*.xml)|*.xml";
-                saveFileDialog.Title = $"Export {PasswordsModel.FilePath}";
+                saveFileDialog.Title = $"Export Passwords";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string destinationFilePath = saveFileDialog.FileName;
-                    File.Copy(PasswordsModel.FilePath, destinationFilePath, overwrite: true);
+
+                    RootPasswordsModel notes = new RootPasswordsModel();
+                    notes.PasswordList = PasswordsData.GetAll();
+
+                    string xml = AppHelper.SerializeToXml(notes);
+                    File.WriteAllText(destinationFilePath, xml);
                 }
             }
         }
@@ -185,14 +197,17 @@ namespace Commands_Runner.Views
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.FileName = PasswordsModel.FilePath;
+                openFileDialog.FileName = "Passwords.xml";
                 openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
-                openFileDialog.Title = $"Select the source {PasswordsModel.FilePath} file";
+                openFileDialog.Title = $"Select the source file";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string sourceFilePath = openFileDialog.FileName;
-                    File.Copy(sourceFilePath, PasswordsModel.FilePath, overwrite: true);
+                    string xml = File.ReadAllText(sourceFilePath);
+                    RootPasswordsModel root = AppHelper.DeserializeFromXml<RootPasswordsModel>(xml);
+
+                    PasswordsData.Import(root.PasswordList);
                 }
             }
 

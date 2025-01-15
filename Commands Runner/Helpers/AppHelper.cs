@@ -1,16 +1,19 @@
 ﻿using Commands_Runner.Models;
 using Commands_Runner.Properties;
 using DevExpress.Pdf.Native.BouncyCastle.Asn1.Cmp;
+using DevExpress.XtraEditors;
 using DevExpress.XtraLayout.Filtering.Templates;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Commands_Runner.Helpers
 {
@@ -18,6 +21,7 @@ namespace Commands_Runner.Helpers
     {
         public static CommandFilterModel CommandsFilters { get; set; }
         public static SqlDataAccess SQL { get; set; }
+        public static SqlDataAccess DATA { get; set; }
         public static ConfigsModel Configs { get; set; }
 
         /// <summary>
@@ -32,6 +36,9 @@ namespace Commands_Runner.Helpers
         /// <param name="color"></param>
         public static void SetStatus(string text, Color color)
         {
+            if (Instance == null)
+                return;
+
             Instance.bsiStatus.ItemAppearance.Normal.ForeColor = color;
             Instance.bsiStatus.Caption = $"{DateTime.Now:HH:mm} - {text}";
         }
@@ -74,6 +81,30 @@ namespace Commands_Runner.Helpers
             Instance.npPrimaveraExtensions.PageEnabled = ok;
             Instance.bsiSQLState.ImageOptions.SvgImage = ok ? Resources.actions_checkcircled : Resources.actions_deletecircled;
             return ok;
+        }
+
+        public static string SerializeToXml<T>(T obj)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            using (var writer = new StringWriter())
+            {
+                serializer.Serialize(writer, obj);
+                return writer.ToString();
+            }
+        }
+
+        public static T DeserializeFromXml<T>(string xml)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            using (StringReader reader = new StringReader(xml))
+            {
+                return (T)serializer.Deserialize(reader);
+            }
+        }
+
+        public static void ErrorHandler(Exception ex)
+        {
+            XtraMessageBox.Show(ex.ToString(), ex.TargetSite.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

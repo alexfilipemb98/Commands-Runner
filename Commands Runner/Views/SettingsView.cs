@@ -1,6 +1,7 @@
 ﻿using Commands_Runner.Helpers;
 using Commands_Runner.Properties;
 using DevExpress.XtraEditors;
+using Life_Log.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,30 +18,47 @@ namespace Commands_Runner.Views
 
         public void LoadData()
         {
-            teSqlAddress.Text = AppHelper.Configs.SQLAddress;
-            teSqlUsername.Text = AppHelper.Configs.SQLUsername;
-            beSqlPassword.Text = AppHelper.Configs.SQLPassword;
-            teSqlDatabase.Text = AppHelper.Configs.SQLDatabase;
+            try
+            {
+                teSqlAddress.Text = AppHelper.Configs.SQLAddress;
+                teSqlUsername.Text = AppHelper.Configs.SQLUsername;
+                beSqlPassword.Text = AppHelper.Configs.SQLPassword;
+                teSqlDatabase.Text = AppHelper.Configs.SQLDatabase;
 
-            teCMDArgs.Text = AppHelper.Configs.CMDArgs;
-            teCMDPath.Text = AppHelper.Configs.CMDPath;
-            teCMDFileExt.Text = AppHelper.Configs.CMDFileExt;
+                teCMDArgs.Text = AppHelper.Configs.CMDArgs;
+                teCMDPath.Text = AppHelper.Configs.CMDPath;
+                teCMDFileExt.Text = AppHelper.Configs.CMDFileExt;
 
-            tePS1Args.Text = AppHelper.Configs.PS1Args;
-            tePS1Path.Text = AppHelper.Configs.PS1Path;
-            tePS1FileExt.Text = AppHelper.Configs.PS1FileExt;
+                tePS1Args.Text = AppHelper.Configs.PS1Args;
+                tePS1Path.Text = AppHelper.Configs.PS1Path;
+                tePS1FileExt.Text = AppHelper.Configs.PS1FileExt;
 
-            tePYArgs.Text = AppHelper.Configs.PYArgs;
-            tePYPath.Text = AppHelper.Configs.PYPath;
-            tePYFileExt.Text = AppHelper.Configs.PYFileExt;
+                tePYArgs.Text = AppHelper.Configs.PYArgs;
+                tePYPath.Text = AppHelper.Configs.PYPath;
+                tePYFileExt.Text = AppHelper.Configs.PYFileExt;
 
-            teHTMIMGArgs.Text = AppHelper.Configs.HTMIMGArgs;
-            teHTMIMGPath.Text = AppHelper.Configs.HTMIMGPath;
-            teHTMIMGFileExt.Text = AppHelper.Configs.HTMIMGFileExt;
+                teHTMIMGArgs.Text = AppHelper.Configs.HTMIMGArgs;
+                teHTMIMGPath.Text = AppHelper.Configs.HTMIMGPath;
+                teHTMIMGFileExt.Text = AppHelper.Configs.HTMIMGFileExt;
 
-            teHeight.Text = AppHelper.Instance.Height.ToString();
-            teWidth.Text = AppHelper.Instance.Width.ToString();
+                teHeight.Text = AppHelper.Instance.Height.ToString();
+                teWidth.Text = AppHelper.Instance.Width.ToString();
 
+                var lista = AppHelper.Instance.navigationPaneEx.Pages.Where(w => w.PageVisible);
+
+                cbePages.Properties.Items.Clear();
+
+                foreach (var item in lista)
+                {
+                    cbePages.Properties.Items.Add(item.Caption);
+                }
+
+                cbePages.Text = AppHelper.Configs.StartUpPage;
+            }
+            catch (Exception ex)
+            {
+                AppHelper.ErrorHandler(ex);
+            }
         }
 
         private void bbiSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -68,6 +86,7 @@ namespace Commands_Runner.Views
 
             AppHelper.Configs.FormWidth = int.Parse(teWidth.Text);
             AppHelper.Configs.FormHeight = int.Parse(teHeight.Text);
+            AppHelper.Configs.StartUpPage = cbePages.Text;
 
             AppHelper.Instance.Height = int.Parse(teHeight.Text);
             AppHelper.Instance.Width = int.Parse(teWidth.Text);

@@ -77,6 +77,8 @@
     <Compile Include="Components\NavigationPaneEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Data\NotesData.cs" />
+    <Compile Include="Data\PasswordsData.cs" />
     <Compile Include="Enums\CommandTypeEnum.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Extensions\SecurityExtension.cs" />
@@ -120,8 +122,8 @@
     <Compile Include="Models\CommandTypeInfoModel.cs" />
     <Compile Include="Models\CommandFilterModel.cs" />
     <Compile Include="Models\ConfigsModel.cs" />
-    <Compile Include="Models\NotesModel.cs" />
-    <Compile Include="Models\PasswordsModel.cs" />
+    <Compile Include="Models\NoteModel.cs" />
+    <Compile Include="Models\PasswordModel.cs" />
     <Compile Include="Models\PrimaveraEmpresasModel.cs" />
     <Compile Include="Models\PrimaveraExtensionModel.cs" />
     <Compile Include="Program.cs" />

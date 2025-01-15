@@ -325,7 +325,7 @@
             // 
             // passwordsModelBindingSource
             // 
-            this.passwordsModelBindingSource.DataSource = typeof(Commands_Runner.Models.PasswordsModel);
+            this.passwordsModelBindingSource.DataSource = typeof(Commands_Runner.Models.PasswordModel);
             // 
             // gvPasswords
             // 

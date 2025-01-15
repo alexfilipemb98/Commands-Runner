@@ -181,7 +181,7 @@ namespace Commands_Runner
             // 
             // btsSetTopMost
             // 
-            this.btsSetTopMost.Caption = "EditMode";
+            this.btsSetTopMost.Caption = "Top Most";
             this.btsSetTopMost.Id = 42;
             this.btsSetTopMost.Name = "btsSetTopMost";
             this.btsSetTopMost.VisibleInSearchMenu = false;
@@ -362,14 +362,14 @@ namespace Commands_Runner
             this.npSettingsView.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("npSettingsView.ImageOptions.SvgImage")));
             this.npSettingsView.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
             this.npSettingsView.Name = "npSettingsView";
-            this.npSettingsView.Size = new System.Drawing.Size(962, 488);
+            this.npSettingsView.Size = new System.Drawing.Size(816, 488);
             // 
             // settingsView
             // 
             this.settingsView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.settingsView.Location = new System.Drawing.Point(0, 0);
             this.settingsView.Name = "settingsView";
-            this.settingsView.Size = new System.Drawing.Size(962, 488);
+            this.settingsView.Size = new System.Drawing.Size(816, 488);
             this.settingsView.TabIndex = 0;
             // 
             // npNoteView
@@ -395,6 +395,7 @@ namespace Commands_Runner
             this.navigationPage1.Caption = "navigationPage1";
             this.navigationPage1.Controls.Add(this.tasksView1);
             this.navigationPage1.Name = "navigationPage1";
+            this.navigationPage1.PageVisible = false;
             this.navigationPage1.Size = new System.Drawing.Size(783, 429);
             // 
             // tasksView1
@@ -407,7 +408,7 @@ namespace Commands_Runner
             // 
             // passwordsModelBindingSource
             // 
-            this.passwordsModelBindingSource.DataSource = typeof(Commands_Runner.Models.PasswordsModel);
+            this.passwordsModelBindingSource.DataSource = typeof(Commands_Runner.Models.PasswordModel);
             // 
             // barButtonItem1
             // 
@@ -518,7 +519,6 @@ namespace Commands_Runner
         private DevExpress.XtraBars.BarButtonItem bbiConverterHtmPNG;
         private LayoutControl layoutControl1;
         private LayoutControlGroup Root;
-        private Life_Log.Components.NavigationPaneEx navigationPaneEx;
         private Life_Log.Components.NavigationPageEx npPasswordsListView;
         private LayoutControlItem layoutControlItem1;
         private Life_Log.Components.NavigationPageEx npCommandsListView;
@@ -534,6 +534,7 @@ namespace Commands_Runner
         private Views.NotesListView notesView;
         private DevExpress.XtraBars.Navigation.NavigationPage navigationPage1;
         private Views.TasksView tasksView1;
+        public Life_Log.Components.NavigationPaneEx navigationPaneEx;
     }
 }
 

@@ -313,6 +313,16 @@ namespace Commands_Runner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
         /// </summary>
+        internal static DevExpress.Utils.Svg.SvgImage extractstyle1 {
+            get {
+                object obj = ResourceManager.GetObject("extractstyle1", resourceCulture);
+                return ((DevExpress.Utils.Svg.SvgImage)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type DevExpress.Utils.Svg.SvgImage.
+        /// </summary>
         internal static DevExpress.Utils.Svg.SvgImage filter {
             get {
                 object obj = ResourceManager.GetObject("filter", resourceCulture);

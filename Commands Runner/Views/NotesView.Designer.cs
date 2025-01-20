@@ -32,8 +32,7 @@ namespace Commands_Runner.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraSpellChecker.OptionsSpelling optionsSpelling1 = new DevExpress.XtraSpellChecker.OptionsSpelling();
-            DevExpress.XtraSpellChecker.OptionsSpelling optionsSpelling2 = new DevExpress.XtraSpellChecker.OptionsSpelling();
+            DevExpress.XtraSpellChecker.OptionsSpelling optionsSpelling3 = new DevExpress.XtraSpellChecker.OptionsSpelling();
             this.barManager = new DevExpress.XtraBars.BarManager(this.components);
             this.bar = new DevExpress.XtraBars.Bar();
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
@@ -107,6 +106,7 @@ namespace Commands_Runner.Views
             this.changeStyleItem1 = new DevExpress.XtraRichEdit.UI.ChangeStyleItem();
             this.repositoryItemRichEditStyleEdit1 = new DevExpress.XtraRichEdit.Design.RepositoryItemRichEditStyleEdit();
             this.showEditStyleFormItem1 = new DevExpress.XtraRichEdit.UI.ShowEditStyleFormItem();
+            this.bciFormatPainter = new DevExpress.XtraBars.BarCheckItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -125,7 +125,6 @@ namespace Commands_Runner.Views
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.richEditBarController = new DevExpress.XtraRichEdit.UI.RichEditBarController(this.components);
-            this.spellChecker1 = new DevExpress.XtraSpellChecker.SpellChecker(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemFontEditRichEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemRichEditFontSizeEdit1)).BeginInit();
@@ -222,8 +221,9 @@ namespace Commands_Runner.Views
             this.changeStyleItem1,
             this.showEditStyleFormItem1,
             this.findItem1,
-            this.replaceItem1});
-            this.barManager.MaxItemId = 91;
+            this.replaceItem1,
+            this.bciFormatPainter});
+            this.barManager.MaxItemId = 94;
             this.barManager.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemSearchControl1,
             this.repositoryItemTextEdit1,
@@ -328,14 +328,14 @@ namespace Commands_Runner.Views
             this.richEditControl2.Options.DocumentCapabilities.FootNotes = DevExpress.XtraRichEdit.DocumentCapability.Disabled;
             this.richEditControl2.Options.DocumentCapabilities.HeadersFooters = DevExpress.XtraRichEdit.DocumentCapability.Disabled;
             this.richEditControl2.Options.DocumentSaveOptions.CurrentFormat = DevExpress.XtraRichEdit.DocumentFormat.PlainText;
+            this.richEditControl2.Options.DocumentSaveOptions.DefaultFormat = DevExpress.XtraRichEdit.DocumentFormat.Undefined;
             this.richEditControl2.Options.HorizontalRuler.ShowLeftIndent = false;
             this.richEditControl2.Options.HorizontalRuler.ShowRightIndent = false;
             this.richEditControl2.Options.HorizontalRuler.ShowTabs = false;
             this.richEditControl2.Options.HorizontalRuler.Visibility = DevExpress.XtraRichEdit.RichEditRulerVisibility.Hidden;
             this.richEditControl2.Size = new System.Drawing.Size(915, 20);
             this.richEditControl2.SpellChecker = this.spellChecker;
-            this.spellChecker.SetSpellCheckerOptions(this.richEditControl2, optionsSpelling1);
-            this.spellChecker1.SetSpellCheckerOptions(this.richEditControl2, optionsSpelling2);
+            this.spellChecker.SetSpellCheckerOptions(this.richEditControl2, optionsSpelling3);
             this.richEditControl2.TabIndex = 0;
             this.richEditControl2.Text = "Test";
             this.richEditControl2.UseWaitCursor = true;
@@ -705,7 +705,8 @@ namespace Commands_Runner.Views
             this.stylesBar1.FloatLocation = new System.Drawing.Point(1052, 90);
             this.stylesBar1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.Width, this.changeStyleItem1, "", false, true, true, 117),
-            new DevExpress.XtraBars.LinkPersistInfo(this.showEditStyleFormItem1)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.showEditStyleFormItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bciFormatPainter)});
             this.stylesBar1.OptionsBar.AllowQuickCustomization = false;
             this.stylesBar1.OptionsBar.DrawBorder = false;
             // 
@@ -727,6 +728,14 @@ namespace Commands_Runner.Views
             // 
             this.showEditStyleFormItem1.Id = 88;
             this.showEditStyleFormItem1.Name = "showEditStyleFormItem1";
+            // 
+            // bciFormatPainter
+            // 
+            this.bciFormatPainter.Caption = "Format Painter";
+            this.bciFormatPainter.Id = 93;
+            this.bciFormatPainter.ImageOptions.SvgImage = global::Commands_Runner.Properties.Resources.extractstyle1;
+            this.bciFormatPainter.Name = "bciFormatPainter";
+            this.bciFormatPainter.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bciFormatPainter_ItemClick);
             // 
             // barDockControlTop
             // 
@@ -930,11 +939,6 @@ namespace Commands_Runner.Views
             this.richEditBarController.BarItems.Add(this.replaceItem1);
             this.richEditBarController.Control = this.richEditControl2;
             // 
-            // spellChecker1
-            // 
-            this.spellChecker1.Culture = new System.Globalization.CultureInfo("pt-PT");
-            this.spellChecker1.ParentContainer = null;
-            // 
             // NotesListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1056,7 +1060,7 @@ namespace Commands_Runner.Views
         private DevExpress.XtraRichEdit.UI.RichEditBarController richEditBarController;
         private RichEditControl richEditControl2;
         private DevExpress.XtraSpellChecker.SpellChecker spellChecker;
-        private DevExpress.XtraSpellChecker.SpellChecker spellChecker1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraBars.BarCheckItem bciFormatPainter;
     }
 }

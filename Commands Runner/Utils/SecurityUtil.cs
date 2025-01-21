@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Commands_Runner.Utils
 {
@@ -15,47 +13,64 @@ namespace Commands_Runner.Utils
 
 		public static string Encrypt(string plainText)
 		{
-			if (string.IsNullOrEmpty(plainText))
-				return null;
-
-			using (var aes = Aes.Create())
+			try
 			{
-				aes.Key = Key;
-				aes.IV = IV;
-				ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+				if (string.IsNullOrEmpty(plainText))
+					return null;
 
-				using (MemoryStream ms = new MemoryStream())
+				using (var aes = Aes.Create())
 				{
-					using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-					{
-						using (var sw = new StreamWriter(cs))
-						{
-							sw.Write(plainText);
-						}
-					}
+					aes.Key = Key;
+					aes.IV = IV;
+					ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
-					return Convert.ToBase64String(ms.ToArray());
+					using (MemoryStream ms = new MemoryStream())
+					{
+						using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+						{
+							using (var sw = new StreamWriter(cs))
+							{
+								sw.Write(plainText);
+							}
+						}
+
+						return Convert.ToBase64String(ms.ToArray());
+					}
 				}
+
+			}
+			catch (Exception)
+			{
+				return plainText;
 			}
 		}
 
 		public static string Decrypt(string encryptedText)
 		{
-			if (string.IsNullOrEmpty(encryptedText))
-				return null;
-
-			using (Aes aes = Aes.Create())
+			try
 			{
-				aes.Key = Key;
-				aes.IV = IV;
-				ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-				using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(encryptedText)))
-				using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-				using (StreamReader sr = new StreamReader(cs))
+				if (string.IsNullOrEmpty(encryptedText))
+					return null;
+
+				using (Aes aes = Aes.Create())
 				{
-					return sr.ReadToEnd();
+					aes.Key = Key;
+					aes.IV = IV;
+					ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+					using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(encryptedText)))
+					using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+					using (StreamReader sr = new StreamReader(cs))
+					{
+						return sr.ReadToEnd();
+					}
 				}
+
+			}
+			catch (Exception)
+			{
+				return encryptedText;
 			}
 		}
 	}

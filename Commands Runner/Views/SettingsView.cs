@@ -1,4 +1,5 @@
 ﻿using Commands_Runner.Data;
+using Commands_Runner.Extensions;
 using Commands_Runner.Helpers;
 using Commands_Runner.Models;
 using Commands_Runner.Properties;
@@ -44,10 +45,15 @@ namespace Commands_Runner.Views
                 teHTMIMGPath.Text = AppHelper.Configs.HTMIMGPath;
                 teHTMIMGFileExt.Text = AppHelper.Configs.HTMIMGFileExt;
 
-                teHeight.Text = AppHelper.Instance.Height.ToString();
-                teWidth.Text = AppHelper.Instance.Width.ToString();
+                tsStateCommands.IsOn = AppHelper.Configs.StateCommands;
+                tsStateNotes.IsOn = AppHelper.Configs.StateNotes;
+                tsStatePasswords.IsOn = AppHelper.Configs.StatePasswords;
+                tsStatePriExtensions.IsOn = AppHelper.Configs.StatePriExtensions;
 
-                IEnumerable<NavigationPageBase> lista = AppHelper.Instance.navigationPaneEx.Pages.Where(w => w.PageVisible);
+                teHeight.Text = AppHelper.MainInstance.Height.ToString();
+                teWidth.Text = AppHelper.MainInstance.Width.ToString();
+
+                IEnumerable<NavigationPageBase> lista = AppHelper.MainInstance.navigationPaneEx.Pages.Where(w => w.PageVisible);
 
                 cbePages.Properties.Items.Clear();
 
@@ -64,10 +70,8 @@ namespace Commands_Runner.Views
             }
         }
 
-        private void bbiSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
+        private void bbiSave_ItemClick(object sender, ItemClickEventArgs e) =>
             SaveData();
-        }
 
         private void SaveData()
         {
@@ -96,8 +100,13 @@ namespace Commands_Runner.Views
             AppHelper.Configs.FormHeight = int.Parse(teHeight.Text);
             AppHelper.Configs.StartUpPage = cbePages.Text;
 
-            AppHelper.Instance.Height = int.Parse(teHeight.Text);
-            AppHelper.Instance.Width = int.Parse(teWidth.Text);
+            AppHelper.Configs.StateCommands = tsStateCommands.IsOn;
+            AppHelper.Configs.StateNotes = tsStateNotes.IsOn;
+            AppHelper.Configs.StatePasswords = tsStatePasswords.IsOn;
+            AppHelper.Configs.StatePriExtensions = tsStatePriExtensions.IsOn;
+
+            AppHelper.MainInstance.Height = int.Parse(teHeight.Text);
+            AppHelper.MainInstance.Width = int.Parse(teWidth.Text);
 
             AppHelper.SqlStart();
             AppHelper.SqlStausLabel();
@@ -105,6 +114,8 @@ namespace Commands_Runner.Views
             AppHelper.SetStatus("Settings Saved", Color.Green);
 
             SettingsData.Save(AppHelper.Configs);
+            
+            AppHelper.UpdateView();
         }
 
         private void bbiExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -121,7 +132,14 @@ namespace Commands_Runner.Views
                 {
                     string destinationFilePath = saveFileDialog.FileName;
 
-                    string xml = AppHelper.SerializeToXml(AppHelper.Configs);
+                    SettingModel cloned = AppHelper.Configs.Clone();
+
+                    cloned.SQLUsername = cloned.SQLUsername.Encrypt();
+                    cloned.SQLAddress = cloned.SQLAddress.Encrypt();
+                    cloned.SQLDatabase = cloned.SQLDatabase.Encrypt();
+                    cloned.SQLPassword = cloned.SQLPassword.Encrypt();
+
+                    string xml = AppHelper.SerializeToXml(cloned);
                     File.WriteAllText(destinationFilePath, xml);
 
                     AppHelper.SetStatus("Settings exported!", Color.Green);
@@ -148,8 +166,8 @@ namespace Commands_Runner.Views
                         SettingsData.ImportToId(root, Properties.Settings.Default.SettingId);
                         AppHelper.Configs = root;
 
-                        AppHelper.Instance.Height = AppHelper.Configs.FormHeight;
-                        AppHelper.Instance.Width = AppHelper.Configs.FormWidth;
+                        AppHelper.MainInstance.Height = AppHelper.Configs.FormHeight;
+                        AppHelper.MainInstance.Width = AppHelper.Configs.FormWidth;
                     }
                 }
 
@@ -163,15 +181,28 @@ namespace Commands_Runner.Views
 
         private void sbResetSize_Click(object sender, EventArgs e)
         {
-            AppHelper.Instance.Size = new Size(1000, 530);
+            AppHelper.MainInstance.Size = new Size(1000, 530);
         }
 
         private void sbGetDatabases_Click(object sender, EventArgs e)
         {
             teSqlDatabase.Properties.Items.Clear();
 
-            AppHelper.SqlStart();
-            if (AppHelper.SqlStausLabel())
+            dxErrorProvider.ClearErrors();
+
+            if (string.IsNullOrWhiteSpace(teSqlAddress.Text))
+                dxErrorProvider.SetError(teSqlAddress, "Address is required!");
+
+            if (string.IsNullOrWhiteSpace(teSqlUsername.Text))
+                dxErrorProvider.SetError(teSqlUsername, "Username is required!");
+
+            if (string.IsNullOrWhiteSpace(beSqlPassword.Text))
+                dxErrorProvider.SetError(beSqlPassword, "Password is required!");
+
+            if (dxErrorProvider.HasErrors)
+                return;
+
+            if (AppHelper.SqlStart(teSqlAddress.Text, teSqlUsername.Text, beSqlPassword.Text) && AppHelper.SqlStausLabel())
             {
                 string sql = "SELECT name FROM master.dbo.sysdatabases";
                 List<string> lista = AppHelper.SQL.LoadDataListOpen<string>(sql);
@@ -182,6 +213,8 @@ namespace Commands_Runner.Views
             else
             {
                 XtraMessageBox.Show("Could not connect to database!", "Connection ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                teSqlDatabase.Properties.Items.Clear();
+                teSqlDatabase.Properties.DropDownRows = 0;
             }
         }
 

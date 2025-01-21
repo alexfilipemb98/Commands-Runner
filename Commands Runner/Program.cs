@@ -64,7 +64,7 @@ namespace Commands_Runner
 
                 MainForm main = new MainForm();
 
-                AppHelper.Instance = main;
+                AppHelper.MainInstance = main;
 
                 main.WindowState = AppHelper.Configs.FormState;
 
@@ -74,6 +74,8 @@ namespace Commands_Runner
                     main.Height = AppHelper.Configs.FormHeight;
                 }
 
+                AppHelper.UpdateView();
+                
                 main.Shown += (object sender, EventArgs e) =>
                 {
                     AppHelper.SqlStausLabel();

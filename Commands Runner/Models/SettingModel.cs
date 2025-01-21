@@ -85,5 +85,17 @@ namespace Commands_Runner.Models
 
         [XmlElement("StartUpPage")]
         public string StartUpPage { get; set; }
+
+        [XmlElement("StateCommands")]
+        public bool StateCommands { get; set; }
+        
+        [XmlElement("StatePasswords")]
+        public bool StatePasswords { get; set; }
+        
+        [XmlElement("StateNotes")]
+        public bool StateNotes { get; set; }
+
+        [XmlElement("StatePriExtensions")]
+        public bool StatePriExtensions { get; set; }
     }
 }

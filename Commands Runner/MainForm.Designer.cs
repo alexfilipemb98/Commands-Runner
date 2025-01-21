@@ -291,7 +291,7 @@ namespace Commands_Runner
             this.npSettingsView,
             this.navigationPage1});
             this.navigationPaneEx.RegularSize = new System.Drawing.Size(962, 488);
-            this.navigationPaneEx.SelectedPage = null;
+            this.navigationPaneEx.SelectedPage = this.npPasswordsListView;
             this.navigationPaneEx.Size = new System.Drawing.Size(962, 488);
             this.navigationPaneEx.State = DevExpress.XtraBars.Navigation.NavigationPaneState.Expanded;
             this.navigationPaneEx.TabIndex = 0;
@@ -344,14 +344,14 @@ namespace Commands_Runner
             this.npPrimaveraExtensions.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
             this.npPrimaveraExtensions.Name = "npPrimaveraExtensions";
             this.npPrimaveraExtensions.PageEnabled = false;
-            this.npPrimaveraExtensions.Size = new System.Drawing.Size(962, 488);
+            this.npPrimaveraExtensions.Size = new System.Drawing.Size(816, 488);
             // 
             // priExtensionsListView1
             // 
             this.priExtensionsListView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.priExtensionsListView1.Location = new System.Drawing.Point(0, 0);
             this.priExtensionsListView1.Name = "priExtensionsListView1";
-            this.priExtensionsListView1.Size = new System.Drawing.Size(962, 488);
+            this.priExtensionsListView1.Size = new System.Drawing.Size(816, 488);
             this.priExtensionsListView1.TabIndex = 0;
             // 
             // npSettingsView
@@ -519,9 +519,7 @@ namespace Commands_Runner
         private DevExpress.XtraBars.BarButtonItem bbiConverterHtmPNG;
         private LayoutControl layoutControl1;
         private LayoutControlGroup Root;
-        private Life_Log.Components.NavigationPageEx npPasswordsListView;
         private LayoutControlItem layoutControlItem1;
-        private Life_Log.Components.NavigationPageEx npCommandsListView;
         private Views.CommandsListView commandsListView;
         public DevExpress.XtraBars.BarStaticItem bsiStatus;
         private Views.PriExtensionsListView priExtensionsListView1;
@@ -530,11 +528,13 @@ namespace Commands_Runner
         private Life_Log.Components.NavigationPageEx npSettingsView;
         private Views.SettingsView settingsView;
         public DevExpress.XtraBars.BarStaticItem bsiSQLState;
-        private Life_Log.Components.NavigationPageEx npNoteView;
         private Views.NotesListView notesView;
         private DevExpress.XtraBars.Navigation.NavigationPage navigationPage1;
         private Views.TasksView tasksView1;
         public Life_Log.Components.NavigationPaneEx navigationPaneEx;
+        public Life_Log.Components.NavigationPageEx npCommandsListView;
+        public Life_Log.Components.NavigationPageEx npNoteView;
+        public Life_Log.Components.NavigationPageEx npPasswordsListView;
     }
 }
 

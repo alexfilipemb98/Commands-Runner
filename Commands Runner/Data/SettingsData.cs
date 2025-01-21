@@ -6,6 +6,7 @@ using DevExpress.Internal.WinApi.Windows.UI.Notifications;
 using DevExpress.XtraRichEdit.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,35 +17,84 @@ namespace Commands_Runner.Data
 {
     public static class SettingsData
     {
+        private static string[] columns = new[]
+        {
+            "Id" ,
+            "SQLUsername" ,
+            "SQLPassword" ,
+            "SQLAddress" ,
+            "SQLDatabase" ,
+            "CMDPath" ,
+            "CMDArgs" ,
+            "CMDFileExt",
+            "PS1Path",
+            "PS1Args",
+            "PS1FileExt",
+            "PYPath",
+            "PYArgs",
+            "PYFileExt",
+            "HTMIMGPath",
+            "HTMIMGArgs",
+            "HTMIMGFileExt",
+            "FormWidth",
+            "FormHeight",
+            "FormState",
+            "StatePasswords",
+            "StateNotes",
+            "StatePriExtensions",
+            "StateCommands",
+            "StartUpPage",
+        };
+
         public static void CheckTable()
         {
             string query = @"
                CREATE TABLE IF NOT EXISTS Settings (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    SQLUsername TEXT,
-                    SQLPassword TEXT,
-                    SQLAddress TEXT,
-                    SQLDatabase TEXT,
-                    CMDPath TEXT,
-                    CMDArgs TEXT,
-                    CMDFileExt TEXT,
-                    PS1Path TEXT,
-                    PS1Args TEXT,
-                    PS1FileExt TEXT,
-                    PYPath TEXT,
-                    PYArgs TEXT,
-                    PYFileExt TEXT,
-                    HTMIMGPath TEXT,
-                    HTMIMGArgs TEXT,
-                    HTMIMGFileExt TEXT,
-                    FormWidth INTEGER NOT NULL,
-                    FormHeight INTEGER NOT NULL,
-                    FormState INTEGER NOT NULL,
-                    StartUpPage TEXT
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT
                 );
             ";
 
             AppHelper.DATA.ExecuteScalarOpen(query);
+
+            string[] requiredColumns = new[]
+            {
+                "SQLUsername TEXT",
+                "SQLPassword TEXT",
+                "SQLAddress TEXT",
+                "SQLDatabase TEXT",
+                "CMDPath TEXT",
+                "CMDArgs TEXT",
+                "CMDFileExt TEXT",
+                "PS1Path TEXT",
+                "PS1Args TEXT",
+                "PS1FileExt TEXT",
+                "PYPath TEXT",
+                "PYArgs TEXT",
+                "PYFileExt TEXT",
+                "HTMIMGPath TEXT",
+                "HTMIMGArgs TEXT",
+                "HTMIMGFileExt TEXT",
+                "FormWidth INTEGER NOT NULL",
+                "FormHeight INTEGER NOT NULL",
+                "FormState INTEGER NOT NULL",
+                "StateCommands INTEGER DEFAULT 1",
+                "StatePasswords INTEGER DEFAULT 1",
+                "StateNotes INTEGER DEFAULT 1",
+                "StatePriExtensions INTEGER DEFAULT 1",
+                "StartUpPage TEXT"
+            };
+
+            List<string> existingColumns = AppHelper.DATA.LoadDataListOpen<string>("SELECT name FROM pragma_table_info('Settings');");
+            foreach (var columnDefinition in requiredColumns)
+            {
+                string columnName = columnDefinition.Split(' ')[0];
+                if (!existingColumns.Contains(columnName))
+                {
+                    string alterTableQuery = $"ALTER TABLE Settings ADD COLUMN {columnDefinition};";
+                    AppHelper.DATA.ExecuteScalarOpen(alterTableQuery);
+                }
+            }
+
         }
 
         public static int NextId()
@@ -58,39 +108,20 @@ namespace Commands_Runner.Data
         {
             model.Id = model.Id == 0 ? NextId() : model.Id;
 
-            string query = @"
-                INSERT INTO Settings (Id, SQLUsername, SQLPassword, SQLAddress, SQLDatabase, CMDPath, CMDArgs, CMDFileExt, 
-                     PS1Path, PS1Args, PS1FileExt, PYPath, PYArgs, PYFileExt, HTMIMGPath, HTMIMGArgs, 
-                     HTMIMGFileExt, FormWidth, FormHeight, FormState, StartUpPage)
-                VALUES (@Id, @SQLUsername, @SQLPassword, @SQLAddress, @SQLDatabase, @CMDPath, @CMDArgs, @CMDFileExt, 
-                        @PS1Path, @PS1Args, @PS1FileExt, @PYPath, @PYArgs, @PYFileExt, @HTMIMGPath, @HTMIMGArgs, 
-                        @HTMIMGFileExt, @FormWidth, @FormHeight, @FormState, @StartUpPage)
-                ON CONFLICT(Id)
-                DO UPDATE SET 
-                    SQLUsername = excluded.SQLUsername,
-                    SQLPassword = excluded.SQLPassword,
-                    SQLAddress = excluded.SQLAddress,
-                    SQLDatabase = excluded.SQLDatabase,
-                    CMDPath = excluded.CMDPath,
-                    CMDArgs = excluded.CMDArgs,
-                    CMDFileExt = excluded.CMDFileExt,
-                    PS1Path = excluded.PS1Path,
-                    PS1Args = excluded.PS1Args,
-                    PS1FileExt = excluded.PS1FileExt,
-                    PYPath = excluded.PYPath,
-                    PYArgs = excluded.PYArgs,
-                    PYFileExt = excluded.PYFileExt,
-                    HTMIMGPath = excluded.HTMIMGPath,
-                    HTMIMGArgs = excluded.HTMIMGArgs,
-                    HTMIMGFileExt = excluded.HTMIMGFileExt,
-                    FormWidth = excluded.FormWidth,
-                    FormHeight = excluded.FormHeight,
-                    FormState = excluded.FormState,
-                    StartUpPage = excluded.StartUpPage;
+            string columnsList = string.Join(", ", columns);
+            string valuesPlaceholders = string.Join(", ", columns.Select(c => $"@{c}"));
+            string updateSet = string.Join(", ", columns.Select(c => $"{c} = excluded.{c}"));
+            string query = $@"
+                INSERT INTO Settings ({columnsList})
+                VALUES ({valuesPlaceholders})
+                ON CONFLICT(Id)                                                           
+                DO UPDATE SET                                                           
+                    {updateSet};
             ";
 
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Id", model.Id);
+
             parameters.Add("@SQLUsername", model.SQLUsername.Encrypt());
             parameters.Add("@SQLPassword", model.SQLPassword.Encrypt());
             parameters.Add("@SQLAddress", model.SQLAddress.Encrypt());
@@ -115,6 +146,12 @@ namespace Commands_Runner.Data
             parameters.Add("@FormWidth", model.FormWidth);
             parameters.Add("@FormHeight", model.FormHeight);
             parameters.Add("@FormState", model.FormState);
+
+            parameters.Add("@StatePasswords", model.StatePasswords);
+            parameters.Add("@StateNotes", model.StateNotes);
+            parameters.Add("@StatePriExtensions", model.StatePriExtensions);
+            parameters.Add("@StateCommands", model.StateCommands);
+
             parameters.Add("@StartUpPage", model.StartUpPage);
 
             if (AppHelper.DATA.IsInTransaction())
@@ -125,9 +162,34 @@ namespace Commands_Runner.Data
 
         public static SettingModel GetByID(int id, out bool ok)
         {
-            string query = @"SELECT Id, SQLUsername, SQLPassword, SQLAddress, SQLDatabase, CMDPath, CMDArgs, CMDFileExt, 
-                     PS1Path, PS1Args, PS1FileExt, PYPath, PYArgs, PYFileExt, HTMIMGPath, HTMIMGArgs, 
-                     HTMIMGFileExt, FormWidth, FormHeight, FormState, StartUpPage FROM Settings";
+            string query = @"
+                SELECT 
+                    Id, 
+                    SQLUsername, 
+                    SQLPassword, 
+                    SQLAddress, 
+                    SQLDatabase, 
+                    CMDPath, 
+                    CMDArgs, 
+                    CMDFileExt,
+                    PS1Path,
+                    PS1Args,
+                    PS1FileExt,
+                    PYPath,
+                    PYArgs,
+                    PYFileExt,
+                    HTMIMGPath,
+                    HTMIMGArgs,
+                    HTMIMGFileExt,
+                    FormWidth,
+                    FormHeight,
+                    FormState,
+                    StatePasswords,
+                    StateNotes,
+                    StatePriExtensions,
+                    StateCommands,
+                    StartUpPage
+                FROM Settings";
 
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Id", id);
@@ -157,7 +219,7 @@ namespace Commands_Runner.Data
             Save(model);
         }
 
-        public static void UpdateGeneralSettings(int id,int height, int width, FormWindowState windowState)
+        public static void UpdateGeneralSettings(int id, int height, int width, FormWindowState windowState)
         {
             string query = @"
                 UPDATE Settings

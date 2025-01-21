@@ -25,9 +25,9 @@ namespace Commands_Runner.Helpers
         public static SettingModel Configs { get; set; }
 
         /// <summary>
-        /// Instance of main form
+        /// MainInstance of main form
         /// </summary>
-        public static MainForm Instance { get; set; }
+        public static MainForm MainInstance { get; set; }
 
         /// <summary>
         /// Set status to main form
@@ -36,11 +36,11 @@ namespace Commands_Runner.Helpers
         /// <param name="color"></param>
         public static void SetStatus(string text, Color color)
         {
-            if (Instance == null)
+            if (MainInstance == null)
                 return;
 
-            Instance.bsiStatus.ItemAppearance.Normal.ForeColor = color;
-            Instance.bsiStatus.Caption = $"{DateTime.Now:HH:mm} - {text}";
+            MainInstance.bsiStatus.ItemAppearance.Normal.ForeColor = color;
+            MainInstance.bsiStatus.Caption = $"{DateTime.Now:HH:mm} - {text}";
         }
 
         public static string RemoveAllWhitespace(this string input)
@@ -51,16 +51,16 @@ namespace Commands_Runner.Helpers
             return string.Concat(input.Where(c => !char.IsWhiteSpace(c)));
         }
 
-        public static void SqlStart()
+        public static bool SqlStart(string address = null, string username = null, string password = null)
         {
             try
             {
                 SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder
                 {
-                    UserID = Configs.SQLUsername,
-                    Password = Configs.SQLPassword,
+                    UserID = username ?? Configs.SQLUsername,
+                    Password = password ?? Configs.SQLPassword,
                     InitialCatalog = Configs.SQLDatabase,
-                    DataSource = Configs.SQLAddress,
+                    DataSource = address ?? Configs.SQLAddress,
                     ConnectTimeout = 1,
                     PersistSecurityInfo = true,
                     IntegratedSecurity = false,
@@ -69,17 +69,19 @@ namespace Commands_Runner.Helpers
                 };
 
                 SQL = new SqlDataAccess(scsb.ToString());
+                return true;
             }
             catch (Exception)
             {
+                return false;
             }
         }
 
         public static bool SqlStausLabel()
         {
             bool ok = SQL != null && SQL.IsOpen();
-            Instance.npPrimaveraExtensions.PageEnabled = ok;
-            Instance.bsiSQLState.ImageOptions.SvgImage = ok ? Resources.actions_checkcircled : Resources.actions_deletecircled;
+            MainInstance.npPrimaveraExtensions.PageEnabled = ok;
+            MainInstance.bsiSQLState.ImageOptions.SvgImage = ok ? Resources.actions_checkcircled : Resources.actions_deletecircled;
             return ok;
         }
 
@@ -105,6 +107,14 @@ namespace Commands_Runner.Helpers
         public static void ErrorHandler(Exception ex)
         {
             XtraMessageBox.Show(ex.ToString(), ex.TargetSite.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void UpdateView()
+        {
+            MainInstance.npPrimaveraExtensions.PageVisible = AppHelper.Configs.StatePriExtensions;
+            MainInstance.npCommandsListView.PageVisible = AppHelper.Configs.StateCommands;
+            MainInstance.npNoteView.PageVisible = AppHelper.Configs.StateNotes;
+            MainInstance.npPasswordsListView.PageVisible = AppHelper.Configs.StatePasswords;
         }
     }
 }

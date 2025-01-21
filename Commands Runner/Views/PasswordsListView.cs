@@ -1,4 +1,5 @@
 ﻿using Commands_Runner.Data;
+using Commands_Runner.Extensions;
 using Commands_Runner.Helpers;
 using Commands_Runner.Models;
 using Commands_Runner.Properties;
@@ -192,9 +193,22 @@ namespace Commands_Runner.Views
                     string destinationFilePath = saveFileDialog.FileName;
 
                     RootPasswordsModel notes = new RootPasswordsModel();
-                    notes.PasswordList = PasswordsData.GetAll();
+                    notes.PasswordList = new List<PasswordModel>();
+
+                    List<PasswordModel> passwords = PasswordsData.GetAll();
+
+                    foreach (PasswordModel password in passwords)
+                    {
+                        PasswordModel clonedPassword = password.Clone();
+
+                        clonedPassword.Username = clonedPassword.Username.Encrypt();
+                        clonedPassword.Password = clonedPassword.Password.Encrypt();
+
+                        notes.PasswordList.Add(clonedPassword);
+                    }
 
                     string xml = AppHelper.SerializeToXml(notes);
+
                     File.WriteAllText(destinationFilePath, xml);
                 }
             }

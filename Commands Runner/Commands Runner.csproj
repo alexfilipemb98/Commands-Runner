@@ -84,6 +84,7 @@
     <Compile Include="Data\PasswordsData.cs" />
     <Compile Include="Enums\CommandTypeEnum.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Extensions\SecurityExtension.cs" />
     <Compile Include="Forms\ExtensionsEditorForm.cs">
       <SubType>Form</SubType>

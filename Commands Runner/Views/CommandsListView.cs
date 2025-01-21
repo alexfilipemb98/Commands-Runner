@@ -478,7 +478,7 @@ namespace Commands_Runner.Views
                 if (File.Exists(batchFilePath))
                     File.Delete(batchFilePath);
 
-                AppHelper.Instance.BringToFront();
+                AppHelper.MainInstance.BringToFront();
             }
 
             return Task.CompletedTask;

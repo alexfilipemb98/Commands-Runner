@@ -69,7 +69,7 @@ namespace Commands_Runner.Views
 
             richEdit.KeyDown += (object sender, KeyEventArgs e) =>
             {
-                if (e.Control && e.KeyCode != Keys.S)
+                if (e.Control && e.KeyCode == Keys.S)
                 {
                     e.Handled = true;
                     SaveNoteByKey(xtraTabPage);
